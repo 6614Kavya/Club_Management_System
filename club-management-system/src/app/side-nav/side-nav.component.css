@@ -32,6 +32,12 @@
   background-color: #34495e;
 }
 
+/* Active (Clicked) Sidebar Item */
+.side-nav-item.active {
+  background-color: #1abc9c; /* Change to your preferred color */
+  color: white;
+}
+
 /* Sidebar Links */
 .side-nav-link {
   text-decoration: none;

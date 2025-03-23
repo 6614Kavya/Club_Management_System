@@ -1,14 +1,19 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SideNavComponent } from '../side-nav/side-nav.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [SideNavComponent],
+  imports: [SideNavComponent, RouterModule],
   template: `
-    <p>dashboard works!</p>
-    <p>{{ email }}</p>
-    <app-side-nav></app-side-nav>
+    <div class="dashboard-container">
+      <app-side-nav class="side-nav"></app-side-nav>
+
+      <div class="content">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
   `,
   styleUrl: './dashboard.component.css',
 })

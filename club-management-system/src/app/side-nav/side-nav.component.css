@@ -7,8 +7,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  overflow-y: auto;
-  transition: width 0.3s ease-in-out;
+  /* overflow-y: auto; */
+  /* transition: width 0.3s ease-in-out; */
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
 }
 
@@ -25,7 +25,7 @@
   align-items: center;
   padding: 15px 20px;
   cursor: pointer;
-  transition: background 0.3s;
+  /* transition: background 0.3s; */
 }
 
 .side-nav-item:hover {
@@ -54,9 +54,9 @@
 }
 
 /* Collapsible Sidebar */
-.side-nav:hover {
+/* .side-nav:hover {
   width: 280px;
-}
+} */
 
 /* Responsive Design */
 @media (max-width: 768px) {

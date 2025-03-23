@@ -1,0 +1,14 @@
+.dashboard-container {
+  display: flex;
+  height: 100vh;
+}
+
+.side-nav {
+  width: 250px; /* Sidebar width */
+  background-color: #f4f4f4;
+}
+
+.content {
+  flex-grow: 1;
+  padding: 20px;
+}

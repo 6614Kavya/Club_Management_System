@@ -10,7 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
   template: ` <div class="side-nav">
     <ul class="side-nav-nav">
       <li class="side-nav-item" *ngFor="let data of navData">
-        <a href="" class="side-nav-link" [routerLink]="[data.routeLink]">
+        <a class="side-nav-link" [routerLink]="data.routeLink">
           <mat-icon
             class="side-nav-link-icon"
             [fontIcon]="data.icon"

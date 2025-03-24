@@ -2,26 +2,26 @@ export const ClubData = [
   {
     club_name: 'Elite Soccer Academy',
     address: '123 Main St, New York, NY',
-    admin: 'John Doe',
+    admins: ['John Doe', 'Jane Smith'],
   },
   {
     club_name: 'Champions Football Club',
     address: '456 Park Ave, Los Angeles, CA',
-    admin: 'Sarah Smith',
+    admins: ['Sarah Smith', 'James Wilson'],
   },
   {
     club_name: 'Golden Goal Soccer Club',
     address: '789 Oak St, Chicago, IL',
-    admin: 'Mike Johnson',
+    admins: ['Mike Johnson', 'Emily Davis'],
   },
   {
     club_name: 'Strikers United',
     address: '567 Soccer Blvd, Miami, FL',
-    admin: 'Emma Watson',
+    admins: ['Emma Watson', 'Robert Martinez'],
   },
   {
     club_name: 'Pro Kickers FC',
     address: '890 Goal St, Houston, TX',
-    admin: 'David Brown',
+    admins: ['David Brown', 'Olivia Taylor'],
   },
 ];

@@ -44,11 +44,19 @@ export class ClubsComponent {
   rowData: any[] = [];
   // Row Data: The data to be displayed.
   ngOnInit() {
-    this.rowData = this.clubData.map((club) => ({
-      Name: club.club_name,
-      Address: club.address,
-      Admin: club.admin,
-    }));
+    this.rowData = this.clubData.flatMap((club) => {
+      const rows = {
+        Name: club.club_name,
+        Address: club.address,
+        Admin: club.admins[0],
+      };
+      const adminRows = club.admins.slice(1).map((admin) => ({
+        Name: '',
+        Address: '',
+        Admin: admin,
+      }));
+      return [rows, ...adminRows];
+    });
   }
 
   // Column Definitions: Defines the columns to be displayed.
@@ -60,7 +68,7 @@ export class ClubsComponent {
       editable: true,
       cellEditor: 'agSelectCellEditor',
       cellEditorParams: {
-        values: this.clubData.map((club) => club.admin),
+        values: this.clubData.map((club) => club.admins),
       },
     },
   ];

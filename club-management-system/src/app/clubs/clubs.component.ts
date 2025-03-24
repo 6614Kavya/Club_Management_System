@@ -7,7 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community';
 import { AgGridAngular } from 'ag-grid-angular'; // Angular Data Grid Component
 import type { ColDef } from 'ag-grid-community'; // Column Definition Type Interface
-import { ClubData } from '../Data/club-data';
+import { ClubData, ClubAdmins } from '../Data/club-data';
 import { ClubFormComponent } from '../club-form/club-form.component';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
@@ -41,22 +41,38 @@ export class ClubsComponent {
     });
   }
   clubData = ClubData;
+  clubAdmins = ClubAdmins;
   rowData: any[] = [];
   // Row Data: The data to be displayed.
-  ngOnInit() {
+
+  generateRowData() {
     this.rowData = this.clubData.flatMap((club) => {
-      const rows = {
+      const firstRow = {
         Name: club.club_name,
         Address: club.address,
-        Admin: club.admins[0],
+        Admin: club.admins[0] || '', // First admin
       };
       const adminRows = club.admins.slice(1).map((admin) => ({
         Name: '',
         Address: '',
         Admin: admin,
       }));
-      return [rows, ...adminRows];
+      return [firstRow, ...adminRows];
     });
+  }
+
+  // Function to add a new admin dynamically
+  addAdmin(clubName: string, newAdmin: string) {
+    // Find the club in the ClubData array
+    const club = this.clubData.find((c) => c.club_name === clubName);
+    if (club) {
+      club.admins.push(newAdmin); // Add new admin to the data structure
+      this.generateRowData(); // Refresh rowData
+    }
+  }
+  ngOnInit() {
+    //
+    this.generateRowData();
   }
 
   // Column Definitions: Defines the columns to be displayed.
@@ -69,6 +85,15 @@ export class ClubsComponent {
       cellEditor: 'agSelectCellEditor',
       cellEditorParams: {
         values: this.clubData.map((club) => club.admins),
+      },
+      onCellClicked: (event: any) => {
+        const clubName = event.data.Name;
+        if (clubName) {
+          const newAdmin = prompt(`Enter new admin for ${clubName}:`);
+          if (newAdmin) {
+            this.addAdmin(clubName, newAdmin);
+          }
+        }
       },
     },
   ];

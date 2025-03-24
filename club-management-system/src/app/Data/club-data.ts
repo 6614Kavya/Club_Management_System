@@ -25,3 +25,16 @@ export const ClubData = [
     admins: ['David Brown', 'Olivia Taylor'],
   },
 ];
+
+export const ClubAdmins = [
+  'John Doe',
+  'Jane Smith',
+  'Sarah Smith',
+  'James Wilson',
+  'Mike Johnson',
+  'Emily Davis',
+  'Emma Watson',
+  'Robert Martinez',
+  'David Brown',
+  'Olivia Taylor',
+];

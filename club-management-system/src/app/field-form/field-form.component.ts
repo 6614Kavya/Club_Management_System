@@ -19,15 +19,15 @@ import { MatButtonModule } from '@angular/material/button';
     <div class="container">
       <mat-form-field>
         <mat-label> Field Name</mat-label>
-        <input matInput placeholder="Enter club name" />
+        <input matInput placeholder="Enter field name" />
       </mat-form-field>
       <mat-form-field>
         <mat-label> Field Address</mat-label>
-        <input matInput placeholder="Enter club name" />
+        <input matInput placeholder="Enter field address" />
       </mat-form-field>
       <mat-form-field>
         <mat-label> Field Description</mat-label>
-        <input matInput placeholder="Enter club name" />
+        <input matInput placeholder="Enter field description" />
       </mat-form-field>
       <mat-form-field>
         <mat-label> Club Name</mat-label>

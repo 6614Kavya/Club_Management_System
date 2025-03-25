@@ -9,6 +9,7 @@ import { AgGridAngular } from 'ag-grid-angular'; // Angular Data Grid Component
 import type { ColDef } from 'ag-grid-community'; // Column Definition Type Interface
 import { ClubData, ClubAdmins } from '../Data/club-data';
 import { ClubFormComponent } from '../club-form/club-form.component';
+import { AdminSelectDropdownComponent } from '../admin-select-dropdown/admin-select-dropdown.component';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -38,6 +39,19 @@ export class ClubsComponent {
       height: 'auto',
       maxWidth: '90vw',
       panelClass: 'custom-dialog-container',
+    });
+  }
+
+  openAdminDropdown() {
+    const dialogRef = this.dialogRef.open(AdminSelectDropdownComponent, {
+      width: '500px',
+      height: 'auto',
+      maxWidth: '90vw',
+      panelClass: 'custom-dialog-container',
+    });
+
+    dialogRef.afterClosed().subscribe((data) => {
+      console.log(data);
     });
   }
   clubData = ClubData;
@@ -86,14 +100,17 @@ export class ClubsComponent {
       cellEditorParams: {
         values: this.clubData.map((club) => club.admins),
       },
-      onCellClicked: (event: any) => {
-        const clubName = event.data.Name;
-        if (clubName) {
-          const newAdmin = prompt(`Enter new admin for ${clubName}:`);
-          if (newAdmin) {
-            this.addAdmin(clubName, newAdmin);
-          }
-        }
+      // onCellClicked: (event: any) => {
+      //   const clubName = event.data.Name;
+      //   if (clubName) {
+      //     const newAdmin = prompt(`Enter new admin for ${clubName}:`);
+      //     if (newAdmin) {
+      //       this.addAdmin(clubName, newAdmin);
+      //     }
+      //   }
+      // },
+      onCellClicked: () => {
+        this.openAdminDropdown();
       },
     },
   ];

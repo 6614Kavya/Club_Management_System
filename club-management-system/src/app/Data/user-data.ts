@@ -1,27 +1,43 @@
-export const userData = [
+export const UserData = [
   {
     user_name: 'Alice Brown',
     user_address: '12 Maple Dr, New York, NY',
-    club_name: 'Elite Soccer Academy',
+    roles: [
+      { role: 'Team Manager', club: 'NYC Warriors' },
+      { role: 'Field Admin', club: 'Central Park Field 3' },
+    ],
   },
   {
     user_name: 'Bob White',
     user_address: '34 Elm St, Los Angeles, CA',
-    club_name: 'Champions Football Club',
+    roles: [
+      { role: 'Club Admin', club: 'LA Strikers' },
+      { role: 'Team Manager', club: 'LA Titans' },
+    ],
   },
   {
     user_name: 'Charlie Green',
     user_address: '56 Pine Ave, Chicago, IL',
-    club_name: 'Golden Goal Soccer Club',
+    roles: [
+      { role: 'Field Admin', club: 'Lakeside Stadium' },
+      { role: 'Referee', club: 'Lakeside Stadium' },
+    ],
   },
   {
     user_name: 'Daniel Black',
     user_address: '78 Oak Blvd, Miami, FL',
-    club_name: 'Strikers United',
+    roles: [
+      { role: 'Club Admin', club: 'Miami United' },
+      { role: 'Coach', club: 'Miami Hurricanes' },
+    ],
   },
   {
     user_name: 'Eve Johnson',
     user_address: '90 Birch St, Houston, TX',
-    club_name: 'Pro Kickers FC',
+    roles: [
+      { role: 'Team Manager', club: 'Houston Falcons' },
+      { role: 'Coach', club: 'Texas Stars Academy' },
+      { role: 'Field Admin', club: 'Bayou Sports Complex' },
+    ],
   },
 ];

@@ -48,7 +48,7 @@ export class ClubsComponent {
       height: 'auto',
       maxWidth: '90vw',
       panelClass: 'custom-dialog-container',
-      data: { clubName, admins: this.clubAdmins }, //passes data to AdminSelectDropdownComponent
+      data: { clubName: clubName, admins: this.clubAdmins }, //passes data to AdminSelectDropdownComponent
     });
 
     //returns the data that was passed when dialogRef.close(data) is called inside the dialog component.

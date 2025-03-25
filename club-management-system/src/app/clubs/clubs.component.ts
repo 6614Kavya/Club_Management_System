@@ -42,14 +42,16 @@ export class ClubsComponent {
     });
   }
 
-  openAdminDropdown() {
+  openAdminDropdown(clubName: string) {
     const dialogRef = this.dialogRef.open(AdminSelectDropdownComponent, {
       width: '500px',
       height: 'auto',
       maxWidth: '90vw',
       panelClass: 'custom-dialog-container',
+      data: { clubName, admins: this.clubAdmins }, //passes data to AdminSelectDropdownComponent
     });
 
+    //returns the data that was passed when dialogRef.close(data) is called inside the dialog component.
     dialogRef.afterClosed().subscribe((data) => {
       console.log(data);
     });
@@ -109,8 +111,8 @@ export class ClubsComponent {
       //     }
       //   }
       // },
-      onCellClicked: () => {
-        this.openAdminDropdown();
+      onCellClicked: (event: any) => {
+        this.openAdminDropdown(event.data.Name);
       },
     },
   ];

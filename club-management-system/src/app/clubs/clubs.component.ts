@@ -54,6 +54,7 @@ export class ClubsComponent {
     //returns the data that was passed when dialogRef.close(data) is called inside the dialog component.
     dialogRef.afterClosed().subscribe((data) => {
       console.log(data);
+      this.addAdmin(clubName, data);
     });
   }
   clubData = ClubData;

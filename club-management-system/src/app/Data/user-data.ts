@@ -20,7 +20,7 @@ export const UserData = [
     user_address: '56 Pine Ave, Chicago, IL',
     roles: [
       { role: 'Field Admin', club: 'Lakeside Stadium' },
-      { role: 'Referee', club: 'Lakeside Stadium' },
+      { role: 'Club Admin', club: 'Lakeside Stadium' },
     ],
   },
   {
@@ -28,7 +28,7 @@ export const UserData = [
     user_address: '78 Oak Blvd, Miami, FL',
     roles: [
       { role: 'Club Admin', club: 'Miami United' },
-      { role: 'Coach', club: 'Miami Hurricanes' },
+      { role: 'Field Admin', club: 'Miami Hurricanes' },
     ],
   },
   {
@@ -36,7 +36,7 @@ export const UserData = [
     user_address: '90 Birch St, Houston, TX',
     roles: [
       { role: 'Team Manager', club: 'Houston Falcons' },
-      { role: 'Coach', club: 'Texas Stars Academy' },
+      { role: 'Team Manager', club: 'Texas Stars Academy' },
       { role: 'Field Admin', club: 'Bayou Sports Complex' },
     ],
   },

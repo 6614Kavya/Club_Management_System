@@ -38,3 +38,11 @@ export const ClubAdmins = [
   'David Brown',
   'Olivia Taylor',
 ];
+
+export const ClubNames = [
+  'Elite Soccer Academy',
+  'Champions Football Club',
+  'Golden Goal Soccer Club',
+  'Strikers United',
+  'Pro Kickers FC',
+];

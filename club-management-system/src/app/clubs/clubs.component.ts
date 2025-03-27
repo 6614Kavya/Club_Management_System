@@ -94,13 +94,15 @@ export class ClubsComponent {
 
   // Column Definitions: Defines the columns to be displayed.
   colDefs: ColDef[] = [
-    { field: 'Name' },
-    { field: 'Address' },
+    { field: 'Name', spanRows: true },
+    { field: 'Address', spanRows: true },
     {
       field: 'Admin',
       editable: true,
+      spanRows: true,
       cellEditor: 'agSelectCellEditor',
       cellEditorParams: {
+        spanRows: true,
         values: this.clubData.map((club) => club.admins),
       },
       // onCellClicked: (event: any) => {
@@ -117,4 +119,5 @@ export class ClubsComponent {
       },
     },
   ];
+  enableCellSpan = true;
 }

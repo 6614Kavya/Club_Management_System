@@ -1,4 +1,9 @@
-import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ViewChild,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   AllCommunityModule,
@@ -12,6 +17,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { UserData } from '../Data/user-data';
 import { UserFormComponent } from '../user-form/user-form.component';
+import { DeletePopupComponent } from '../delete-popup/delete-popup.component';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -21,8 +27,12 @@ ModuleRegistry.registerModules([AllCommunityModule]);
   template: `
     <div class="button-container">
       <button mat-raised-button (click)="openDialog()">Add User</button>
-      <button mat-raised-button (click)="getSelectedRow()">
-        Get Selected User
+      <button
+        class="remove"
+        mat-raised-button
+        (click)="openDeleteconfirmationDialog()"
+      >
+        Remove Selected User
       </button>
     </div>
 
@@ -32,13 +42,29 @@ ModuleRegistry.registerModules([AllCommunityModule]);
       [rowData]="rowData"
       [columnDefs]="colDefs"
       [rowSelection]="rowSelection"
+      [rowMultiSelectWithClick]="true"
+      (gridReady)="onGridReady($event)"
     />
   `,
   styleUrl: './users.component.css',
 })
-export class UsersComponent {
+export class UsersComponent implements AfterViewInit {
   constructor(private dialogRef: MatDialog, private cdr: ChangeDetectorRef) {}
   @ViewChild('agGrid') agGrid!: AgGridAngular; // Access the grid component
+
+  private gridApi: any; // Store API reference
+
+  isDeletionConfirmed: boolean = false;
+
+  ngAfterViewInit() {
+    if (!this.agGrid) {
+      console.error('AgGridAngular component is not initialized.');
+    }
+  }
+
+  onGridReady(params: any) {
+    this.gridApi = params.api; // Store API when grid is ready
+  }
 
   openDialog() {
     const dialogRef = this.dialogRef.open(UserFormComponent, {
@@ -55,7 +81,7 @@ export class UsersComponent {
         data.userName,
         data.userAddress,
         data.role,
-        data.assignedClub
+        data.assignedClub || data.assignedField || data.assignedTeam
       );
     });
   }
@@ -123,7 +149,46 @@ export class UsersComponent {
 
   // Method to get selected row data
   getSelectedRow() {
-    const selectedRows = this.agGrid.api.getSelectedRows();
-    console.log('Selected Rows:', selectedRows);
+    if (this.isDeletionConfirmed === true) {
+      if (this.gridApi) {
+        const selectedRows = this.gridApi.getSelectedRows();
+        // Filter out selected rows from rowData
+        this.rowData = this.rowData.filter(
+          (row) => !selectedRows.includes(row)
+        );
+        // Refresh the grid with the updated data
+        this.gridApi.setRowData(this.rowData);
+        console.log('Selected Rows:', selectedRows);
+      } else {
+        console.error('Grid API is not initialized.');
+      }
+    }
+  }
+
+  openDeleteconfirmationDialog() {
+    const dialogRef = this.dialogRef.open(DeletePopupComponent, {
+      width: '500px',
+      height: 'auto',
+      maxWidth: '90vw',
+      panelClass: 'custom-dialog-container',
+    });
+
+    dialogRef.afterClosed().subscribe((data) => {
+      if (data === true) {
+        this.isDeletionConfirmed = true;
+        if (this.gridApi) {
+          const selectedRows = this.gridApi.getSelectedRows();
+          // Filter out selected rows from rowData
+          this.rowData = this.rowData.filter(
+            (row) => !selectedRows.includes(row)
+          );
+          // Refresh the grid with the updated data
+          this.gridApi.setRowData(this.rowData);
+          console.log('Selected Rows:', selectedRows);
+        } else {
+          console.error('Grid API is not initialized.');
+        }
+      }
+    });
   }
 }

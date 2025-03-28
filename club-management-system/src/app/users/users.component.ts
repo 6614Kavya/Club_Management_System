@@ -148,22 +148,22 @@ export class UsersComponent implements AfterViewInit {
   }
 
   // Method to get selected row data
-  getSelectedRow() {
-    if (this.isDeletionConfirmed === true) {
-      if (this.gridApi) {
-        const selectedRows = this.gridApi.getSelectedRows();
-        // Filter out selected rows from rowData
-        this.rowData = this.rowData.filter(
-          (row) => !selectedRows.includes(row)
-        );
-        // Refresh the grid with the updated data
-        this.gridApi.setRowData(this.rowData);
-        console.log('Selected Rows:', selectedRows);
-      } else {
-        console.error('Grid API is not initialized.');
-      }
-    }
-  }
+  // getSelectedRow() {
+  //   if (this.isDeletionConfirmed === true) {
+  //     if (this.gridApi) {
+  //       const selectedRows = this.gridApi.getSelectedRows();
+  //       // Filter out selected rows from rowData
+  //       this.rowData = this.rowData.filter(
+  //         (row) => !selectedRows.includes(row)
+  //       );
+  //       // Refresh the grid with the updated data
+  //       this.gridApi.setRowData(this.rowData);
+  //       console.log('Selected Rows:', selectedRows);
+  //     } else {
+  //       console.error('Grid API is not initialized.');
+  //     }
+  //   }
+  // }
 
   openDeleteconfirmationDialog() {
     const dialogRef = this.dialogRef.open(DeletePopupComponent, {

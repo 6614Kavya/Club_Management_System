@@ -102,21 +102,12 @@ export class FieldsComponent {
   // Row Data: The data to be displayed.
 
   generateRowData() {
-    this.rowData = this.fieldData.flatMap((field) => {
-      const firstRow = {
-        Name: field.field_name,
-        Address: field.field_address,
-        Club: field.club_name,
-        Admin: field.field_admin[0] || '', // First admin
-      };
-      const adminRows = field.field_admin.slice(1).map((admin) => ({
-        Name: '',
-        Address: '',
-        Club: '',
-        Admin: admin,
-      }));
-      return [firstRow, ...adminRows];
-    });
+    this.rowData = this.fieldData.map((field) => ({
+      Name: field.field_name,
+      Address: field.field_address,
+      Club: field.club_name,
+      Admin: field.field_admin.join(', '), // Combine all admins in one cell
+    }));
   }
 
   // Function to add a new admin dynamically

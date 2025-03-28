@@ -58,11 +58,16 @@ export class ClubsComponent {
   }
 
   openDialog() {
-    this.dialogRef.open(ClubFormComponent, {
+    const dialogRef = this.dialogRef.open(ClubFormComponent, {
       width: '500px',
       height: 'auto',
       maxWidth: '90vw',
       panelClass: 'custom-dialog-container',
+    });
+
+    dialogRef.afterClosed().subscribe((data) => {
+      console.log(data);
+      this.addNewClub(data.clubName, data.clubAddress, data.clubDescription);
     });
   }
 
@@ -87,19 +92,11 @@ export class ClubsComponent {
   // Row Data: The data to be displayed.
 
   generateRowData() {
-    this.rowData = this.clubData.flatMap((club) => {
-      const firstRow = {
-        Name: club.club_name,
-        Address: club.address,
-        Admin: club.admins[0] || '', // First admin
-      };
-      const adminRows = club.admins.slice(1).map((admin) => ({
-        Name: '',
-        Address: '',
-        Admin: admin,
-      }));
-      return [firstRow, ...adminRows];
-    });
+    this.rowData = this.clubData.map((club) => ({
+      Name: club.club_name,
+      Address: club.address,
+      Admin: club.admins.join(','),
+    }));
   }
 
   // Function to add a new admin dynamically
@@ -118,15 +115,13 @@ export class ClubsComponent {
 
   // Column Definitions: Defines the columns to be displayed.
   colDefs: ColDef[] = [
-    { field: 'Name', spanRows: true },
-    { field: 'Address', spanRows: true },
+    { field: 'Name' },
+    { field: 'Address' },
     {
       field: 'Admin',
       editable: true,
-      spanRows: true,
       cellEditor: 'agSelectCellEditor',
       cellEditorParams: {
-        spanRows: true,
         values: this.clubData.map((club) => club.admins),
       },
       // onCellClicked: (event: any) => {
@@ -143,7 +138,7 @@ export class ClubsComponent {
       },
     },
   ];
-  enableCellSpan = true;
+  // enableCellSpan = true;
 
   openDeleteconfirmationDialog() {
     const dialogRef = this.dialogRef.open(DeletePopupComponent, {
@@ -170,5 +165,21 @@ export class ClubsComponent {
         }
       }
     });
+  }
+
+  addNewClub(clubName: string, clubAddress: string, clubDescription: string) {
+    this.clubData.push({
+      club_name: clubName,
+      address: clubAddress,
+      admins: [''],
+    });
+
+    this.rowData = [
+      ...this.clubData.map((club) => ({
+        Name: club.club_name,
+        Address: club.address,
+        Admin: club.admins,
+      })),
+    ];
   }
 }

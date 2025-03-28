@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -6,10 +6,11 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community';
 import { AgGridAngular } from 'ag-grid-angular'; // Angular Data Grid Component
-import type { ColDef } from 'ag-grid-community'; // Column Definition Type Interface
+import type { ColDef, RowSelectionOptions } from 'ag-grid-community'; // Column Definition Type Interface
 import { ClubData, ClubAdmins } from '../Data/club-data';
 import { ClubFormComponent } from '../club-form/club-form.component';
 import { AdminSelectDropdownComponent } from '../admin-select-dropdown/admin-select-dropdown.component';
+import { DeletePopupComponent } from '../delete-popup/delete-popup.component';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -19,6 +20,13 @@ ModuleRegistry.registerModules([AllCommunityModule]);
   template: `
     <div class="button-container">
       <button mat-raised-button (click)="openDialog()">Add Club</button>
+      <button
+        class="remove"
+        mat-raised-button
+        (click)="openDeleteconfirmationDialog()"
+      >
+        Remove Selected User
+      </button>
     </div>
 
     <!-- The AG Grid component -->
@@ -26,12 +34,28 @@ ModuleRegistry.registerModules([AllCommunityModule]);
       class="ag-theme-alpine"
       [rowData]="rowData"
       [columnDefs]="colDefs"
+      [rowSelection]="rowSelection"
+      [rowMultiSelectWithClick]="true"
+      (gridReady)="onGridReady($event)"
     />
   `,
   styleUrl: './clubs.component.css',
 })
 export class ClubsComponent {
   constructor(private dialogRef: MatDialog) {}
+  @ViewChild('agGrid') agGrid!: AgGridAngular; // Access the grid component
+
+  private gridApi: any; // Store API reference
+
+  rowSelection: RowSelectionOptions | 'single' | 'multiple' = {
+    mode: 'multiRow',
+  };
+
+  isDeletionConfirmed: boolean = false;
+
+  onGridReady(params: any) {
+    this.gridApi = params.api; // Store API when grid is ready
+  }
 
   openDialog() {
     this.dialogRef.open(ClubFormComponent, {
@@ -120,4 +144,31 @@ export class ClubsComponent {
     },
   ];
   enableCellSpan = true;
+
+  openDeleteconfirmationDialog() {
+    const dialogRef = this.dialogRef.open(DeletePopupComponent, {
+      width: '500px',
+      height: 'auto',
+      maxWidth: '90vw',
+      panelClass: 'custom-dialog-container',
+    });
+
+    dialogRef.afterClosed().subscribe((data) => {
+      if (data === true) {
+        this.isDeletionConfirmed = true;
+        if (this.gridApi) {
+          const selectedRows = this.gridApi.getSelectedRows();
+          // Filter out selected rows from rowData
+          this.rowData = this.rowData.filter(
+            (row) => !selectedRows.includes(row)
+          );
+          // Refresh the grid with the updated data
+          this.gridApi.setRowData(this.rowData);
+          console.log('Selected Rows:', selectedRows);
+        } else {
+          console.error('Grid API is not initialized.');
+        }
+      }
+    });
+  }
 }

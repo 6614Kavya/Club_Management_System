@@ -62,11 +62,21 @@ export class FieldsComponent {
   }
 
   openDialog() {
-    this.dialogRef.open(FieldFormComponent, {
+    const dialogRef = this.dialogRef.open(FieldFormComponent, {
       width: '500px',
       height: 'auto',
       maxWidth: '90vw',
       panelClass: 'custom-dialog-container',
+    });
+
+    dialogRef.afterClosed().subscribe((data) => {
+      console.log(data);
+      this.addNewField(
+        data.fieldName,
+        data.fieldAddress,
+        data.fieldDescription,
+        data.clubName
+      );
     });
   }
 
@@ -175,5 +185,28 @@ export class FieldsComponent {
         }
       }
     });
+  }
+
+  addNewField(
+    teamName: string,
+    teamAddress: string,
+    teamDescription: string,
+    clubName: string
+  ) {
+    this.fieldData.push({
+      field_name: teamName,
+      field_address: teamAddress,
+      field_admin: [''],
+      club_name: clubName,
+    });
+
+    this.rowData = [
+      ...this.fieldData.map((field) => ({
+        Name: field.field_name,
+        Address: field.field_address,
+        Club: field.club_name,
+        Admin: field.field_admin,
+      })),
+    ];
   }
 }

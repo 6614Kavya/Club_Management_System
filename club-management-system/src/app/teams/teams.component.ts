@@ -61,11 +61,21 @@ export class TeamsComponent {
   }
 
   openDialog() {
-    this.dialogRef.open(TeamFormComponent, {
+    const dialogRef = this.dialogRef.open(TeamFormComponent, {
       width: '500px',
       height: 'auto',
       maxWidth: '90vw',
       panelClass: 'custom-dialog-container',
+    });
+
+    dialogRef.afterClosed().subscribe((data) => {
+      console.log(data);
+      this.addNewTeam(
+        data.teamName,
+        data.teamAddress,
+        data.teamDescription,
+        data.clubName
+      );
     });
   }
   teamData = TeamData;
@@ -121,5 +131,28 @@ export class TeamsComponent {
         }
       }
     });
+  }
+
+  addNewTeam(
+    teamName: string,
+    teamAddress: string,
+    teamDescription: string,
+    clubName: string
+  ) {
+    this.teamData.push({
+      team_name: teamName,
+      team_address: teamAddress,
+      team_admin: '',
+      club_name: clubName,
+    });
+
+    this.rowData = [
+      ...this.teamData.map((team) => ({
+        Name: team.team_name,
+        Address: team.team_address,
+        Club: team.club_name,
+        Admin: team.team_admin,
+      })),
+    ];
   }
 }

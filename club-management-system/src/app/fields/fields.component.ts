@@ -128,7 +128,7 @@ export class FieldsComponent {
   colDefs: ColDef[] = [
     { field: 'Name' },
     { field: 'Address' },
-    { field: 'Club' },
+    { field: 'Club', filter: true },
     {
       field: 'Admin',
       editable: true,

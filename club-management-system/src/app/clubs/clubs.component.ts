@@ -71,7 +71,7 @@ export class ClubsComponent {
     });
   }
 
-  openAdminDropdown(clubName: string) {
+  openAdminDropdown(clubName: string, params?: any, action?: 'add' | 'remove') {
     const dialogRef = this.dialogRef.open(AdminSelectDropdownComponent, {
       width: '500px',
       height: 'auto',
@@ -82,8 +82,13 @@ export class ClubsComponent {
 
     //returns the data that was passed when dialogRef.close(data) is called inside the dialog component.
     dialogRef.afterClosed().subscribe((data) => {
-      console.log(data);
-      this.addAdmin(clubName, data);
+      if (action === 'add') {
+        data.forEach((admin: any) => this.addAdmin(clubName, admin, params));
+      } else if (action === 'remove') {
+        this.removeAdmin(clubName, data, params);
+      }
+      // console.log(data);
+      // this.addAdmin(clubName, data);
     });
   }
   clubData = ClubData;
@@ -100,14 +105,37 @@ export class ClubsComponent {
   }
 
   // Function to add a new admin dynamically
-  addAdmin(clubName: string, newAdmin: string) {
+  addAdmin(clubName: string, newAdmin: string, params?: any) {
     // Find the club in the ClubData array
     const club = this.clubData.find((c) => c.club_name === clubName);
     if (club) {
       club.admins.push(newAdmin); // Add new admin to the data structure
+
+      // Update the row immediately
+      if (params && this.gridApi) {
+        const updatedClub = this.clubData.find((c) => c.club_name === clubName);
+        if (updatedClub) {
+          params.node.setDataValue('Admin', updatedClub.admins.join(', '));
+        }
+      }
       this.generateRowData(); // Refresh rowData
     }
   }
+
+  removeAdmin(clubName: string, selectedAdmins: string[], params?: any) {
+    const club = this.clubData.find((c) => c.club_name === clubName);
+    if (club) {
+      club.admins = club.admins.filter(
+        (admin) => !selectedAdmins.includes(admin)
+      );
+
+      // Update the row immediately
+      if (params && params.node) {
+        params.node.setDataValue('Admin', club.admins.join(', '));
+      }
+    }
+  }
+
   ngOnInit() {
     //
     this.generateRowData();
@@ -136,6 +164,41 @@ export class ClubsComponent {
       onCellClicked: (event: any) => {
         this.openAdminDropdown(event.data.Name);
       },
+    },
+    {
+      field: '',
+      headerName: '',
+      cellRenderer: (params: any) => {
+        const button = document.createElement('button');
+        button.innerText = 'Add Admin';
+
+        // Add CSS class for styling
+        button.classList.add('add-button');
+
+        button.addEventListener('click', () =>
+          this.openAdminDropdown(params.data.Name, params, 'add')
+        );
+        return button;
+      },
+      width: 150,
+    },
+
+    {
+      field: '',
+      headerName: '',
+      cellRenderer: (params: any) => {
+        const button = document.createElement('button');
+        button.innerText = 'Remove Admin';
+
+        // Add CSS class for styling
+        button.classList.add('remove-button');
+
+        button.addEventListener('click', () =>
+          this.openAdminDropdown(params.data.Name, params, 'remove')
+        );
+        return button;
+      },
+      width: 150,
     },
   ];
   // enableCellSpan = true;

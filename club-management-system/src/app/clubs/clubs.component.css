@@ -78,3 +78,32 @@ button.mat-raised-button:hover {
   background-color: brown !important;
   color: white !important;
 }
+
+:host ::ng-deep .add-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+:host ::ng-deep.edit-button:hover {
+  background-color: #0056b3;
+}
+
+:host ::ng-deep .remove-button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+/* Conditional Styling Example */
+.highlight {
+  border: 2px solid red;
+}

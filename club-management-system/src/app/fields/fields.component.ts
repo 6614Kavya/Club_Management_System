@@ -80,7 +80,26 @@ export class FieldsComponent {
     });
   }
 
-  openAdminDropdown(fieldName: string) {
+  // openAdminDropdown(fieldName: string) {
+  //   const dialogRef = this.dialogRef.open(AdminSelectDropdownComponent, {
+  //     width: '500px',
+  //     height: 'auto',
+  //     maxWidth: '90vw',
+  //     panelClass: 'custom-dialog-container',
+  //     data: { clubName: fieldName, admins: this.fieldAdmins }, //passes data to AdminSelectDropdownComponent
+  //   });
+
+  //   //returns the data that was passed when dialogRef.close(data) is called inside the dialog component.
+  //   dialogRef.afterClosed().subscribe((data) => {
+  //     console.log(data);
+  //     this.addAdmin(fieldName, data);
+  //   });
+  // }
+  openAdminDropdown(
+    fieldName: string,
+    params?: any,
+    action?: 'add' | 'remove'
+  ) {
     const dialogRef = this.dialogRef.open(AdminSelectDropdownComponent, {
       width: '500px',
       height: 'auto',
@@ -91,8 +110,14 @@ export class FieldsComponent {
 
     //returns the data that was passed when dialogRef.close(data) is called inside the dialog component.
     dialogRef.afterClosed().subscribe((data) => {
-      console.log(data);
-      this.addAdmin(fieldName, data);
+      if (action === 'add') {
+        data.forEach((admin: any) => this.addAdmin(fieldName, admin, params));
+      } else if (action === 'remove') {
+        this.removeAdmin(fieldName, data, params);
+      }
+      this.generateRowData(); // Refresh rowData
+      // console.log(data);
+      // this.addAdmin(clubName, data);
     });
   }
   fieldData = FieldData;
@@ -111,11 +136,56 @@ export class FieldsComponent {
   }
 
   // Function to add a new admin dynamically
-  addAdmin(fieldName: string, newAdmin: string) {
+  // addAdmin(fieldName: string, newAdmin: string) {
+  //   // Find the club in the ClubData array
+  //   const field = this.fieldData.find((f) => f.field_name === fieldName);
+  //   if (field) {
+  //     field.field_admin.push(newAdmin); // Add new admin to the data structure
+  //     this.generateRowData(); // Refresh rowData
+  //   }
+  // }
+
+  addAdmin(fieldName: string, newAdmin: string, params?: any) {
     // Find the club in the ClubData array
     const field = this.fieldData.find((f) => f.field_name === fieldName);
     if (field) {
       field.field_admin.push(newAdmin); // Add new admin to the data structure
+
+      // Update the row immediately
+      if (params && this.gridApi) {
+        const updatedField = this.fieldData.find(
+          (f) => f.field_name === fieldName
+        );
+        if (updatedField) {
+          params.node.setDataValue(
+            'Admin',
+            updatedField.field_admin.join(', ')
+          );
+        }
+      }
+      this.generateRowData(); // Refresh rowData
+    }
+  }
+
+  removeAdmin(fieldName: string, selectedAdmins: string[], params?: any) {
+    const field = this.fieldData.find((f) => f.field_name === fieldName);
+    if (field) {
+      field.field_admin = field.field_admin.filter(
+        (admin) => !selectedAdmins.includes(admin)
+      );
+
+      // Update the row immediately
+      if (params && this.gridApi) {
+        const updatedField = this.fieldData.find(
+          (f) => f.field_name === fieldName
+        );
+        if (updatedField) {
+          params.node.setDataValue(
+            'Admin',
+            updatedField.field_admin.join(', ')
+          );
+        }
+      }
       this.generateRowData(); // Refresh rowData
     }
   }
@@ -148,6 +218,41 @@ export class FieldsComponent {
       onCellClicked: (event: any) => {
         this.openAdminDropdown(event.data.Name);
       },
+    },
+    {
+      field: '',
+      headerName: '',
+      cellRenderer: (params: any) => {
+        const button = document.createElement('button');
+        button.innerText = 'Add Admin';
+
+        // Add CSS class for styling
+        button.classList.add('add-button');
+
+        button.addEventListener('click', () =>
+          this.openAdminDropdown(params.data.Name, params, 'add')
+        );
+        return button;
+      },
+      width: 150,
+    },
+
+    {
+      field: '',
+      headerName: '',
+      cellRenderer: (params: any) => {
+        const button = document.createElement('button');
+        button.innerText = 'Remove Admin';
+
+        // Add CSS class for styling
+        button.classList.add('remove-button');
+
+        button.addEventListener('click', () =>
+          this.openAdminDropdown(params.data.Name, params, 'remove')
+        );
+        return button;
+      },
+      width: 150,
     },
   ];
 

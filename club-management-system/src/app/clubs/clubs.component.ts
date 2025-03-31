@@ -11,6 +11,7 @@ import { ClubData, ClubAdmins } from '../Data/club-data';
 import { ClubFormComponent } from '../club-form/club-form.component';
 import { AdminSelectDropdownComponent } from '../admin-select-dropdown/admin-select-dropdown.component';
 import { DeletePopupComponent } from '../delete-popup/delete-popup.component';
+import { EditComponentComponent } from '../edit-component/edit-component.component';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -87,6 +88,7 @@ export class ClubsComponent {
       } else if (action === 'remove') {
         this.removeAdmin(clubName, data, params);
       }
+      this.generateRowData(); // Refresh rowData
       // console.log(data);
       // this.addAdmin(clubName, data);
     });
@@ -130,9 +132,13 @@ export class ClubsComponent {
       );
 
       // Update the row immediately
-      if (params && params.node) {
-        params.node.setDataValue('Admin', club.admins.join(', '));
+      if (params && this.gridApi) {
+        const updatedClub = this.clubData.find((c) => c.club_name === clubName);
+        if (updatedClub) {
+          params.node.setDataValue('Admin', updatedClub.admins.join(', '));
+        }
       }
+      this.generateRowData(); // Refresh rowData
     }
   }
 
@@ -161,9 +167,9 @@ export class ClubsComponent {
       //     }
       //   }
       // },
-      onCellClicked: (event: any) => {
-        this.openAdminDropdown(event.data.Name);
-      },
+      // onCellClicked: (event: any) => {
+      //   this.openAdminDropdown(event.data.Name);
+      // },
     },
     {
       field: '',
@@ -199,6 +205,12 @@ export class ClubsComponent {
         return button;
       },
       width: 150,
+    },
+    {
+      field: '',
+      headerName: 'Actions',
+      cellRenderer: EditComponentComponent, // ✅ Use the fixed component
+      width: 100,
     },
   ];
   // enableCellSpan = true;

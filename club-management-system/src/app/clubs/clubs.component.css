@@ -107,3 +107,9 @@ button.mat-raised-button:hover {
 .highlight {
   border: 2px solid red;
 }
+
+.edit-button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}

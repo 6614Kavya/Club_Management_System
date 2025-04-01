@@ -13,6 +13,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { TeamData } from '../Data/team-data';
 import { TeamFormComponent } from '../team-form/team-form.component';
 import { DeletePopupComponent } from '../delete-popup/delete-popup.component';
+import { EditComponentComponent } from '../edit-component/edit-component.component';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -104,6 +105,16 @@ export class TeamsComponent {
         values: this.teamData.map((team) => team.team_admin),
       },
     },
+    {
+      field: '',
+      headerName: 'Actions',
+      cellRenderer: EditComponentComponent,
+      width: 100,
+      cellRendererParams: {
+        updateTeamData: (event: any) => this.handleUpdatedTeam(event),
+        section: 'Team',
+      },
+    },
   ];
 
   openDeleteconfirmationDialog() {
@@ -154,5 +165,28 @@ export class TeamsComponent {
         Admin: team.team_admin,
       })),
     ];
+  }
+
+  handleUpdatedTeam(event: any) {
+    const { rowIndex, teamName, teamAddress, clubName, admins } = event;
+
+    if (this.gridApi) {
+      const rowNode = this.gridApi.getDisplayedRowAtIndex(rowIndex);
+      if (rowNode) {
+        rowNode.setDataValue('Name', teamName);
+        rowNode.setDataValue('Address', teamAddress);
+        rowNode.setDataValye('Club', clubName);
+        rowNode.setDataValue('Admin', admins.join(', '));
+      }
+    }
+
+    // Update the clubData array
+    const team = this.teamData.find((t) => t.team_name === teamName);
+    if (team) {
+      team.team_name = teamName;
+      team.team_address = teamAddress;
+      team.club_name = clubName;
+      team.team_admin = admins;
+    }
   }
 }

@@ -270,6 +270,7 @@ export class ClubsComponent {
       width: 100,
       cellRendererParams: {
         updateClubData: (event: any) => this.handleUpdatedClub(event),
+        section: 'Club',
       },
     },
   ];

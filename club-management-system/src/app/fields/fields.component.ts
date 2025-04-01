@@ -14,6 +14,7 @@ import { FieldData, FieldAdmins } from '../Data/field-data';
 import { FieldFormComponent } from '../field-form/field-form.component';
 import { AdminSelectDropdownComponent } from '../admin-select-dropdown/admin-select-dropdown.component';
 import { DeletePopupComponent } from '../delete-popup/delete-popup.component';
+import { EditComponentComponent } from '../edit-component/edit-component.component';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -219,40 +220,50 @@ export class FieldsComponent {
         this.openAdminDropdown(event.data.Name);
       },
     },
+    // {
+    //   field: '',
+    //   headerName: '',
+    //   cellRenderer: (params: any) => {
+    //     const button = document.createElement('button');
+    //     button.innerText = 'Add Admin';
+
+    //     // Add CSS class for styling
+    //     button.classList.add('add-button');
+
+    //     button.addEventListener('click', () =>
+    //       this.openAdminDropdown(params.data.Name, params, 'add')
+    //     );
+    //     return button;
+    //   },
+    //   width: 150,
+    // },
+
+    // {
+    //   field: '',
+    //   headerName: '',
+    //   cellRenderer: (params: any) => {
+    //     const button = document.createElement('button');
+    //     button.innerText = 'Remove Admin';
+
+    //     // Add CSS class for styling
+    //     button.classList.add('remove-button');
+
+    //     button.addEventListener('click', () =>
+    //       this.openAdminDropdown(params.data.Name, params, 'remove')
+    //     );
+    //     return button;
+    //   },
+    //   width: 150,
+    // },
     {
       field: '',
-      headerName: '',
-      cellRenderer: (params: any) => {
-        const button = document.createElement('button');
-        button.innerText = 'Add Admin';
-
-        // Add CSS class for styling
-        button.classList.add('add-button');
-
-        button.addEventListener('click', () =>
-          this.openAdminDropdown(params.data.Name, params, 'add')
-        );
-        return button;
+      headerName: 'Actions',
+      cellRenderer: EditComponentComponent,
+      width: 100,
+      cellRendererParams: {
+        updateFieldData: (event: any) => this.handleUpdatedField(event),
+        section: 'Field',
       },
-      width: 150,
-    },
-
-    {
-      field: '',
-      headerName: '',
-      cellRenderer: (params: any) => {
-        const button = document.createElement('button');
-        button.innerText = 'Remove Admin';
-
-        // Add CSS class for styling
-        button.classList.add('remove-button');
-
-        button.addEventListener('click', () =>
-          this.openAdminDropdown(params.data.Name, params, 'remove')
-        );
-        return button;
-      },
-      width: 150,
     },
   ];
 
@@ -304,5 +315,28 @@ export class FieldsComponent {
         Admin: field.field_admin,
       })),
     ];
+  }
+
+  handleUpdatedField(event: any) {
+    const { rowIndex, fieldName, fieldAddress, clubName, admins } = event;
+
+    if (this.gridApi) {
+      const rowNode = this.gridApi.getDisplayedRowAtIndex(rowIndex);
+      if (rowNode) {
+        rowNode.setDataValue('Name', fieldName);
+        rowNode.setDataValue('Address', fieldAddress);
+        rowNode.setDataValye('Club', clubName);
+        rowNode.setDataValue('Admin', admins.join(', '));
+      }
+    }
+
+    // Update the clubData array
+    const field = this.fieldData.find((f) => f.field_name === fieldName);
+    if (field) {
+      field.field_name = fieldName;
+      field.field_address = fieldAddress;
+      field.club_name = clubName;
+      field.field_admin = admins;
+    }
   }
 }

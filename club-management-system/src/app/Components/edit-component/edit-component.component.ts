@@ -8,9 +8,9 @@ import {
 } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { EditClubComponent } from '../edit-club/edit-club.component';
-import { EditFieldComponent } from '../edit-field/edit-field.component';
-import { EditTeamComponent } from '../edit-team/edit-team.component';
+import { EditClubComponent } from '../../Forms/edit-club/edit-club.component';
+import { EditFieldComponent } from '../../Forms/edit-field/edit-field.component';
+import { EditTeamComponent } from '../../Forms/edit-team/edit-team.component';
 
 @Component({
   selector: 'app-edit-component',

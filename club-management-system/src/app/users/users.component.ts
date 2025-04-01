@@ -16,8 +16,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { UserData } from '../Data/user-data';
-import { UserFormComponent } from '../user-form/user-form.component';
-import { DeletePopupComponent } from '../delete-popup/delete-popup.component';
+import { UserFormComponent } from '../Forms/user-form/user-form.component';
+import { DeletePopupComponent } from '../Components/delete-popup/delete-popup.component';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 

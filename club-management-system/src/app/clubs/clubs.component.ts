@@ -11,10 +11,10 @@ import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community';
 import { AgGridAngular } from 'ag-grid-angular'; // Angular Data Grid Component
 import type { ColDef, RowSelectionOptions } from 'ag-grid-community'; // Column Definition Type Interface
 import { ClubData, ClubAdmins } from '../Data/club-data';
-import { ClubFormComponent } from '../club-form/club-form.component';
-import { AdminSelectDropdownComponent } from '../admin-select-dropdown/admin-select-dropdown.component';
-import { DeletePopupComponent } from '../delete-popup/delete-popup.component';
-import { EditComponentComponent } from '../edit-component/edit-component.component';
+import { ClubFormComponent } from '../Forms/club-form/club-form.component';
+import { AdminSelectDropdownComponent } from '../Components/admin-select-dropdown/admin-select-dropdown.component';
+import { DeletePopupComponent } from '../Components/delete-popup/delete-popup.component';
+import { EditComponentComponent } from '../Components/edit-component/edit-component.component';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 ModuleRegistry.registerModules([AllCommunityModule]);

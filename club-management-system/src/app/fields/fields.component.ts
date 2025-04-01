@@ -11,10 +11,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { FieldData, FieldAdmins } from '../Data/field-data';
-import { FieldFormComponent } from '../field-form/field-form.component';
-import { AdminSelectDropdownComponent } from '../admin-select-dropdown/admin-select-dropdown.component';
-import { DeletePopupComponent } from '../delete-popup/delete-popup.component';
-import { EditComponentComponent } from '../edit-component/edit-component.component';
+import { FieldFormComponent } from '../Forms/field-form/field-form.component';
+import { AdminSelectDropdownComponent } from '../Components/admin-select-dropdown/admin-select-dropdown.component';
+import { DeletePopupComponent } from '../Components/delete-popup/delete-popup.component';
+import { EditComponentComponent } from '../Components/edit-component/edit-component.component';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 

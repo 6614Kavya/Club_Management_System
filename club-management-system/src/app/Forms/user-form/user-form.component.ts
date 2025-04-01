@@ -6,9 +6,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ClubData } from '../Data/club-data';
-import { FieldData } from '../Data/field-data';
-import { TeamData } from '../Data/team-data';
+import { ClubData } from '../../Data/club-data';
+import { FieldData } from '../../Data/field-data';
+import { TeamData } from '../../Data/team-data';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({

@@ -6,10 +6,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { FieldData } from '../Data/field-data';
+import { TeamData } from '../../Data/team-data';
 
 @Component({
-  selector: 'app-edit-field',
+  selector: 'app-edit-team',
   standalone: true,
   imports: [
     MatFormFieldModule,
@@ -23,19 +23,19 @@ import { FieldData } from '../Data/field-data';
   template: `
     <div class="container">
       <mat-form-field>
-        <mat-label> Field Name</mat-label>
+        <mat-label> Team Name</mat-label>
         <input
           matInput
-          placeholder="Enter Field name"
-          [formControl]="fieldName"
+          placeholder="Enter Team name"
+          [formControl]="teamName"
         />
       </mat-form-field>
       <mat-form-field>
-        <mat-label> Field Address</mat-label>
+        <mat-label> Team Address</mat-label>
         <input
           matInput
-          placeholder="Enter Field address"
-          [formControl]="fieldAddress"
+          placeholder="Enter Team address"
+          [formControl]="teamAddress"
         />
       </mat-form-field>
       <mat-form-field>
@@ -47,14 +47,14 @@ import { FieldData } from '../Data/field-data';
         />
       </mat-form-field>
       <mat-form-field>
-        <mat-label> Field Admins</mat-label>
+        <mat-label> Team Admins</mat-label>
         <!-- <input
           matInput
           placeholder="Enter Club admin"
           [formControl]="clubAdmin"
         /> -->
-        <mat-select [formControl]="fieldAdmin" multiple>
-          @for (admin of allAdmins; track fieldAdmin) {
+        <mat-select [formControl]="teamAdmin" multiple>
+          @for (admin of allAdmins; track teamAdmin) {
           <mat-option [value]="admin">{{ admin }}</mat-option>
           }
         </mat-select>
@@ -65,47 +65,50 @@ import { FieldData } from '../Data/field-data';
       </div>
     </div>
   `,
-  styleUrl: './edit-field.component.css',
+  styleUrl: './edit-team.component.css',
 })
-export class EditFieldComponent {
+export class EditTeamComponent {
   constructor(
-    private dialogRef: MatDialogRef<EditFieldComponent>,
+    private dialogRef: MatDialogRef<EditTeamComponent>,
     @Inject(MAT_DIALOG_DATA)
     public data: {
-      fieldName: string;
-      fieldAddress: string;
+      teamName: string;
+      teamAddress: string;
       clubName: string;
       admins: string[];
     }
   ) {
-    this.fieldName.setValue(data.fieldName);
-    this.fieldAddress.setValue(data.fieldAddress);
+    this.teamName.setValue(data.teamName);
+    this.teamAddress.setValue(data.teamAddress);
     this.clubName.setValue(data.clubName);
-    this.fieldAdmin.setValue(data.admins ?? []);
+    this.teamAdmin.setValue(data.admins ?? []);
+    // this.clubName.setValue(data.clubName);
+    // this.clubAddress.setValue(data.clubAddress);
+    // this.clubAdmin.setValue(data.admins ?? []);
 
     this.availableAdmins = data.admins;
-    this.existingAdmins = FieldData.map((admin) => admin.field_admin);
+    this.existingAdmins = TeamData.map((admin) => admin.team_admin);
 
     // Merge and remove duplicates
     this.allAdmins = [
       ...new Set([...this.availableAdmins, ...this.existingAdmins.flat()]),
     ];
   }
-  existingAdmins: string[][] = [];
+  existingAdmins: string[] = [];
   availableAdmins: string[] = [];
   allAdmins: string[] = [];
-  fieldName = new FormControl('');
-  fieldAddress = new FormControl('');
+  teamName = new FormControl('');
+  teamAddress = new FormControl('');
   clubName = new FormControl('');
-  fieldAdmin = new FormControl<string[]>([]);
+  teamAdmin = new FormControl<string[]>([]);
 
   submit() {
     // Emit the updated club data, including the selected admins.
     this.dialogRef.close({
-      fieldName: this.fieldName.value,
-      fieldAddress: this.fieldAddress.value,
+      teamName: this.teamName.value,
+      teamAddress: this.teamAddress.value,
       clubName: this.clubName.value,
-      admins: this.fieldAdmin.value,
+      admins: this.teamAdmin.value,
     });
   }
 }

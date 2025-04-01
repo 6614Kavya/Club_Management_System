@@ -11,9 +11,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { TeamData } from '../Data/team-data';
-import { TeamFormComponent } from '../team-form/team-form.component';
-import { DeletePopupComponent } from '../delete-popup/delete-popup.component';
-import { EditComponentComponent } from '../edit-component/edit-component.component';
+import { TeamFormComponent } from '../Forms/team-form/team-form.component';
+import { DeletePopupComponent } from '../Components/delete-popup/delete-popup.component';
+import { EditComponentComponent } from '../Components/edit-component/edit-component.component';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 

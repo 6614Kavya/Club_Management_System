@@ -9,8 +9,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { UserService } from '../user.service';
-import { User } from '../user';
+import { UserService } from '../../user.service';
+import { User } from '../../user';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 

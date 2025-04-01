@@ -46,7 +46,7 @@ import { ClubData } from '../Data/club-data';
           [formControl]="clubAdmin"
         /> -->
         <mat-select [formControl]="clubAdmin" multiple>
-          @for (admin of availableAdmins; track clubAdmin) {
+          @for (admin of allAdmins; track clubAdmin) {
           <mat-option [value]="admin">{{ admin }}</mat-option>
           }
         </mat-select>
@@ -70,13 +70,26 @@ export class EditClubComponent {
     this.clubAdmin.setValue(data.admins ?? []);
 
     this.availableAdmins = data.admins;
+    this.existingAdmins = ClubData.map((admin) => admin.admins);
+
+    // Merge and remove duplicates
+    this.allAdmins = [
+      ...new Set([...this.availableAdmins, ...this.existingAdmins.flat()]),
+    ];
   }
+  existingAdmins: string[][] = [];
   availableAdmins: string[] = [];
+  allAdmins: string[] = [];
   clubName = new FormControl('');
   clubAddress = new FormControl('');
   clubAdmin = new FormControl<string[]>([]);
 
   submit() {
-    this.dialogRef.close();
+    // Emit the updated club data, including the selected admins.
+    this.dialogRef.close({
+      clubName: this.clubName.value,
+      clubAddress: this.clubAddress.value,
+      admins: this.clubAdmin.value,
+    });
   }
 }

@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 import { AllCommunityModule, ModuleRegistry } from 'ag-grid-community';
 import { AgGridAngular } from 'ag-grid-angular'; // Angular Data Grid Component
@@ -12,13 +15,36 @@ import { ClubFormComponent } from '../club-form/club-form.component';
 import { AdminSelectDropdownComponent } from '../admin-select-dropdown/admin-select-dropdown.component';
 import { DeletePopupComponent } from '../delete-popup/delete-popup.component';
 import { EditComponentComponent } from '../edit-component/edit-component.component';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 @Component({
   selector: 'app-clubs',
-  imports: [AgGridAngular, CommonModule, MatButtonModule, MatDialogModule],
+  imports: [
+    AgGridAngular,
+    CommonModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+  ],
   template: `
+    <mat-form-field>
+      <mat-label> Find Club</mat-label>
+      <!-- <input
+          matInput
+          placeholder="Enter Club admin"
+          [formControl]="clubAdmin"
+        /> -->
+      <mat-select [formControl]="clubName">
+        @for (club of clubNames; track clubName) {
+        <mat-option [value]="club">{{ club }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
     <div class="button-container">
       <button mat-raised-button (click)="openDialog()">Add Club</button>
       <button
@@ -47,6 +73,10 @@ export class ClubsComponent {
   @ViewChild('agGrid') agGrid!: AgGridAngular; // Access the grid component
 
   private gridApi: any; // Store API reference
+
+  clubNames = ClubData.map((clubNames) => clubNames.club_name);
+
+  clubName = new FormControl<string>('');
 
   rowSelection: RowSelectionOptions | 'single' | 'multiple' = {
     mode: 'multiRow',
@@ -104,6 +134,10 @@ export class ClubsComponent {
       Address: club.address,
       Admin: club.admins.join(','),
     }));
+
+    if (this.gridApi) {
+      this.gridApi.setRowData(this.rowData);
+    }
   }
 
   // Function to add a new admin dynamically
@@ -143,8 +177,31 @@ export class ClubsComponent {
   }
 
   ngOnInit() {
-    //
-    this.generateRowData();
+    this.generateRowData(); // Load all data initially
+
+    // Listen to changes in the selected club
+    this.clubName.valueChanges.subscribe((selectedClub: any) => {
+      this.filterDataByClub(selectedClub);
+    });
+  }
+
+  filterDataByClub(selectedClub: string) {
+    if (selectedClub) {
+      this.rowData = this.clubData
+        .filter((club) => club.club_name === selectedClub)
+        .map((club) => ({
+          Name: club.club_name,
+          Address: club.address,
+          Admin: club.admins.join(', '),
+        }));
+    } else {
+      this.generateRowData(); // Reset to all data if no club is selected
+    }
+
+    // Update the AG Grid with the new filtered data
+    if (this.gridApi) {
+      this.gridApi.setRowData(this.rowData);
+    }
   }
 
   // Column Definitions: Defines the columns to be displayed.
@@ -171,46 +228,49 @@ export class ClubsComponent {
       //   this.openAdminDropdown(event.data.Name);
       // },
     },
-    {
-      field: '',
-      headerName: '',
-      cellRenderer: (params: any) => {
-        const button = document.createElement('button');
-        button.innerText = 'Add Admin';
+    // {
+    //   field: '',
+    //   headerName: '',
+    //   cellRenderer: (params: any) => {
+    //     const button = document.createElement('button');
+    //     button.innerText = 'Add Admin';
 
-        // Add CSS class for styling
-        button.classList.add('add-button');
+    //     // Add CSS class for styling
+    //     button.classList.add('add-button');
 
-        button.addEventListener('click', () =>
-          this.openAdminDropdown(params.data.Name, params, 'add')
-        );
-        return button;
-      },
-      width: 150,
-    },
+    //     button.addEventListener('click', () =>
+    //       this.openAdminDropdown(params.data.Name, params, 'add')
+    //     );
+    //     return button;
+    //   },
+    //   width: 150,
+    // },
 
-    {
-      field: '',
-      headerName: '',
-      cellRenderer: (params: any) => {
-        const button = document.createElement('button');
-        button.innerText = 'Remove Admin';
+    // {
+    //   field: '',
+    //   headerName: '',
+    //   cellRenderer: (params: any) => {
+    //     const button = document.createElement('button');
+    //     button.innerText = 'Remove Admin';
 
-        // Add CSS class for styling
-        button.classList.add('remove-button');
+    //     // Add CSS class for styling
+    //     button.classList.add('remove-button');
 
-        button.addEventListener('click', () =>
-          this.openAdminDropdown(params.data.Name, params, 'remove')
-        );
-        return button;
-      },
-      width: 150,
-    },
+    //     button.addEventListener('click', () =>
+    //       this.openAdminDropdown(params.data.Name, params, 'remove')
+    //     );
+    //     return button;
+    //   },
+    //   width: 150,
+    // },
     {
       field: '',
       headerName: 'Actions',
-      cellRenderer: EditComponentComponent, // ✅ Use the fixed component
+      cellRenderer: EditComponentComponent,
       width: 100,
+      cellRendererParams: {
+        updateClubData: (event: any) => this.handleUpdatedClub(event),
+      },
     },
   ];
   // enableCellSpan = true;
@@ -256,5 +316,27 @@ export class ClubsComponent {
         Admin: club.admins,
       })),
     ];
+  }
+
+  // Function to update row data
+  // Function to update row data
+  handleUpdatedClub(event: any) {
+    const { rowIndex, clubName, clubAddress, admins } = event;
+
+    if (this.gridApi) {
+      const rowNode = this.gridApi.getDisplayedRowAtIndex(rowIndex);
+      if (rowNode) {
+        rowNode.setDataValue('Name', clubName);
+        rowNode.setDataValue('Address', clubAddress);
+        rowNode.setDataValue('Admin', admins.join(', '));
+      }
+    }
+
+    // Update the clubData array
+    const club = this.clubData.find((c) => c.club_name === clubName);
+    if (club) {
+      club.address = clubAddress;
+      club.admins = admins;
+    }
   }
 }

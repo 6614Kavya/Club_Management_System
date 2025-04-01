@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { ICellRendererParams } from 'ag-grid-community';
 import {
@@ -22,6 +22,8 @@ import { EditClubComponent } from '../edit-club/edit-club.component';
   styleUrl: './edit-component.component.css',
 })
 export class EditComponentComponent implements ICellRendererAngularComp {
+  @Output() updateClubData = new EventEmitter<any>(); // Emit updated club data
+  value: any;
   constructor(private dialogRef: MatDialog) {}
 
   private params!: ICellRendererParams;
@@ -36,8 +38,17 @@ export class EditComponentComponent implements ICellRendererAngularComp {
   }
 
   refresh(params: ICellRendererParams): boolean {
-    return false;
+    return true;
   }
+
+  // updateValue(params: ICellRendererParams) {
+  //   const newValue = 'Updated Value'; // Your new value
+  //   if (this.params.setValue) {
+  //     this.params.setValue(newValue); // Safely update the cell value
+  //   } else {
+  //     console.warn('setValue is not available on params', this.params);
+  //   }
+  // }
 
   openEditClubComponent(params: ICellRendererParams) {
     const admins = Array.isArray(params.data.Admin)
@@ -56,6 +67,22 @@ export class EditComponentComponent implements ICellRendererAngularComp {
       },
     });
 
-    dialogRef.afterClosed().subscribe((data) => console.log(data));
+    dialogRef.afterClosed().subscribe((updatedData) => {
+      if (updatedData) {
+        console.log('Updated Data:', updatedData);
+        this.updateClubData.emit({
+          rowIndex: this.params.node.rowIndex,
+          ...updatedData,
+        });
+
+        // ✅ Update the grid row
+        this.params.node.setData({
+          ...this.params.data,
+          Name: updatedData.clubName,
+          Address: updatedData.clubAddress,
+          Admin: updatedData.admins.join(', '),
+        });
+      }
+    });
   }
 }

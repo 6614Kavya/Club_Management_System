@@ -1,32 +1,23 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { FieldData } from '../Data/field-data';
+import { TeamData } from '../../Data/team-data';
 import { Router } from '@angular/router';
-
-interface FieldData {
-  id: number;
-  field_name: string;
-  field_address: string;
-  club_name: string;
-  field_admin: string[];
-  description: string;
-  facilities: string[];
-}
+import { TeamService, Team } from '../../services/team/team.service';
 
 @Component({
-  selector: 'app-field-card',
+  selector: 'app-team-card',
   imports: [MatCardModule, MatButtonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-card appearance="outlined" (click)="onCardClick()">
       <mat-card-header>
-        <mat-card-title>{{ fieldData.field_name }}</mat-card-title>
+        <mat-card-title>{{ teamData.team_name }}</mat-card-title>
         <!-- <mat-card-subtitle>{{ clubData.short_name }}</mat-card-subtitle> -->
       </mat-card-header>
       <img src="" alt="" />
       <mat-card-content>
-        <p>{{ fieldData.description }}</p>
+        <p>{{ teamData.team_address }}</p>
       </mat-card-content>
       <mat-card-actions>
         <!-- <button mat-button>LIKE</button> -->
@@ -34,12 +25,12 @@ interface FieldData {
       </mat-card-actions>
     </mat-card>
   `,
-  styleUrl: './field-card.component.css',
+  styleUrl: './team-card.component.css',
 })
-export class FieldCardComponent {
+export class TeamCardComponent {
   constructor(private router: Router) {}
   onCardClick() {
     // this.router.navigate(['/dashboard/fieldTeamData']);
   }
-  @Input() fieldData!: FieldData;
+  @Input() teamData!: Team;
 }

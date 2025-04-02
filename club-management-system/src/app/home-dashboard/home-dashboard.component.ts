@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ClubCardComponent } from '../Components/club-card/club-card.component';
 import { ClubData } from '../Data/club-data';
+import { ClubService, Club } from '../services/club/club.service';
 
 @Component({
   selector: 'app-home-dashboard',
@@ -17,5 +18,10 @@ import { ClubData } from '../Data/club-data';
   styleUrl: './home-dashboard.component.css',
 })
 export class HomeDashboardComponent {
-  clubData = ClubData;
+  // clubData = ClubData;
+  clubData: Club[] = [];
+  clubService: ClubService = inject(ClubService);
+  constructor() {
+    this.clubData = this.clubService.getAllClubList();
+  }
 }

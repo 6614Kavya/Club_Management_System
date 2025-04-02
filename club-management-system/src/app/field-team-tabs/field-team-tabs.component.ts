@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FieldCardComponent } from '../field-card/field-card.component';
-import { TeamCardComponent } from '../team-card/team-card.component';
+import { FieldCardComponent } from '../Components/field-card/field-card.component';
+import { TeamCardComponent } from '../Components/team-card/team-card.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FieldData } from '../Data/field-data';
 import { TeamData } from '../Data/team-data';
+import { ActivatedRoute } from '@angular/router';
+import { FieldService, Field } from '../services/field/field.service';
+import { TeamService, Team } from '../services/team/team.service';
 
 @Component({
   selector: 'app-field-team-tabs',
@@ -32,6 +35,20 @@ import { TeamData } from '../Data/team-data';
   styleUrl: './field-team-tabs.component.css',
 })
 export class FieldTeamTabsComponent {
-  fieldData = FieldData;
-  teamData = TeamData;
+  route: ActivatedRoute = inject(ActivatedRoute);
+  // fieldData = FieldData;
+  // teamData = TeamData;
+
+  fieldData: Field[] | undefined;
+  teamData: Team[] | undefined;
+
+  fieldService = inject(FieldService);
+  teamService = inject(TeamService);
+
+  constructor() {
+    const clubId = Number(this.route.snapshot.params['id']);
+
+    this.fieldData = this.fieldService.getFieldsByClubId(clubId);
+    this.teamData = this.teamService.getTeamsByClubId(clubId);
+  }
 }

@@ -8,11 +8,11 @@ interface ClubData {
   id: number;
   club_name: string;
   short_name: string;
-  description: string;
-  address: string;
+  club_description: string;
+  club_address: string;
   country_code: string;
   activated: boolean;
-  admins: string[];
+  club_admins: string[];
 }
 
 @Component({
@@ -27,7 +27,7 @@ interface ClubData {
       </mat-card-header>
       <img src="" alt="" />
       <mat-card-content>
-        <p>{{ clubData.description }}</p>
+        <p>{{ clubData.club_description }}</p>
       </mat-card-content>
       <mat-card-actions>
         <!-- <button mat-button>LIKE</button> -->
@@ -40,7 +40,7 @@ interface ClubData {
 export class ClubCardComponent {
   constructor(private router: Router) {}
   onCardClick() {
-    this.router.navigate(['/dashboard/fieldTeamData']);
+    this.router.navigate(['/dashboard/fieldTeamData', this.clubData.id]);
   }
   @Input() clubData!: ClubData;
 }

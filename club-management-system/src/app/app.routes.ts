@@ -29,7 +29,7 @@ const routeConfig: Routes = [
       { path: 'fields', component: FieldsComponent },
       { path: 'teams', component: TeamsComponent },
       { path: 'users', component: UsersComponent },
-      { path: 'fieldTeamData', component: FieldTeamTabsComponent },
+      { path: 'fieldTeamData/:id', component: FieldTeamTabsComponent },
     ],
   },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' }, // Default route

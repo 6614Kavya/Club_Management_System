@@ -14,13 +14,39 @@ import { TeamData } from '../Data/team-data';
 import { TeamFormComponent } from '../Forms/team-form/team-form.component';
 import { DeletePopupComponent } from '../Components/delete-popup/delete-popup.component';
 import { EditComponentComponent } from '../Components/edit-component/edit-component.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 @Component({
   selector: 'app-teams',
-  imports: [AgGridAngular, CommonModule, MatButtonModule, MatDialogModule],
+  imports: [
+    AgGridAngular,
+    CommonModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+  ],
   template: `
+    <mat-form-field>
+      <mat-label> Find Team</mat-label>
+      <!-- <input
+          matInput
+          placeholder="Enter Club admin"
+          [formControl]="clubAdmin"
+        /> -->
+      <mat-select [formControl]="teamName">
+        @for (team of teamNames; track teamName) {
+        <mat-option [value]="team">{{ team }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
     <div class="button-container">
       <button mat-raised-button (click)="openDialog()">Add Team</button>
       <button
@@ -50,6 +76,10 @@ export class TeamsComponent {
   @ViewChild('agGrid') agGrid!: AgGridAngular; // Access the grid component
 
   private gridApi: any; // Store API reference
+
+  teamNames = TeamData.map((team) => team.team_name);
+
+  teamName = new FormControl<string>('');
 
   rowSelection: RowSelectionOptions | 'single' | 'multiple' = {
     mode: 'multiRow',
@@ -84,12 +114,41 @@ export class TeamsComponent {
   rowData: any[] = [];
   // Row Data: The data to be displayed.
   ngOnInit() {
+    this.generateRowData(); // Load all data initially
+
+    // Listen to changes in the selected club
+    this.teamName.valueChanges.subscribe((selectedTeam: any) => {
+      this.filterDataByTeam(selectedTeam);
+    });
+  }
+
+  generateRowData() {
     this.rowData = this.teamData.map((team) => ({
       Name: team.team_name,
       Address: team.team_address,
       Club: team.club_name,
-      Admin: team.team_admin,
+      Admin: team.team_admin, //check
     }));
+  }
+
+  filterDataByTeam(selectedTeam: string) {
+    if (selectedTeam) {
+      this.rowData = this.teamData
+        .filter((team) => team.team_name === selectedTeam)
+        .map((team) => ({
+          Name: team.team_name,
+          Address: team.team_address,
+          Club: team.club_name,
+          Admin: team.team_admin, //check
+        }));
+    } else {
+      this.generateRowData(); // Reset to all data if no club is selected
+    }
+
+    // Update the AG Grid with the new filtered data
+    if (this.gridApi) {
+      this.gridApi.setRowData(this.rowData);
+    }
   }
 
   // Column Definitions: Defines the columns to be displayed.
@@ -107,7 +166,7 @@ export class TeamsComponent {
     },
     {
       field: '',
-      headerName: 'Actions',
+      headerName: '',
       cellRenderer: EditComponentComponent,
       width: 100,
       cellRendererParams: {
@@ -151,6 +210,7 @@ export class TeamsComponent {
     clubName: string
   ) {
     this.teamData.push({
+      id: 1,
       team_name: teamName,
       team_address: teamAddress,
       team_admin: '',

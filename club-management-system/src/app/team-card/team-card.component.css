@@ -1,0 +1,46 @@
+mat-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 350px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+mat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+mat-card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+mat-card-subtitle {
+  font-size: 0.9rem;
+  color: gray;
+}
+
+mat-card-content p {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.4;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+button {
+  color: #1976d2;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: rgba(25, 118, 210, 0.1);
+}

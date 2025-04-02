@@ -265,7 +265,7 @@ export class ClubsComponent {
     // },
     {
       field: '',
-      headerName: 'Actions',
+      headerName: '',
       cellRenderer: EditComponentComponent,
       width: 100,
       cellRendererParams: {
@@ -305,9 +305,14 @@ export class ClubsComponent {
 
   addNewClub(clubName: string, clubAddress: string, clubDescription: string) {
     this.clubData.push({
+      id: 0,
       club_name: clubName,
       address: clubAddress,
       admins: [''],
+      short_name: '',
+      description: '',
+      country_code: '',
+      activated: false,
     });
 
     this.rowData = [

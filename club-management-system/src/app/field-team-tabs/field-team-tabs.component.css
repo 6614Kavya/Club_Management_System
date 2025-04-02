@@ -1,0 +1,26 @@
+mat-tab-group {
+  width: 100%;
+}
+
+mat-tab-body {
+  display: flex;
+  justify-content: center;
+}
+
+.tab-content {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(300px, 1fr)
+  ); /* Ensures 3 cards per row */
+  gap: 20px; /* Adds spacing between cards */
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto; /* Centers the content */
+}
+
+app-field-card,
+app-team-card {
+  display: flex;
+  justify-content: center;
+}

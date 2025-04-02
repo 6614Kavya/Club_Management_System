@@ -15,13 +15,39 @@ import { FieldFormComponent } from '../Forms/field-form/field-form.component';
 import { AdminSelectDropdownComponent } from '../Components/admin-select-dropdown/admin-select-dropdown.component';
 import { DeletePopupComponent } from '../Components/delete-popup/delete-popup.component';
 import { EditComponentComponent } from '../Components/edit-component/edit-component.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 @Component({
   selector: 'app-fields',
-  imports: [AgGridAngular, CommonModule, MatButtonModule, MatDialogModule],
+  imports: [
+    AgGridAngular,
+    CommonModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+  ],
   template: `
+    <mat-form-field>
+      <mat-label> Find Field</mat-label>
+      <!-- <input
+          matInput
+          placeholder="Enter Club admin"
+          [formControl]="clubAdmin"
+        /> -->
+      <mat-select [formControl]="fieldName">
+        @for (field of fieldNames; track fieldName) {
+        <mat-option [value]="field">{{ field }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
     <div class="button-container">
       <button mat-raised-button (click)="openDialog()">Add Field</button>
       <button
@@ -51,6 +77,10 @@ export class FieldsComponent {
   @ViewChild('agGrid') agGrid!: AgGridAngular; // Access the grid component
 
   private gridApi: any; // Store API reference
+
+  fieldNames = FieldData.map((field) => field.field_name);
+
+  fieldName = new FormControl<string>('');
 
   rowSelection: RowSelectionOptions | 'single' | 'multiple' = {
     mode: 'multiRow',
@@ -192,7 +222,32 @@ export class FieldsComponent {
   }
 
   ngOnInit() {
-    this.generateRowData();
+    this.generateRowData(); // Load all data initially
+
+    // Listen to changes in the selected club
+    this.fieldName.valueChanges.subscribe((selectedField: any) => {
+      this.filterDataByField(selectedField);
+    });
+  }
+
+  filterDataByField(selectedField: string) {
+    if (selectedField) {
+      this.rowData = this.fieldData
+        .filter((field) => field.field_name === selectedField)
+        .map((field) => ({
+          Name: field.field_name,
+          Address: field.field_address,
+          Club: field.club_name,
+          Admin: field.field_admin.join(', '),
+        }));
+    } else {
+      this.generateRowData(); // Reset to all data if no club is selected
+    }
+
+    // Update the AG Grid with the new filtered data
+    if (this.gridApi) {
+      this.gridApi.setRowData(this.rowData);
+    }
   }
 
   // Column Definitions: Defines the columns to be displayed.
@@ -257,7 +312,7 @@ export class FieldsComponent {
     // },
     {
       field: '',
-      headerName: 'Actions',
+      headerName: '',
       cellRenderer: EditComponentComponent,
       width: 100,
       cellRendererParams: {
@@ -301,10 +356,13 @@ export class FieldsComponent {
     clubName: string
   ) {
     this.fieldData.push({
+      id: 1,
       field_name: teamName,
       field_address: teamAddress,
       field_admin: [''],
+      description: '',
       club_name: clubName,
+      facilities: [''],
     });
 
     this.rowData = [

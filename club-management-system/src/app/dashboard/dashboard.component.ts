@@ -13,6 +13,8 @@ import { RouterModule } from '@angular/router';
       <div class="content">
         <router-outlet></router-outlet>
       </div>
+
+      <!-- <div><p>hiiiiiiiiiiiiii</p></div> -->
     </div>
   `,
   styleUrl: './dashboard.component.css',

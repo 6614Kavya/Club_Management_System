@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { SignInComponent } from './sign-in/sign-in.component';
+import { SignInComponent } from './Forms/sign-in/sign-in.component';
 import { RouterModule } from '@angular/router';
 
 @Component({

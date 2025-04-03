@@ -15,7 +15,7 @@ import { Field } from '../../services/field/field.service';
         <mat-card-title>{{ fieldData.field_name }}</mat-card-title>
         <!-- <mat-card-subtitle>{{ clubData.short_name }}</mat-card-subtitle> -->
       </mat-card-header>
-      <img src="" alt="" />
+      <img mat-card-image [src]="fieldData.field_image" alt="" />
       <mat-card-content>
         <p>{{ fieldData.field_description }}</p>
       </mat-card-content>
@@ -30,7 +30,7 @@ import { Field } from '../../services/field/field.service';
 export class FieldCardComponent {
   constructor(private router: Router) {}
   onCardClick() {
-    // this.router.navigate(['/dashboard/fieldTeamData']);
+    this.router.navigate(['/dashboard/fieldTeamData/:id/calendar']);
   }
   @Input() fieldData!: Field;
 }

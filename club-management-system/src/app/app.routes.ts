@@ -8,6 +8,7 @@ import { TeamsComponent } from './teams/teams.component';
 import { UsersComponent } from './users/users.component';
 import { HomeDashboardComponent } from './home-dashboard/home-dashboard.component';
 import { FieldTeamTabsComponent } from './field-team-tabs/field-team-tabs.component';
+import { CalendarComponent } from './calendar/calendar.component';
 
 const routeConfig: Routes = [
   {
@@ -30,6 +31,7 @@ const routeConfig: Routes = [
       { path: 'teams', component: TeamsComponent },
       { path: 'users', component: UsersComponent },
       { path: 'fieldTeamData/:id', component: FieldTeamTabsComponent },
+      { path: 'fieldTeamData/:id/calendar', component: CalendarComponent },
     ],
   },
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' }, // Default route

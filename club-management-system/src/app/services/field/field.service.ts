@@ -7,6 +7,7 @@ export interface Field {
   field_address: string;
   field_admins: string[];
   field_description: string;
+  field_image: string;
   facilities: string[];
 }
 

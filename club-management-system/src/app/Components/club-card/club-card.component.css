@@ -36,6 +36,10 @@ mat-card-actions {
   padding: 10px;
 }
 
+mat-card-image {
+  background-size: cover;
+}
+
 button {
   color: #1976d2;
   font-weight: bold;

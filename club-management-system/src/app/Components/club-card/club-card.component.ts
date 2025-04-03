@@ -9,6 +9,7 @@ interface ClubData {
   club_name: string;
   short_name: string;
   club_description: string;
+  club_logo: string;
   club_address: string;
   country_code: string;
   activated: boolean;
@@ -25,7 +26,7 @@ interface ClubData {
         <mat-card-title>{{ clubData.club_name }}</mat-card-title>
         <mat-card-subtitle>{{ clubData.short_name }}</mat-card-subtitle>
       </mat-card-header>
-      <img src="" alt="" />
+      <img mat-card-image [src]="clubData.club_logo" alt="" />
       <mat-card-content>
         <p>{{ clubData.club_description }}</p>
       </mat-card-content>

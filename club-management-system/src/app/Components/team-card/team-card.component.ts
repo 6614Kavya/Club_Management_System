@@ -15,7 +15,7 @@ import { TeamService, Team } from '../../services/team/team.service';
         <mat-card-title>{{ teamData.team_name }}</mat-card-title>
         <!-- <mat-card-subtitle>{{ clubData.short_name }}</mat-card-subtitle> -->
       </mat-card-header>
-      <img src="" alt="" />
+      <img mat-card-image [src]="teamData.team_logo" alt="" />
       <mat-card-content>
         <p>{{ teamData.team_address }}</p>
       </mat-card-content>

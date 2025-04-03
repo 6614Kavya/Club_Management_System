@@ -6,6 +6,7 @@ export interface Team {
   team_name: string;
   team_address: string;
   team_admin: string;
+  team_logo: string;
 }
 
 @Injectable({

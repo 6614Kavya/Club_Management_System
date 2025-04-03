@@ -6,6 +6,7 @@ export interface Club {
   club_name: string;
   short_name: string;
   club_description: string;
+  club_logo: string;
   club_address: string;
   country_code: string;
   activated: boolean;
@@ -30,6 +31,7 @@ export class ClubService {
         club_name,
         short_name,
         club_description,
+        club_logo,
         club_address,
         country_code,
         activated,
@@ -39,6 +41,7 @@ export class ClubService {
         club_name,
         short_name,
         club_description,
+        club_logo,
         club_address,
         country_code,
         activated,

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { ClubData } from '../../Data/club-data';
+// import { ClubData } from '../../Data/club-data';
 import { Router } from '@angular/router';
 
 interface ClubData {

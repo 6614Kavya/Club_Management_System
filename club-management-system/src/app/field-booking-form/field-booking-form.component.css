@@ -1,0 +1,19 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 400px;
+  margin: 16px;
+}
+
+:host ::ng-deep .mat-form-field-label {
+  color: #1976d2; /* or your preferred color */
+  font-weight: bold;
+}
+
+:host ::ng-deep .mat-input-element {
+  color: #333;
+  font-size: 16px;
+  padding: 4px 0;
+}

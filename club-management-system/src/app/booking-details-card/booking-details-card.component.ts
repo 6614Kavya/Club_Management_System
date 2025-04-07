@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Inject, Input } from '@angular/core';
+import { Component, inject, Inject, Input, Optional } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { Booking } from '../services/bookings/booking.service';

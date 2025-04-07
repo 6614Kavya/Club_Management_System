@@ -36,8 +36,12 @@ mat-card-actions {
   padding: 10px;
 }
 
-mat-card-image {
-  background-size: cover;
+img {
+  width: 100%;
+  height: 180px; /* Adjust as needed */
+  object-fit: cover; /* Ensures the image fills the space properly */
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 button {

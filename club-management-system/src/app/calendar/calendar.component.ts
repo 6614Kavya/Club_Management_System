@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarOptions, EventClickArg } from '@fullcalendar/core'; // useful for typechecking
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -7,17 +8,19 @@ import { BookingService, Booking } from '../services/bookings/booking.service';
 import { BookingDetailsCardComponent } from '../booking-details-card/booking-details-card.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
+import { FieldBookingFormComponent } from '../field-booking-form/field-booking-form.component';
 
 @Component({
   selector: 'app-calendar',
-  imports: [FullCalendarModule, BookingDetailsCardComponent, MatDialogModule],
+  imports: [FullCalendarModule, MatDialogModule, CommonModule],
   template: `
     <full-calendar [options]="calendarOptions"></full-calendar>
-    <app-booking-details-card
+    <!-- <app-booking-details-card
       *ngIf="selectedDate"
       [selectedDate]="selectedDate"
       [bookings]="allBookings"
-    ></app-booking-details-card>
+    ></app-booking-details-card> -->
+    <!-- <app-field-booking-form></app-field-booking-form> -->
   `,
   styleUrl: './calendar.component.css',
 })
@@ -27,6 +30,8 @@ export class CalendarComponent {
   selectedDate: string | null = null;
   allBookings: Booking[] = [];
 
+  eventList: any = [];
+
   constructor(private dialogRef: MatDialog) {
     this.loadAllBookings();
   }
@@ -35,12 +40,12 @@ export class CalendarComponent {
     const bookingId = arg.event.extendedProps['bookingId'];
     console.log('Sent booking Id:', bookingId); // Ensure the bookingId is not undefined
 
-    if (!bookingId) {
-      console.error('Error: bookingId is undefined. Check event data.');
-      return; // Exit early if no bookingId
-    }
+    // if (!bookingId) {
+    //   console.error('Error: bookingId is undefined. Check event data.');
+    //   return; // Exit early if no bookingId
+    // }
 
-    this.dialogRef.open(BookingDetailsCardComponent, {
+    const dialogRef = this.dialogRef.open(BookingDetailsCardComponent, {
       // width: '500px',
       // height: 'auto',
       // maxWidth: '90vw',
@@ -49,15 +54,55 @@ export class CalendarComponent {
     });
   }
 
+  addNewEvent(newBooking: Booking) {
+    const newEvent = {
+      title: newBooking.bookingPurpose,
+      date: newBooking.selectedDate,
+      allDay: true,
+      id: newBooking.id.toString(),
+      extendedProps: {
+        bookingId: newBooking.id,
+        name: newBooking.bookedBy,
+        purpose: newBooking.bookingPurpose,
+        startTime: newBooking.startTime,
+        endTime: newBooking.endTime,
+        bookingDate: newBooking.selectedDate,
+      },
+    };
+
+    this.eventList.push(newEvent); // update local list
+    this.allBookings.push({
+      id: 0,
+      selectedDate: newEvent.date,
+      startTime: newEvent.extendedProps.startTime,
+      endTime: newEvent.extendedProps.endTime,
+      bookingStatus: '',
+      bookedBy: newEvent.extendedProps.name,
+      bookingPurpose: newEvent.extendedProps.purpose,
+      facilities: [''],
+    });
+    this.calendarOptions.events = [...this.eventList];
+  }
+
   /** Load all bookings and set them in FullCalendar */
   loadAllBookings() {
     this.allBookings = this.bookingService.getBookingsByFieldId(101); // Implement this method in BookingService
-    this.calendarOptions.events = this.allBookings.map((booking) => ({
+    this.eventList = this.allBookings.map((booking) => ({
       title: booking.bookingPurpose,
       date: booking.selectedDate,
-      id: booking.id.toString(), // Store booking ID as event id
-      extendedProps: { bookingId: booking.id },
+      allDay: true,
+      id: booking.id.toString(),
+      extendedProps: {
+        bookingId: booking.id,
+        name: booking.bookedBy,
+        purpose: booking.bookingPurpose,
+        startTime: booking.startTime,
+        endTime: booking.endTime,
+        bookingDate: booking.selectedDate,
+      },
     }));
+
+    this.calendarOptions.events = [...this.eventList];
   }
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
@@ -86,5 +131,20 @@ export class CalendarComponent {
   handleDateClick(arg: DateClickArg) {
     this.selectedDate = arg.dateStr;
     // this.bookings = this.bookingService.getBookingsByDate(arg.dateStr);
+
+    const dialogRef = this.dialogRef.open(FieldBookingFormComponent, {
+      width: '500px',
+      height: 'auto',
+      maxWidth: '90vw',
+      panelClass: 'custom-dialog-container',
+      // data: { bookingId },
+    });
+
+    dialogRef.afterClosed().subscribe((newBooking: Booking | null) => {
+      if (newBooking) {
+        console.log('New Booking', newBooking);
+        this.addNewEvent(newBooking);
+      }
+    });
   }
 }

@@ -8,6 +8,10 @@ import { MatTimepickerModule } from '@angular/material/timepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import {
+  FieldPart,
+  FieldPartSelectionComponent,
+} from '../field-part-selection/field-part-selection.component';
 
 @Component({
   selector: 'app-field-booking-form',
@@ -21,6 +25,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
     MatTimepickerModule,
     MatDatepickerModule,
     CommonModule,
+    FieldPartSelectionComponent,
   ],
   providers: [provideNativeDateAdapter()],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -60,6 +65,11 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
         <mat-timepicker-toggle [for]="timepicker" matSuffix />
       </mat-form-field>
 
+      <app-field-part-selection
+        [parts]="fieldTemplate.parts"
+        (selectionChanged)="onFieldPartChange($event)"
+      ></app-field-part-selection>
+
       <div class="button-container">
         <button mat-raised-button (click)="submit()">Save Details</button>
       </div>
@@ -75,8 +85,7 @@ export class FieldBookingFormComponent {
   bookingPurpose = new FormControl('');
   bookingDate = new FormControl<Date | null>(null);
   bookingTime = new FormControl<string | null>(null);
-  // meetingDate: Date | null = null;
-  // meetingTime: string | null = null;
+  fieldPart: number = 0;
 
   value: Date | undefined;
   submit() {
@@ -100,6 +109,27 @@ export class FieldBookingFormComponent {
       bookedBy: this.name.value,
       bookingPurpose: this.bookingPurpose.value,
       facilities: [''],
+      fieldPart: this.fieldPart,
     });
+  }
+
+  fieldTemplate = {
+    // name: 'FIELDS.TEMPLATE2',
+    // physicalPartsMask: 0b1111,
+    parts: [
+      new FieldPart('1', 0b0001), // Top-left
+      new FieldPart('2', 0b0010), // Below Part 1
+      new FieldPart('3', 0b0100), // Top-right
+      new FieldPart('4', 0b1000), // Below Part 3
+      new FieldPart('1-2', 0b0011),
+      new FieldPart('3-4', 0b1100),
+      new FieldPart('1-4', 0b1111),
+    ],
+  };
+
+  onFieldPartChange(event: number) {
+    console.log('Field part', event);
+    this.fieldPart = event;
+    return event;
   }
 }

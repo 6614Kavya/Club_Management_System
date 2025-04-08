@@ -9,22 +9,28 @@ import { BookingDetailsCardComponent } from '../booking-details-card/booking-det
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { FieldBookingFormComponent } from '../field-booking-form/field-booking-form.component';
+import {
+  FieldPart,
+  FieldPartSelectionComponent,
+} from '../field-part-selection/field-part-selection.component';
 
 @Component({
   selector: 'app-calendar',
   imports: [FullCalendarModule, MatDialogModule, CommonModule],
   template: `
     <full-calendar [options]="calendarOptions"></full-calendar>
-    <!-- <app-booking-details-card
-      *ngIf="selectedDate"
-      [selectedDate]="selectedDate"
-      [bookings]="allBookings"
-    ></app-booking-details-card> -->
-    <!-- <app-field-booking-form></app-field-booking-form> -->
+
+    <!-- <app-field-part-selection
+      [parts]="fieldTemplate.parts"
+      (selectionChanged)="onFieldPartChange($event)"
+    ></app-field-part-selection> -->
   `,
   styleUrl: './calendar.component.css',
 })
 export class CalendarComponent {
+  onFieldPartChange(event: number) {
+    console.log('Field part', event);
+  }
   bookingService: BookingService = inject(BookingService);
 
   selectedDate: string | null = null;
@@ -67,6 +73,7 @@ export class CalendarComponent {
         startTime: newBooking.startTime,
         endTime: newBooking.endTime,
         bookingDate: newBooking.selectedDate,
+        fieldPart: newBooking.fieldPart,
       },
     };
 
@@ -79,6 +86,7 @@ export class CalendarComponent {
       bookingStatus: '',
       bookedBy: newEvent.extendedProps.name,
       bookingPurpose: newEvent.extendedProps.purpose,
+      fieldPart: newEvent.extendedProps.fieldPart,
       facilities: [''],
     });
     this.calendarOptions.events = [...this.eventList];
@@ -99,6 +107,7 @@ export class CalendarComponent {
         startTime: booking.startTime,
         endTime: booking.endTime,
         bookingDate: booking.selectedDate,
+        fieldPart: booking.fieldPart,
       },
     }));
 
@@ -109,24 +118,6 @@ export class CalendarComponent {
     plugins: [dayGridPlugin, interactionPlugin],
     dateClick: (arg) => this.handleDateClick(arg),
     eventClick: (arg) => this.handleEventClick(arg),
-    // events: this.allBookings.map((booking) => ({
-    //   title: booking.bookingPurpose,
-    //   date: booking.selectedDate,
-    //   id: booking.id.toString(), // Store booking ID as event id
-    //   extendedProps: { bookingId: booking.id },
-    // })),
-    // { title: 'Custom Component Event', date: '2025-04-01', id: 'custom1' },
-    // { title: 'Another Event', date: '2025-04-02' },
-
-    // eventContent: (arg) => {
-    //   if (arg.event.id === 'custom1') {
-    //     return {
-    //       html: '<div class="custom-event"><b>Special Event</b></div>',
-    //     };
-    //   } else {
-    //     return '';
-    //   }
-    // },
   };
   handleDateClick(arg: DateClickArg) {
     this.selectedDate = arg.dateStr;
@@ -147,4 +138,18 @@ export class CalendarComponent {
       }
     });
   }
+
+  fieldTemplate = {
+    // name: 'FIELDS.TEMPLATE2',
+    // physicalPartsMask: 0b1111,
+    parts: [
+      new FieldPart('1', 0b0001), // Top-left
+      new FieldPart('2', 0b0010), // Below Part 1
+      new FieldPart('3', 0b0100), // Top-right
+      new FieldPart('4', 0b1000), // Below Part 3
+      new FieldPart('1-2', 0b0011),
+      new FieldPart('3-4', 0b1100),
+      new FieldPart('1-4', 0b1111),
+    ],
+  };
 }

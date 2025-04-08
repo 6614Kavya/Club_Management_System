@@ -1,0 +1,33 @@
+.field-container {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  width: 100%;
+  height: 200px;
+  background-color: #f3f3f3;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.field-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.field-part {
+  flex: 1;
+  background-color: rgba(100, 149, 237, 0.3);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  border: 1px solid #000;
+}
+
+.field-part.selected {
+  background-color: rgba(34, 139, 34, 0.6);
+  color: white;
+}

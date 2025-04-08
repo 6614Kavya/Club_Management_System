@@ -33,6 +33,7 @@ export const Clubs = [
             bookingStatus: 'Pending',
             bookedBy: 'John Doe',
             bookingPurpose: 'Team Training',
+            fieldPart: 10001,
             facilities: ['Floodlights', 'Locker Rooms', 'Parking Area'],
           },
           {
@@ -43,6 +44,7 @@ export const Clubs = [
             bookingStatus: 'Approved',
             bookedBy: 'Kate',
             bookingPurpose: 'Player Trials',
+            fieldPart: 10001,
             facilities: ['Floodlights', 'Parking Area'],
           },
           {
@@ -53,6 +55,7 @@ export const Clubs = [
             bookingStatus: 'Approved',
             bookedBy: 'Amanda',
             bookingPurpose: 'Fitness Session ',
+            fieldPart: 10001,
             facilities: ['Cafeteria', 'Locker Rooms', 'Parking Area'],
           },
           {
@@ -63,6 +66,7 @@ export const Clubs = [
             bookingStatus: 'Rejected',
             bookedBy: 'Kavya',
             bookingPurpose: 'Team Bonding',
+            fieldPart: 10001,
             facilities: ['Floodlights', 'Locker Rooms', 'Parking Area'],
           },
           {
@@ -73,6 +77,7 @@ export const Clubs = [
             bookingStatus: 'Pending',
             bookedBy: 'John Doe',
             bookingPurpose: 'Coaching Session',
+            fieldPart: 10001,
             facilities: ['Floodlights', 'Locker Rooms', 'Medical Center'],
           },
         ],
@@ -100,6 +105,7 @@ export const Clubs = [
             bookingStatus: 'Pending',
             bookedBy: 'John Doe',
             bookingPurpose: 'Team Training',
+            fieldPart: 10001,
             facilities: ['Floodlights', 'Locker Rooms', 'Parking Area'],
           },
           {
@@ -110,6 +116,7 @@ export const Clubs = [
             bookingStatus: 'Approved',
             bookedBy: 'Kate',
             bookingPurpose: 'Team Training',
+            fieldPart: 10001,
             facilities: ['Floodlights', 'Parking Area'],
           },
           {
@@ -120,6 +127,7 @@ export const Clubs = [
             bookingStatus: 'Approved',
             bookedBy: 'Amanda',
             bookingPurpose: 'Team Training',
+            fieldPart: 10001,
             facilities: ['Cafeteria', 'Locker Rooms', 'Parking Area'],
           },
           {
@@ -130,6 +138,7 @@ export const Clubs = [
             bookingStatus: 'Rejected',
             bookedBy: 'Kavya',
             bookingPurpose: 'Team Training',
+            fieldPart: 10001,
             facilities: ['Floodlights', 'Locker Rooms', 'Parking Area'],
           },
           {
@@ -140,6 +149,7 @@ export const Clubs = [
             bookingStatus: 'Pending',
             bookedBy: 'John Doe',
             bookingPurpose: 'Team Training',
+            fieldPart: 10001,
             facilities: ['Floodlights', 'Locker Rooms', 'Medical Center'],
           },
         ],

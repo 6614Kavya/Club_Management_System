@@ -11,6 +11,7 @@ export interface Booking {
   bookedBy: string;
   bookingPurpose: string;
   facilities: string[];
+  fieldPart: number;
 }
 
 @Injectable({

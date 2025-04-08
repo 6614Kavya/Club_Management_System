@@ -33,6 +33,7 @@ import { BookingService } from '../services/bookings/booking.service';
           </p>
           <p><strong>Booked By:</strong> {{ bookingData?.bookedBy }}</p>
           <p><strong>Purpose:</strong> {{ bookingData?.bookingPurpose }}</p>
+          <p><strong>Field Part:</strong> {{ bookingData?.fieldPart }}</p>
           <!-- <p>
           <strong>Facilities Used:</strong>
           {{ bookingData.facilities.join(', ') }}

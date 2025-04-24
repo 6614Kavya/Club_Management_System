@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SignInComponent } from './Forms/sign-in/sign-in.component';
 import { RouterModule } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { timeout } from 'rxjs';
 // import { FullCalendarModule } from '@fullcalendar/angular';
 // import { CalendarOptions } from '@fullcalendar/core'; // useful for typechecking
 // import dayGridPlugin from '@fullcalendar/daygrid';

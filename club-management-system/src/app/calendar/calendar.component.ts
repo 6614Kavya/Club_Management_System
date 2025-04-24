@@ -13,6 +13,7 @@ import {
   FieldPart,
   FieldPartSelectionComponent,
 } from '../field-part-selection/field-part-selection.component';
+import { WeekNumberContainer } from '@fullcalendar/core/internal';
 
 @Component({
   selector: 'app-calendar',
@@ -118,6 +119,9 @@ export class CalendarComponent {
     plugins: [dayGridPlugin, interactionPlugin],
     dateClick: (arg) => this.handleDateClick(arg),
     eventClick: (arg) => this.handleEventClick(arg),
+    // validRange: {
+    //   start: new Date().toISOString().split('T')[0], // disables past dates
+    // },
   };
   handleDateClick(arg: DateClickArg) {
     this.selectedDate = arg.dateStr;
@@ -128,7 +132,7 @@ export class CalendarComponent {
       height: 'auto',
       maxWidth: '90vw',
       panelClass: 'custom-dialog-container',
-      // data: { bookingId },
+      data: { date: this.selectedDate },
     });
 
     dialogRef.afterClosed().subscribe((newBooking: Booking | null) => {

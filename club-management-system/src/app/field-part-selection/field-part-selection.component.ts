@@ -150,7 +150,7 @@ export class FieldPartSelectionComponent {
 
   @Input() parts: FieldPart[] = [];
   @Input() initialSelectionMask = 0;
-  @Output() selectionChanged = new EventEmitter<number>();
+  @Output() selectionChanged = new EventEmitter<string>();
 
   selectedMask = 0;
 
@@ -173,7 +173,7 @@ export class FieldPartSelectionComponent {
     //   'selected mask',
     //   this.selectedMask.toString(2).padStart(4, '0')
     // );
-    this.selectionChanged.emit(part.bitmask);
+    this.selectionChanged.emit(part.name);
     // Deselect all parts first
     this.parts.forEach((p) => (p.selected = false));
 

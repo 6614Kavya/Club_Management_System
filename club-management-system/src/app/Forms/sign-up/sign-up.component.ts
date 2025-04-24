@@ -13,6 +13,7 @@ import { UserService } from '../../user.service';
 import { User } from '../../user';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-sign-up',
@@ -63,7 +64,7 @@ import { CommonModule } from '@angular/common';
         >
       </div>
 
-      <button mat-raised-button (click)="createUser()">Submit</button>
+      <button mat-raised-button (click)="onSubmit()">Submit</button>
     </form>
   </section>`,
   styleUrl: './sign-up.component.css',
@@ -83,13 +84,39 @@ export class SignUpComponent {
 
   selected = 'User Type';
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
-  createUser() {
+  onSubmit() {
     this.isFormSubmitted = true;
-    this.applyForm.valid &&
-      this.router.navigate(['/dashboard'], {
-        queryParams: { email: this.applyForm.value.email },
-      });
+    // this.applyForm.valid &&
+    //   this.router.navigate(['/dashboard'], {
+    //     queryParams: { email: this.applyForm.value.email },
+    //   });
+    if (this.applyForm.valid) {
+      this.userService
+        .signIn({
+          email: <string>this.applyForm.value.email,
+          password: <string>this.applyForm.value.epassword,
+        })
+        .subscribe({
+          next: (response: any) => {
+            localStorage.setItem('token', response.token),
+              this.router.navigate(['/dashboard'], {
+                queryParams: { email: this.applyForm.value.email },
+              });
+          },
+          error: (err) => {
+            if (err.status == 400) {
+              this.toastr.error('Incorrect email or password.', 'Login failed');
+            } else {
+            }
+          },
+        });
+    } else {
+    }
   }
 }

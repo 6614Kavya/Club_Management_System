@@ -10,6 +10,7 @@ import { HomeDashboardComponent } from './home-dashboard/home-dashboard.componen
 import { FieldTeamTabsComponent } from './field-team-tabs/field-team-tabs.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { BookingPageComponent } from './booking-page/booking-page.component';
+import { authGuard } from './shared/auth.guard';
 
 const routeConfig: Routes = [
   {
@@ -25,17 +26,26 @@ const routeConfig: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
+    canActivate: [authGuard],
     children: [
-      { path: '', component: HomeDashboardComponent },
-      { path: 'clubs', component: ClubsComponent },
-      { path: 'fields', component: FieldsComponent },
-      { path: 'teams', component: TeamsComponent },
-      { path: 'users', component: UsersComponent },
-      { path: 'fieldTeamData/:id', component: FieldTeamTabsComponent },
-      { path: 'fieldTeamData/:id/calendar/:id', component: CalendarComponent },
+      { path: '', component: HomeDashboardComponent, canActivate: [authGuard] },
+      { path: 'clubs', component: ClubsComponent, canActivate: [authGuard] },
+      { path: 'fields', component: FieldsComponent, canActivate: [authGuard] },
+      { path: 'teams', component: TeamsComponent, canActivate: [authGuard] },
+      { path: 'users', component: UsersComponent, canActivate: [authGuard] },
+      {
+        path: 'fieldTeamData/:id',
+        component: FieldTeamTabsComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: 'fieldTeamData/:id/calendar/:id',
+        component: CalendarComponent,
+        canActivate: [authGuard],
+      },
     ],
   },
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' }, // Default route
+  { path: '', redirectTo: '', pathMatch: 'full' }, // Default route
 ];
 
 export default routeConfig;

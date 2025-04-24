@@ -43,32 +43,50 @@ import {
           [formControl]="bookingPurpose"
         />
       </mat-form-field>
+
+      <div>
+        <mat-label>Select Field Part</mat-label>
+        <app-field-part-selection
+          [parts]="fieldTemplate.parts"
+          (selectionChanged)="onFieldPartChange($event)"
+        ></app-field-part-selection>
+      </div>
+
       <mat-form-field>
         <mat-label>Booking date</mat-label>
         <input
           matInput
           [matDatepicker]="datepicker"
           [formControl]="bookingDate"
+          [min]="minDate"
         />
         <mat-datepicker #datepicker />
         <mat-datepicker-toggle [for]="datepicker" matSuffix />
       </mat-form-field>
 
-      <mat-form-field>
-        <mat-label>Booking time</mat-label>
-        <input
-          matInput
-          [matTimepicker]="timepicker"
-          [formControl]="bookingTime"
-        />
-        <mat-timepicker #timepicker />
-        <mat-timepicker-toggle [for]="timepicker" matSuffix />
-      </mat-form-field>
+      <div class="time-container">
+        <mat-form-field>
+          <mat-label>Start time</mat-label>
+          <input
+            matInput
+            [matTimepicker]="startTimepicker"
+            [formControl]="startTime"
+          />
+          <mat-timepicker #startTimepicker />
+          <mat-timepicker-toggle [for]="startTimepicker" matSuffix />
+        </mat-form-field>
 
-      <app-field-part-selection
-        [parts]="fieldTemplate.parts"
-        (selectionChanged)="onFieldPartChange($event)"
-      ></app-field-part-selection>
+        <mat-form-field>
+          <mat-label>End time</mat-label>
+          <input
+            matInput
+            [matTimepicker]="endTimepicker"
+            [formControl]="endTime"
+          />
+          <mat-timepicker #endTimepicker />
+          <mat-timepicker-toggle [for]="endTimepicker" matSuffix />
+        </mat-form-field>
+      </div>
 
       <div class="button-container">
         <button mat-raised-button (click)="submit()">Save Details</button>
@@ -79,32 +97,45 @@ import {
 })
 export class FieldBookingFormComponent {
   constructor(
+    @Inject(MAT_DIALOG_DATA)
+    public data: { date: string },
     private dialogRef: MatDialogRef<FieldBookingFormComponent> // @Inject(MAT_DIALOG_DATA) // public data: { clubName: string; clubAddress: string; admins: string[] }
-  ) {}
+  ) {
+    this.bookingDate.setValue(data.date);
+  }
   name = new FormControl('');
   bookingPurpose = new FormControl('');
-  bookingDate = new FormControl<Date | null>(null);
-  bookingTime = new FormControl<string | null>(null);
-  fieldPart: number = 0;
+  bookingDate = new FormControl<string | null>(null);
+  startTime = new FormControl<string | null>(null);
+  endTime = new FormControl<string | null>(null);
+  fieldPart: string | undefined;
+
+  minDate: Date = new Date(); //restricts past dates
 
   value: Date | undefined;
   submit() {
-    console.log('Time and date', this.bookingDate, this.bookingTime);
+    console.log(
+      'Time and date',
+      this.bookingDate,
+      this.startTime,
+      this.endTime
+    );
+
     const formattedDate = this.bookingDate.value
       ? new Date(this.bookingDate.value).toLocaleDateString('en-CA') // outputs YYYY-MM-DD in local time
       : null;
 
-    const formattedTime = this.bookingTime.value
-      ? new Date(this.bookingTime.value)
-          .toTimeString()
-          .split(' ')[0]
-          .slice(0, 5)
+    const formattedStartTime = this.startTime.value
+      ? new Date(this.startTime.value).toTimeString().split(' ')[0].slice(0, 5)
+      : null;
+    const formattedEndTime = this.endTime.value
+      ? new Date(this.endTime.value).toTimeString().split(' ')[0].slice(0, 5)
       : null;
     this.dialogRef.close({
       id: 0,
       selectedDate: formattedDate,
-      startTime: formattedTime,
-      endTime: formattedTime,
+      startTime: formattedStartTime,
+      endTime: formattedEndTime,
       bookingStatus: '',
       bookedBy: this.name.value,
       bookingPurpose: this.bookingPurpose.value,
@@ -127,7 +158,7 @@ export class FieldBookingFormComponent {
     ],
   };
 
-  onFieldPartChange(event: number) {
+  onFieldPartChange(event: string) {
     console.log('Field part', event);
     this.fieldPart = event;
     return event;

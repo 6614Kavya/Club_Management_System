@@ -8,6 +8,12 @@
   margin: 16px;
 }
 
+.time-container {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+}
+
 :host ::ng-deep .mat-form-field-label {
   color: #1976d2; /* or your preferred color */
   font-weight: bold;

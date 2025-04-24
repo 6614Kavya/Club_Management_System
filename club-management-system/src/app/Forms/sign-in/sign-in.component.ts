@@ -13,6 +13,8 @@ import { UserService } from '../../user.service';
 import { User } from '../../user';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
   selector: 'app-sign-in',
@@ -93,9 +95,20 @@ export class SignInComponent {
 
   selected = 'User Type';
 
-  constructor(private userService: UserService, private router: Router) {}
+  weatherForecasts: any[] = [];
+
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {
+    userService.get().subscribe((weatherForecasts) => {
+      this.weatherForecasts = weatherForecasts;
+    });
+  }
 
   createUser() {
+    console.log('weatherforecasts', this.weatherForecasts);
     const isFormValid = this.applyForm.valid;
     this.isFormSubmitted = true;
     const user: User = {
@@ -105,7 +118,26 @@ export class SignInComponent {
       password: this.applyForm.value.cpassword || '',
     };
 
-    this.userService.createUser(user);
-    this.applyForm.valid && this.router.navigate(['/signUp']);
+    this.userService.createUser(user).subscribe({
+      next: (response) => {
+        if (response && response.succeeded) {
+          console.log(response);
+          this.applyForm.reset();
+          this.toastr.success('New user created!', 'Registration Successful');
+          this.router.navigate(['/signUp']); // move navigation here
+        } else {
+          console.log(response);
+          // this.toastr.error('Registration failed');
+        }
+        console.log('User registered successfully:', response);
+      },
+      error: (error) => {
+        console.error('Registration failed:', error);
+        // this.toastr.error('Registration failed', error.message);
+      },
+    });
+
+    // this.userService.createUser(user);
+    // this.applyForm.valid && this.router.navigate(['/signUp']);
   }
 }

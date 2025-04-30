@@ -1,6 +1,9 @@
 using System.Text;
 using EmployeeAdminPortal.Data;
 using EmployeeAdminPortal.Extensions;
+using EmployeeAdminPortal.Repositories.User;
+using EmployeeAdminPortal.Repositories;
+using EmployeeAdminPortal.Services.User;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -24,6 +27,10 @@ builder.Services.AddCors(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddSwaggerExplorer();
 
+//Repositories and services
+builder.Services.AddAppRepositories();
+builder.Services.AddAppServices();
+
 //Inject DBContext class so that we can use it in controllers or any other class
 builder.Services.InjectDbContext(builder.Configuration);
 
@@ -44,7 +51,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 app.ConfigureSwaggerExplorer();
 
-app.MapGroup("/api").MapIdentityApi<IdentityUser>();
+//app.MapGroup("/api").MapIdentityApi<IdentityUser>();
 
 app.UseHttpsRedirection();
 

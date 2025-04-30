@@ -3,60 +3,100 @@
   "WorkspaceRootPath": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|e:\\club_management_system\\club_management_system\\employeeadminportal\\employeeadminportal\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|solutionrelative:employeeadminportal\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|e:\\club_management_system\\club_management_system\\employeeadminportal\\employeeadminportal\\extensions\\identityextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|solutionrelative:employeeadminportal\\extensions\\identityextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|e:\\club_management_system\\club_management_system\\employeeadminportal\\employeeadminportal\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|solutionrelative:employeeadminportal\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|e:\\club_management_system\\club_management_system\\employeeadminportal\\employeeadminportal\\controllers\\employeescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|solutionrelative:employeeadminportal\\controllers\\employeescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|e:\\club_management_system\\club_management_system\\employeeadminportal\\employeeadminportal\\extensions\\efcoreextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|solutionrelative:employeeadminportal\\extensions\\efcoreextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|e:\\club_management_system\\club_management_system\\employeeadminportal\\employeeadminportal\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|solutionrelative:employeeadminportal\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|e:\\club_management_system\\club_management_system\\employeeadminportal\\employeeadminportal\\models\\addemployeedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|solutionrelative:employeeadminportal\\models\\addemployeedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|e:\\club_management_system\\club_management_system\\employeeadminportal\\employeeadminportal\\models\\entities\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|solutionrelative:employeeadminportal\\models\\entities\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|e:\\club_management_system\\club_management_system\\employeeadminportal\\employeeadminportal\\extensions\\swaggerextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|solutionrelative:employeeadminportal\\extensions\\swaggerextensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|e:\\club_management_system\\club_management_system\\employeeadminportal\\employeeadminportal\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|solutionrelative:employeeadminportal\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|e:\\club_management_system\\club_management_system\\employeeadminportal\\employeeadminportal\\migrations\\applicationdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|solutionrelative:employeeadminportal\\migrations\\applicationdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|e:\\club_management_system\\club_management_system\\employeeadminportal\\employeeadminportal\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|solutionrelative:employeeadminportal\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|e:\\club_management_system\\club_management_system\\employeeadminportal\\employeeadminportal\\employeeadminportal.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|solutionrelative:employeeadminportal\\employeeadminportal.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|e:\\club_management_system\\club_management_system\\employeeadminportal\\employeeadminportal\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|solutionrelative:employeeadminportal\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|e:\\club_management_system\\club_management_system\\employeeadminportal\\employeeadminportal\\employeeadminportal.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
-      "RelativeMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|solutionrelative:employeeadminportal\\employeeadminportal.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+      "AbsoluteMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|e:\\club_management_system\\club_management_system\\employeeadminportal\\employeeadminportal\\services\\user\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|solutionrelative:employeeadminportal\\services\\user\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|e:\\club_management_system\\club_management_system\\employeeadminportal\\employeeadminportal\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|solutionrelative:employeeadminportal\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|e:\\club_management_system\\club_management_system\\employeeadminportal\\employeeadminportal\\repositories\\user\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|solutionrelative:employeeadminportal\\repositories\\user\\userrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|e:\\club_management_system\\club_management_system\\employeeadminportal\\employeeadminportal\\migrations\\20250421181050_initialidentitymigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|solutionrelative:employeeadminportal\\migrations\\20250421181050_initialidentitymigration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|e:\\club_management_system\\club_management_system\\employeeadminportal\\employeeadminportal\\services\\user\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|solutionrelative:employeeadminportal\\services\\user\\iuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|e:\\club_management_system\\club_management_system\\employeeadminportal\\employeeadminportal\\migrations\\20250421091925_employeesupdated.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|solutionrelative:employeeadminportal\\migrations\\20250421091925_employeesupdated.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|e:\\club_management_system\\club_management_system\\employeeadminportal\\employeeadminportal\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|solutionrelative:employeeadminportal\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|e:\\club_management_system\\club_management_system\\employeeadminportal\\employeeadminportal\\migrations\\20250421072026_second migration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|solutionrelative:employeeadminportal\\migrations\\20250421072026_second migration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|e:\\club_management_system\\club_management_system\\employeeadminportal\\employeeadminportal\\repositories\\user\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|solutionrelative:employeeadminportal\\repositories\\user\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|e:\\club_management_system\\club_management_system\\employeeadminportal\\employeeadminportal\\models\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|solutionrelative:employeeadminportal\\models\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|e:\\club_management_system\\club_management_system\\employeeadminportal\\employeeadminportal\\models\\entities\\team.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|solutionrelative:employeeadminportal\\models\\entities\\team.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|e:\\club_management_system\\club_management_system\\employeeadminportal\\employeeadminportal\\models\\entities\\userteam.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|solutionrelative:employeeadminportal\\models\\entities\\userteam.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|e:\\club_management_system\\club_management_system\\employeeadminportal\\employeeadminportal\\models\\entities\\userfield.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|solutionrelative:employeeadminportal\\models\\entities\\userfield.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|e:\\club_management_system\\club_management_system\\employeeadminportal\\employeeadminportal\\models\\entities\\userclub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|solutionrelative:employeeadminportal\\models\\entities\\userclub.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|e:\\club_management_system\\club_management_system\\employeeadminportal\\employeeadminportal\\models\\entities\\club.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|solutionrelative:employeeadminportal\\models\\entities\\club.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|e:\\club_management_system\\club_management_system\\employeeadminportal\\employeeadminportal\\models\\entities\\field.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|solutionrelative:employeeadminportal\\models\\entities\\field.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|e:\\club_management_system\\club_management_system\\employeeadminportal\\employeeadminportal\\models\\entities\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|solutionrelative:employeeadminportal\\models\\entities\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|e:\\club_management_system\\club_management_system\\employeeadminportal\\employeeadminportal\\migrations\\20250429122012_club fiels team tables8.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|solutionrelative:employeeadminportal\\migrations\\20250429122012_club fiels team tables8.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|e:\\club_management_system\\club_management_system\\employeeadminportal\\employeeadminportal\\migrations\\20250429093239_club fiels team tables7.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|solutionrelative:employeeadminportal\\migrations\\20250429093239_club fiels team tables7.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|e:\\club_management_system\\club_management_system\\employeeadminportal\\employeeadminportal\\migrations\\20250429082805_club fiels team tables6.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|solutionrelative:employeeadminportal\\migrations\\20250429082805_club fiels team tables6.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|e:\\club_management_system\\club_management_system\\employeeadminportal\\employeeadminportal\\migrations\\20250429081630_club fiels team tables5.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D3EE33D8-51C6-4CDE-81A3-098278E707CF}|EmployeeAdminPortal\\EmployeeAdminPortal.csproj|solutionrelative:employeeadminportal\\migrations\\20250429081630_club fiels team tables5.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -66,7 +106,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -74,16 +114,78 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "EmployeeAdminPortal\\Controllers\\UserController.cs",
-              "ToolTip": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Controllers\\UserController.cs",
-              "RelativeToolTip": "EmployeeAdminPortal\\Controllers\\UserController.cs",
-              "ViewState": "AgIAAEEAAAAAAAAAAAAAwFEAAAAJAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "EFCoreExtensions.cs",
+              "DocumentMoniker": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Extensions\\EFCoreExtensions.cs",
+              "RelativeDocumentMoniker": "EmployeeAdminPortal\\Extensions\\EFCoreExtensions.cs",
+              "ToolTip": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Extensions\\EFCoreExtensions.cs",
+              "RelativeToolTip": "EmployeeAdminPortal\\Extensions\\EFCoreExtensions.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-22T11:18:35.252Z",
+              "WhenOpened": "2025-04-29T08:03:11.514Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "IdentityExtensions.cs",
+              "DocumentMoniker": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Extensions\\IdentityExtensions.cs",
+              "RelativeDocumentMoniker": "EmployeeAdminPortal\\Extensions\\IdentityExtensions.cs",
+              "ToolTip": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Extensions\\IdentityExtensions.cs",
+              "RelativeToolTip": "EmployeeAdminPortal\\Extensions\\IdentityExtensions.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABsAAAALAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T08:03:48.276Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SwaggerExtensions.cs",
+              "DocumentMoniker": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Extensions\\SwaggerExtensions.cs",
+              "RelativeDocumentMoniker": "EmployeeAdminPortal\\Extensions\\SwaggerExtensions.cs",
+              "ToolTip": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Extensions\\SwaggerExtensions.cs",
+              "RelativeToolTip": "EmployeeAdminPortal\\Extensions\\SwaggerExtensions.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T08:03:46.401Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "IUserService.cs",
+              "DocumentMoniker": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Services\\User\\IUserService.cs",
+              "RelativeDocumentMoniker": "EmployeeAdminPortal\\Services\\User\\IUserService.cs",
+              "ToolTip": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Services\\User\\IUserService.cs",
+              "RelativeToolTip": "EmployeeAdminPortal\\Services\\User\\IUserService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAkAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T06:34:06.186Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "UserService.cs",
+              "DocumentMoniker": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Services\\User\\UserService.cs",
+              "RelativeDocumentMoniker": "EmployeeAdminPortal\\Services\\User\\UserService.cs",
+              "ToolTip": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Services\\User\\UserService.cs",
+              "RelativeToolTip": "EmployeeAdminPortal\\Services\\User\\UserService.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAAAIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T06:34:29.336Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ApplicationDBContext.cs",
+              "DocumentMoniker": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Data\\ApplicationDBContext.cs",
+              "RelativeDocumentMoniker": "EmployeeAdminPortal\\Data\\ApplicationDBContext.cs",
+              "ToolTip": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Data\\ApplicationDBContext.cs",
+              "RelativeToolTip": "EmployeeAdminPortal\\Data\\ApplicationDBContext.cs",
+              "ViewState": "AgIAAF0AAAAAAAAAAAAAAAMAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T08:03:26.668Z"
             },
             {
               "$type": "Document",
@@ -93,153 +195,214 @@
               "RelativeDocumentMoniker": "EmployeeAdminPortal\\Program.cs",
               "ToolTip": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Program.cs",
               "RelativeToolTip": "EmployeeAdminPortal\\Program.cs",
-              "ViewState": "AgIAADUAAAAAAAAAAAAAAAsAAAAiAAAAAAAAAA==",
+              "ViewState": "AgIAACIAAAAAAAAAAAAswCkAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-17T05:50:17.699Z"
+              "WhenOpened": "2025-04-29T08:20:32.7Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "Employee.cs",
-              "DocumentMoniker": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Models\\Entities\\Employee.cs",
-              "RelativeDocumentMoniker": "EmployeeAdminPortal\\Models\\Entities\\Employee.cs",
-              "ToolTip": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Models\\Entities\\Employee.cs",
-              "RelativeToolTip": "EmployeeAdminPortal\\Models\\Entities\\Employee.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAZAAAAAAAAAA==",
+              "Title": "WeatherForecastController.cs",
+              "DocumentMoniker": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Controllers\\WeatherForecastController.cs",
+              "RelativeDocumentMoniker": "EmployeeAdminPortal\\Controllers\\WeatherForecastController.cs",
+              "ToolTip": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Controllers\\WeatherForecastController.cs",
+              "RelativeToolTip": "EmployeeAdminPortal\\Controllers\\WeatherForecastController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-17T06:29:59.089Z"
+              "WhenOpened": "2025-04-29T12:44:53.717Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "ApplicationDBContext.cs",
-              "DocumentMoniker": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Data\\ApplicationDBContext.cs",
-              "RelativeDocumentMoniker": "EmployeeAdminPortal\\Data\\ApplicationDBContext.cs",
-              "ToolTip": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Data\\ApplicationDBContext.cs",
-              "RelativeToolTip": "EmployeeAdminPortal\\Data\\ApplicationDBContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAA5AAAAAAAAAA==",
+              "Title": "UserController.cs",
+              "DocumentMoniker": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "EmployeeAdminPortal\\Controllers\\UserController.cs",
+              "ToolTip": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Controllers\\UserController.cs",
+              "RelativeToolTip": "EmployeeAdminPortal\\Controllers\\UserController.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAcwDUAAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-17T08:12:41.036Z"
+              "WhenOpened": "2025-04-24T23:08:48.19Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "20250421091925_EmployeesUpdated.cs",
-              "DocumentMoniker": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Migrations\\20250421091925_EmployeesUpdated.cs",
-              "RelativeDocumentMoniker": "EmployeeAdminPortal\\Migrations\\20250421091925_EmployeesUpdated.cs",
-              "ToolTip": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Migrations\\20250421091925_EmployeesUpdated.cs",
-              "RelativeToolTip": "EmployeeAdminPortal\\Migrations\\20250421091925_EmployeesUpdated.cs",
+              "DocumentIndex": 8,
+              "Title": "UserRepository.cs",
+              "DocumentMoniker": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Repositories\\User\\UserRepository.cs",
+              "RelativeDocumentMoniker": "EmployeeAdminPortal\\Repositories\\User\\UserRepository.cs",
+              "ToolTip": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Repositories\\User\\UserRepository.cs",
+              "RelativeToolTip": "EmployeeAdminPortal\\Repositories\\User\\UserRepository.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAYwAoAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T05:19:19.652Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "20250429122012_Club Fiels Team tables8.cs",
+              "DocumentMoniker": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Migrations\\20250429122012_Club Fiels Team tables8.cs",
+              "RelativeDocumentMoniker": "EmployeeAdminPortal\\Migrations\\20250429122012_Club Fiels Team tables8.cs",
+              "ToolTip": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Migrations\\20250429122012_Club Fiels Team tables8.cs",
+              "RelativeToolTip": "EmployeeAdminPortal\\Migrations\\20250429122012_Club Fiels Team tables8.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-21T09:19:25.654Z"
+              "WhenOpened": "2025-04-29T12:20:12.91Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 10,
               "Title": "appsettings.json",
               "DocumentMoniker": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\appsettings.json",
               "RelativeDocumentMoniker": "EmployeeAdminPortal\\appsettings.json",
               "ToolTip": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\appsettings.json",
               "RelativeToolTip": "EmployeeAdminPortal\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-04-17T08:23:51.669Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "EmployeesController.cs",
-              "DocumentMoniker": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Controllers\\EmployeesController.cs",
-              "RelativeDocumentMoniker": "EmployeeAdminPortal\\Controllers\\EmployeesController.cs",
-              "ToolTip": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Controllers\\EmployeesController.cs",
-              "RelativeToolTip": "EmployeeAdminPortal\\Controllers\\EmployeesController.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAQwFkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-17T11:47:42.329Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "AddEmployeeDto.cs",
-              "DocumentMoniker": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Models\\AddEmployeeDto.cs",
-              "RelativeDocumentMoniker": "EmployeeAdminPortal\\Models\\AddEmployeeDto.cs",
-              "ToolTip": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Models\\AddEmployeeDto.cs",
-              "RelativeToolTip": "EmployeeAdminPortal\\Models\\AddEmployeeDto.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-21T09:10:02.418Z"
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-04-29T12:10:20.753Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 11,
-              "Title": "20250421181050_InitialIdentityMigration.cs",
-              "DocumentMoniker": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Migrations\\20250421181050_InitialIdentityMigration.cs",
-              "RelativeDocumentMoniker": "EmployeeAdminPortal\\Migrations\\20250421181050_InitialIdentityMigration.cs",
-              "ToolTip": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Migrations\\20250421181050_InitialIdentityMigration.cs",
-              "RelativeToolTip": "EmployeeAdminPortal\\Migrations\\20250421181050_InitialIdentityMigration.cs",
-              "ViewState": "AgIAAK8AAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Title": "IUserRepository.cs",
+              "DocumentMoniker": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Repositories\\User\\IUserRepository.cs",
+              "RelativeDocumentMoniker": "EmployeeAdminPortal\\Repositories\\User\\IUserRepository.cs",
+              "ToolTip": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Repositories\\User\\IUserRepository.cs",
+              "RelativeToolTip": "EmployeeAdminPortal\\Repositories\\User\\IUserRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAYAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-21T18:10:50.253Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "ApplicationDBContextModelSnapshot.cs",
-              "DocumentMoniker": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Migrations\\ApplicationDBContextModelSnapshot.cs",
-              "RelativeDocumentMoniker": "EmployeeAdminPortal\\Migrations\\ApplicationDBContextModelSnapshot.cs",
-              "ToolTip": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Migrations\\ApplicationDBContextModelSnapshot.cs",
-              "RelativeToolTip": "EmployeeAdminPortal\\Migrations\\ApplicationDBContextModelSnapshot.cs",
-              "ViewState": "AgIAAC0AAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-21T09:15:02.575Z"
+              "WhenOpened": "2025-04-29T05:18:37.659Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 13,
-              "Title": "20250421072026_second migration.cs",
-              "DocumentMoniker": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Migrations\\20250421072026_second migration.cs",
-              "RelativeDocumentMoniker": "EmployeeAdminPortal\\Migrations\\20250421072026_second migration.cs",
-              "ToolTip": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Migrations\\20250421072026_second migration.cs",
-              "RelativeToolTip": "EmployeeAdminPortal\\Migrations\\20250421072026_second migration.cs",
+              "Title": "Team.cs",
+              "DocumentMoniker": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Models\\Entities\\Team.cs",
+              "RelativeDocumentMoniker": "EmployeeAdminPortal\\Models\\Entities\\Team.cs",
+              "ToolTip": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Models\\Entities\\Team.cs",
+              "RelativeToolTip": "EmployeeAdminPortal\\Models\\Entities\\Team.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-21T07:20:26.308Z"
+              "WhenOpened": "2025-04-29T08:02:21.06Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "EmployeeAdminPortal.http",
-              "DocumentMoniker": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\EmployeeAdminPortal.http",
-              "RelativeDocumentMoniker": "EmployeeAdminPortal\\EmployeeAdminPortal.http",
-              "ToolTip": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\EmployeeAdminPortal.http",
-              "RelativeToolTip": "EmployeeAdminPortal\\EmployeeAdminPortal.http",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
-              "WhenOpened": "2025-04-17T05:52:29.426Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "launchSettings.json",
-              "DocumentMoniker": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Properties\\launchSettings.json",
-              "RelativeDocumentMoniker": "EmployeeAdminPortal\\Properties\\launchSettings.json",
-              "ToolTip": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Properties\\launchSettings.json",
-              "RelativeToolTip": "EmployeeAdminPortal\\Properties\\launchSettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-04-17T05:49:45.68Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "EmployeeAdminPortal.csproj",
-              "DocumentMoniker": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\EmployeeAdminPortal.csproj",
-              "RelativeDocumentMoniker": "EmployeeAdminPortal\\EmployeeAdminPortal.csproj",
-              "ToolTip": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\EmployeeAdminPortal.csproj",
-              "RelativeToolTip": "EmployeeAdminPortal\\EmployeeAdminPortal.csproj",
+              "DocumentIndex": 21,
+              "Title": "20250429093239_Club Fiels Team tables7.cs",
+              "DocumentMoniker": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Migrations\\20250429093239_Club Fiels Team tables7.cs",
+              "RelativeDocumentMoniker": "EmployeeAdminPortal\\Migrations\\20250429093239_Club Fiels Team tables7.cs",
+              "ToolTip": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Migrations\\20250429093239_Club Fiels Team tables7.cs",
+              "RelativeToolTip": "EmployeeAdminPortal\\Migrations\\20250429093239_Club Fiels Team tables7.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-04-17T05:49:26.057Z"
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T09:32:39.56Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "User.cs",
+              "DocumentMoniker": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Models\\Entities\\User.cs",
+              "RelativeDocumentMoniker": "EmployeeAdminPortal\\Models\\Entities\\User.cs",
+              "ToolTip": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Models\\Entities\\User.cs",
+              "RelativeToolTip": "EmployeeAdminPortal\\Models\\Entities\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-28T23:33:39.305Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "20250429082805_Club Fiels Team tables6.cs",
+              "DocumentMoniker": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Migrations\\20250429082805_Club Fiels Team tables6.cs",
+              "RelativeDocumentMoniker": "EmployeeAdminPortal\\Migrations\\20250429082805_Club Fiels Team tables6.cs",
+              "ToolTip": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Migrations\\20250429082805_Club Fiels Team tables6.cs",
+              "RelativeToolTip": "EmployeeAdminPortal\\Migrations\\20250429082805_Club Fiels Team tables6.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T08:28:05.607Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Field.cs",
+              "DocumentMoniker": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Models\\Entities\\Field.cs",
+              "RelativeDocumentMoniker": "EmployeeAdminPortal\\Models\\Entities\\Field.cs",
+              "ToolTip": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Models\\Entities\\Field.cs",
+              "RelativeToolTip": "EmployeeAdminPortal\\Models\\Entities\\Field.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T08:02:23.856Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "20250429081630_Club Fiels Team tables5.cs",
+              "DocumentMoniker": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Migrations\\20250429081630_Club Fiels Team tables5.cs",
+              "RelativeDocumentMoniker": "EmployeeAdminPortal\\Migrations\\20250429081630_Club Fiels Team tables5.cs",
+              "ToolTip": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Migrations\\20250429081630_Club Fiels Team tables5.cs",
+              "RelativeToolTip": "EmployeeAdminPortal\\Migrations\\20250429081630_Club Fiels Team tables5.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T08:16:30.402Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "UserClub.cs",
+              "DocumentMoniker": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Models\\Entities\\UserClub.cs",
+              "RelativeDocumentMoniker": "EmployeeAdminPortal\\Models\\Entities\\UserClub.cs",
+              "ToolTip": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Models\\Entities\\UserClub.cs",
+              "RelativeToolTip": "EmployeeAdminPortal\\Models\\Entities\\UserClub.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T08:02:33.932Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "UserField.cs",
+              "DocumentMoniker": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Models\\Entities\\UserField.cs",
+              "RelativeDocumentMoniker": "EmployeeAdminPortal\\Models\\Entities\\UserField.cs",
+              "ToolTip": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Models\\Entities\\UserField.cs",
+              "RelativeToolTip": "EmployeeAdminPortal\\Models\\Entities\\UserField.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T08:02:36.496Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "UserTeam.cs",
+              "DocumentMoniker": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Models\\Entities\\UserTeam.cs",
+              "RelativeDocumentMoniker": "EmployeeAdminPortal\\Models\\Entities\\UserTeam.cs",
+              "ToolTip": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Models\\Entities\\UserTeam.cs",
+              "RelativeToolTip": "EmployeeAdminPortal\\Models\\Entities\\UserTeam.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T08:02:38.901Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Club.cs",
+              "DocumentMoniker": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Models\\Entities\\Club.cs",
+              "RelativeDocumentMoniker": "EmployeeAdminPortal\\Models\\Entities\\Club.cs",
+              "ToolTip": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Models\\Entities\\Club.cs",
+              "RelativeToolTip": "EmployeeAdminPortal\\Models\\Entities\\Club.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T08:02:30.556Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "Employee.cs",
+              "DocumentMoniker": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Models\\Entities\\Employee.cs",
+              "RelativeDocumentMoniker": "EmployeeAdminPortal\\Models\\Entities\\Employee.cs",
+              "ToolTip": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\Models\\Entities\\Employee.cs",
+              "RelativeToolTip": "EmployeeAdminPortal\\Models\\Entities\\Employee.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-04-29T08:02:26.324Z"
             }
           ]
         }

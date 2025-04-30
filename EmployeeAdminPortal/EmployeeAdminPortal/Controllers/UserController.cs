@@ -1,25 +1,30 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿using System.ComponentModel.DataAnnotations;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using EmployeeAdminPortal.Services.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Entities = EmployeeAdminPortal.Models.Entities;
 
 namespace EmployeeAdminPortal.Controllers
 {
-    [Route("api/[controller]")]
+    
     [ApiController]
-    public class UserController : Controller
+    [Route("api/[controller]")]
+    public class UserController : ControllerBase
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly IConfiguration _configuration;
+        //private readonly UserManager<IdentityUser> _userManager;
+        //private readonly IConfiguration _configuration;
+        private readonly IUserService _userService;
 
-        public UserController(UserManager<IdentityUser> userManager, IConfiguration configuration)
+        public UserController(IUserService userService)
         {
-            _userManager = userManager;
-            _configuration = configuration;
+            _userService = userService;
         }
 
         [HttpPost("register")]
@@ -29,69 +34,61 @@ namespace EmployeeAdminPortal.Controllers
                 return BadRequest(ModelState);
             }
 
-            var user = new IdentityUser
-            {
-                UserName = model.Email,
-                Email = model.Email,
-            };
+            var result = await _userService.RegisterUser(model);
 
-            var result = await _userManager.CreateAsync(user, model.Password);
-
-            if (result.Succeeded)
-            {
-                return Ok(new { succeeded = true });
-            }
-
-            else {
-                return BadRequest(new {succeeded = false, errors = result.Errors});
-            }
+            if (result) return Ok(new { succeeded = true });
+            else return BadRequest(new { succeeded = false });
         }
 
         [HttpPost("signin")]
         public async Task<IActionResult> SignInUser([FromBody] SignInUserDto model)
         {
-            var user = await _userManager.FindByEmailAsync(model.Email);
+            var token = await _userService.SignInUser(model);
+            if (token == null) return BadRequest("Username or password is incorrect");
 
-            if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
-            {
-                var signInKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
-                            _configuration["AppSettings:JWTSecret"]!));
+            return Ok(new { token });
+        }
 
-                var tokenDescriptor = new SecurityTokenDescriptor
-                {
-                    //Data for payload
-                    Subject = new ClaimsIdentity(new Claim[]
-                    {
-                        new Claim("UserID", user.Id.ToString()),
-                    }),
-                    Expires = DateTime.UtcNow.AddDays(10),
+        [Authorize]
+        [HttpGet]
+        [Route("userDetails")]
+        public async Task<ActionResult<Entities.User>> GetUserDetails()
+        {
+            //string userID = User.Claims.First(x => x.Type == "UserID").Value;
+            //var userDetails = await _userService.GetUserDetails(userID);
+            //return userDetails;
 
-                    //SignIn key and the encryption algorithm
-                    SigningCredentials = new SigningCredentials(
-                        signInKey,
-                        SecurityAlgorithms.HmacSha256
-                        )
-                };
+            var userIdClaim = User.Claims.FirstOrDefault(x => x.Type == "UserID");
+            if (userIdClaim == null) return Unauthorized();
 
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var securityToken = tokenHandler.CreateToken(tokenDescriptor);
-                var token = tokenHandler.WriteToken(securityToken); // encrypted token
+            string userID = userIdClaim.Value;
+            var userDetails = await _userService.GetUserDetails(userID);
 
-                return Ok(new { token });
-            }
-            else return BadRequest("Username or password is incorrect");
+            if (userDetails == null) return NotFound();
+
+            return Ok(userDetails);
         }
     }
 }
 
 public class RegisterUserDto
 {
+    [Required]
+    [EmailAddress]
     public string Email { get; set; }
+
+    [Required]
+    [MinLength(6)]
     public string Password { get; set; }
 }
 
 public class SignInUserDto
 {
+    [Required]
+    [EmailAddress]
     public string Email { get; set; }
+
+    [Required]
+    [MinLength(6)]
     public string Password { get; set; }
 }

@@ -1,12 +1,64 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EmployeeAdminPortal.Models;
+using EmployeeAdminPortal.Services.Club;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeAdminPortal.Controllers
 {
-    public class ClubController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class ClubController : ControllerBase
     {
-        public IActionResult Index()
+        private readonly IClubService _clubService;
+
+        public ClubController(IClubService clubService)
         {
-            return View();
+            _clubService = clubService;
+        }
+
+        // GET: api/<TeamController>
+        [HttpGet("clubs")]
+        public async Task<IActionResult> GetAllClubs()
+        {
+            var result = await _clubService.GetAllClubs();
+
+            return Ok(result);
+        }
+
+        // GET api/<TeamController>/5
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetClubById(Guid id)
+        {
+            var result = await _clubService.GetClubById(id);
+
+            return Ok(result);
+        }
+
+        // POST api/<TeamController>
+        [HttpPost("createClub")]
+        public async Task<IActionResult> CreateClub ([FromBody]CreateClubDto createClubDto)
+        {
+            var result = await _clubService.CreateClub(createClubDto);
+
+            if (result) return Ok(new { succeeded = true });
+            else return BadRequest(new { succeeded = false });
+        }
+
+        // PUT api/<TeamController>/5
+        [HttpPatch("updateClub/{id}")]
+        public async Task<IActionResult> UpdateClub(Guid id, [FromBody] CreateClubDto createClubDto)
+        {
+            var result = await _clubService.UpdateClub(id, createClubDto);
+
+            return Ok(result);
+        }
+
+        // DELETE api/<TeamController>/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteClub(Guid id)
+        {
+            var result = _clubService.DeleteClubById(id);
+
+            return Ok(result);
         }
     }
 }

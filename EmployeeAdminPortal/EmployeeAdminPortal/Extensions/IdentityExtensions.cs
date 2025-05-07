@@ -3,6 +3,7 @@ using EmployeeAdminPortal.Data;
 using EmployeeAdminPortal.Models.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace EmployeeAdminPortal.Extensions
@@ -52,32 +53,58 @@ namespace EmployeeAdminPortal.Extensions
             //services.AddIdentity<User, IdentityRole>()
             //        .AddEntityFrameworkStores<ApplicationDBContext>()
             //        .AddDefaultTokenProviders();
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(y =>
+
+
+            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(y =>
+            //{
+            //    //y.RequireHttpsMetadata = false;   //
+            //    y.SaveToken = false;
+            //    y.TokenValidationParameters = new TokenValidationParameters
+            //    {
+            //        ValidateIssuerSigningKey = true,
+            //        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+            //            config["AppSettings:JWTSecret"]!)),
+            //        ValidateIssuer = false,
+            //        ValidateAudience = false,
+            //    };
+            //}
+            //    );
+            //return services;
+
+
+            services.AddAuthentication(options =>
             {
-                y.SaveToken = false;
-                y.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
-                        config["AppSettings:JWTSecret"]!)),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                };
-            }
-                );
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+    .AddJwtBearer(y =>
+    {
+        y.RequireHttpsMetadata = false; // only for local testing
+        y.SaveToken = true;
+        y.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+                config["AppSettings:JWTSecret"]!)),
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ClockSkew = TimeSpan.Zero
+        };
+    });
+
             return services;
         }
 
 
 
 
-        public static WebApplication AddIdentityAuthMiddlewares(this WebApplication app)
-        {
-            app.UseAuthentication();
+        //public static WebApplication AddIdentityAuthMiddlewares(this WebApplication app)
+        //{
+        //    app.UseAuthentication();
 
-            app.UseAuthorization();
-            return app;
-        }
+        //    app.UseAuthorization();
+        //    return app;
+        //}
     }
 }
 

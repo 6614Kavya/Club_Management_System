@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "YulGjMLb6Uw=",
+  "dgSpecHash": "AGoc8LXw4h0=",
   "success": true,
   "projectFilePath": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\EmployeeAdminPortal.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\jskav\\.nuget\\packages\\automapper\\14.0.0\\automapper.14.0.0.nupkg.sha512",
     "C:\\Users\\jskav\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\jskav\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
     "C:\\Users\\jskav\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

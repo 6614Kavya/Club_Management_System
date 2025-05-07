@@ -5,7 +5,7 @@
 namespace EmployeeAdminPortal.Migrations
 {
     /// <inheritdoc />
-    public partial class ClubFielsTeamtables8 : Migration
+    public partial class changedFieldPart2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

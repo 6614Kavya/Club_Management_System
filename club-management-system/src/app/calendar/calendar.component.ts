@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarOptions, EventClickArg } from '@fullcalendar/core'; // useful for typechecking
 import dayGridPlugin from '@fullcalendar/daygrid';
+import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
 import { BookingService, Booking } from '../services/bookings/booking.service';
 import { BookingDetailsCardComponent } from '../booking-details-card/booking-details-card.component';
@@ -65,7 +66,9 @@ export class CalendarComponent {
     const newEvent = {
       title: newBooking.bookingPurpose,
       date: newBooking.selectedDate,
-      allDay: true,
+      // allDay: true,
+      start: newBooking.startTime,
+      end: newBooking.endTime,
       id: newBooking.id.toString(),
       extendedProps: {
         bookingId: newBooking.id,
@@ -99,7 +102,9 @@ export class CalendarComponent {
     this.eventList = this.allBookings.map((booking) => ({
       title: booking.bookingPurpose,
       date: booking.selectedDate,
-      allDay: true,
+      start: booking.startTime,
+      end: booking.endTime,
+      // allDay: true,
       id: booking.id.toString(),
       extendedProps: {
         bookingId: booking.id,
@@ -115,8 +120,8 @@ export class CalendarComponent {
     this.calendarOptions.events = [...this.eventList];
   }
   calendarOptions: CalendarOptions = {
-    initialView: 'dayGridMonth',
-    plugins: [dayGridPlugin, interactionPlugin],
+    initialView: 'timeGridWeek',
+    plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
     dateClick: (arg) => this.handleDateClick(arg),
     eventClick: (arg) => this.handleEventClick(arg),
     // validRange: {

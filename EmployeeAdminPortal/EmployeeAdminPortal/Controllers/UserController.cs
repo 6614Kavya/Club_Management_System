@@ -16,13 +16,13 @@ namespace EmployeeAdminPortal.Controllers
     
     [ApiController]
     [Route("api/[controller]")]
-    public class UserController : ControllerBase
+    public class userController : ControllerBase
     {
         //private readonly UserManager<IdentityUser> _userManager;
         //private readonly IConfiguration _configuration;
         private readonly IUserService _userService;
 
-        public UserController(IUserService userService)
+        public userController(IUserService userService)
         {
             _userService = userService;
         }
@@ -50,8 +50,7 @@ namespace EmployeeAdminPortal.Controllers
         }
 
         [Authorize]
-        [HttpGet]
-        [Route("userDetails")]
+        [HttpGet("userDetails")]
         public async Task<ActionResult<Entities.User>> GetUserDetails()
         {
             //string userID = User.Claims.First(x => x.Type == "UserID").Value;

@@ -134,8 +134,8 @@ export class FieldBookingFormComponent {
     this.dialogRef.close({
       id: 0,
       selectedDate: formattedDate,
-      startTime: formattedStartTime,
-      endTime: formattedEndTime,
+      startTime: `${formattedDate}T${formattedStartTime}:00`,
+      endTime: `${formattedDate}T${formattedEndTime}:00`,
       bookingStatus: '',
       bookedBy: this.name.value,
       bookingPurpose: this.bookingPurpose.value,

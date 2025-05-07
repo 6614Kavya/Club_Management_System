@@ -24,6 +24,7 @@
     "@fullcalendar/core": "^6.1.15",
     "@fullcalendar/daygrid": "^6.1.15",
     "@fullcalendar/interaction": "^6.1.15",
+    "@fullcalendar/timegrid": "^6.1.17",
     "@material/web": "^2.2.0",
     "ag-grid-angular": "^33.2.1",
     "ag-grid-community": "^33.2.1",

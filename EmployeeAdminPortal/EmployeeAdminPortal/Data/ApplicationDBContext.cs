@@ -18,6 +18,8 @@ namespace EmployeeAdminPortal.Data
         public DbSet<Club> Clubs { get; set; }
         public DbSet<Field> Fields { get; set; }
         public DbSet<Team> Teams { get; set; }
+        public DbSet<Booking> Bookings { get; set; }
+        public DbSet<FieldPart> FieldParts { get; set; }
         public DbSet<UserClub> UserClubs { get; set; }
         public DbSet<UserField> UserFields { get; set; }
         public DbSet<UserTeam> UserTeams { get; set; }
@@ -86,6 +88,15 @@ namespace EmployeeAdminPortal.Data
                 entity.HasOne(ut => ut.Team)
                 .WithMany(t => t.UserTeams)
                 .HasForeignKey(ut => ut.TeamId);
+            });
+
+            modelBuilder.Entity<FieldPart>(entity =>
+            {
+                entity.HasKey(x => x.Id);
+
+                entity.HasOne(a => a.Field)
+                .WithMany(b => b.FieldPart)
+                .HasForeignKey(x => x.FieldId);
             });
 
         }

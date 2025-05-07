@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EmployeeAdminPortal.Models;
+using EmployeeAdminPortal.Services.Team;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,36 +10,54 @@ namespace EmployeeAdminPortal.Controllers
     [ApiController]
     public class TeamController : ControllerBase
     {
+        private readonly ITeamService _teamService;
+        public TeamController(ITeamService teamService)
+        {
+            _teamService = teamService;
+        }
         // GET: api/<TeamController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<IActionResult> GetAllTeams()
         {
-            return new string[] { "value1", "value2" };
+            var teams = await _teamService.GetAllTeams();
+
+            return Ok(teams);
         }
 
         // GET api/<TeamController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<IActionResult> GetTeamById(Guid id)
         {
-            return "value";
+            var result = await _teamService.GetTeamById(id);
+
+            return Ok(result);
         }
 
         // POST api/<TeamController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> CreateTeam([FromBody] CreateTeamDto createTeamDto)
         {
+            var result = await _teamService.CreateTeam(createTeamDto);
+
+            return Ok(result);
         }
 
         // PUT api/<TeamController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> UpdateTeam(Guid id, [FromBody] CreateTeamDto createTeamDto)
         {
+            var result = await _teamService.UpdateTeam(id, createTeamDto);
+
+            return Ok(result);
         }
 
         // DELETE api/<TeamController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> DeleteTeam(Guid id)
         {
+            var result = await _teamService.DeleteTeamById(id);
+
+            return Ok(result);
         }
     }
 }

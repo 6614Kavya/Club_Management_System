@@ -27,9 +27,9 @@ export const Clubs = [
         bookings: [
           {
             id: 201,
-            selectedDate: '2025-04-01',
-            startTime: '10:00 AM',
-            endTime: '12:00 PM',
+            selectedDate: '2025-05-07',
+            startTime: '2025-05-07T10:00:00',
+            endTime: '2025-05-07T11:00:00',
             bookingStatus: 'Pending',
             bookedBy: 'John Doe',
             bookingPurpose: 'Team Training',
@@ -38,9 +38,9 @@ export const Clubs = [
           },
           {
             id: 202,
-            selectedDate: '2025-04-01',
-            startTime: '11:00 AM',
-            endTime: '12:00 PM',
+            selectedDate: '2025-05-07',
+            startTime: '2025-05-07T08:00:00',
+            endTime: '2025-05-07T09:00:00',
             bookingStatus: 'Approved',
             bookedBy: 'Kate',
             bookingPurpose: 'Player Trials',
@@ -49,9 +49,9 @@ export const Clubs = [
           },
           {
             id: 203,
-            selectedDate: '2025-04-05',
-            startTime: '10:00 AM',
-            endTime: '12:00 PM',
+            selectedDate: '2025-05-07',
+            startTime: '2025-05-07T15:00:00',
+            endTime: '2025-05-07T16:00:00',
             bookingStatus: 'Approved',
             bookedBy: 'Amanda',
             bookingPurpose: 'Fitness Session ',

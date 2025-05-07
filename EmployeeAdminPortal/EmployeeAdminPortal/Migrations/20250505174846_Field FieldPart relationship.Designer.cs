@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmployeeAdminPortal.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20250429082805_Club Fiels Team tables6")]
-    partial class ClubFielsTeamtables6
+    [Migration("20250505174846_Field FieldPart relationship")]
+    partial class FieldFieldPartrelationship
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,11 +25,46 @@ namespace EmployeeAdminPortal.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("EmployeeAdminPortal.Models.Entities.Booking", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("BookingStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("FieldPartId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FieldPartId");
+
+                    b.ToTable("Bookings");
+                });
+
             modelBuilder.Entity("EmployeeAdminPortal.Models.Entities.Club", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("Activated")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("CountryCode")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -71,13 +106,57 @@ namespace EmployeeAdminPortal.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("ClubId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.PrimitiveCollection<string>("Facilities")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("HasHeating")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HasLighting")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ClubId");
+
                     b.ToTable("Fields");
+                });
+
+            modelBuilder.Entity("EmployeeAdminPortal.Models.Entities.FieldPart", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("FieldId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsBooked")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FieldId");
+
+                    b.ToTable("FieldPart");
                 });
 
             modelBuilder.Entity("EmployeeAdminPortal.Models.Entities.Team", b =>
@@ -86,11 +165,16 @@ namespace EmployeeAdminPortal.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("ClubId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ClubId");
 
                     b.ToTable("Teams");
                 });
@@ -347,6 +431,42 @@ namespace EmployeeAdminPortal.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("EmployeeAdminPortal.Models.Entities.Booking", b =>
+                {
+                    b.HasOne("EmployeeAdminPortal.Models.Entities.FieldPart", "FieldPart")
+                        .WithMany()
+                        .HasForeignKey("FieldPartId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FieldPart");
+                });
+
+            modelBuilder.Entity("EmployeeAdminPortal.Models.Entities.Field", b =>
+                {
+                    b.HasOne("EmployeeAdminPortal.Models.Entities.Club", null)
+                        .WithMany("FieldList")
+                        .HasForeignKey("ClubId");
+                });
+
+            modelBuilder.Entity("EmployeeAdminPortal.Models.Entities.FieldPart", b =>
+                {
+                    b.HasOne("EmployeeAdminPortal.Models.Entities.Field", "Field")
+                        .WithMany("FieldPart")
+                        .HasForeignKey("FieldId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Field");
+                });
+
+            modelBuilder.Entity("EmployeeAdminPortal.Models.Entities.Team", b =>
+                {
+                    b.HasOne("EmployeeAdminPortal.Models.Entities.Club", null)
+                        .WithMany("TeamList")
+                        .HasForeignKey("ClubId");
+                });
+
             modelBuilder.Entity("EmployeeAdminPortal.Models.Entities.UserClub", b =>
                 {
                     b.HasOne("EmployeeAdminPortal.Models.Entities.Club", "Club")
@@ -457,11 +577,17 @@ namespace EmployeeAdminPortal.Migrations
 
             modelBuilder.Entity("EmployeeAdminPortal.Models.Entities.Club", b =>
                 {
+                    b.Navigation("FieldList");
+
+                    b.Navigation("TeamList");
+
                     b.Navigation("UserClubs");
                 });
 
             modelBuilder.Entity("EmployeeAdminPortal.Models.Entities.Field", b =>
                 {
+                    b.Navigation("FieldPart");
+
                     b.Navigation("UserFields");
                 });
 

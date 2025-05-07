@@ -184,6 +184,7 @@ E:\Club_Management_System\Club_Management_System\EmployeeAdminPortal\EmployeeAdm
 E:\Club_Management_System\Club_Management_System\EmployeeAdminPortal\EmployeeAdminPortal\bin\Debug\net8.0\EmployeeAdminPortal.runtimeconfig.json
 E:\Club_Management_System\Club_Management_System\EmployeeAdminPortal\EmployeeAdminPortal\bin\Debug\net8.0\EmployeeAdminPortal.dll
 E:\Club_Management_System\Club_Management_System\EmployeeAdminPortal\EmployeeAdminPortal\bin\Debug\net8.0\EmployeeAdminPortal.pdb
+E:\Club_Management_System\Club_Management_System\EmployeeAdminPortal\EmployeeAdminPortal\bin\Debug\net8.0\AutoMapper.dll
 E:\Club_Management_System\Club_Management_System\EmployeeAdminPortal\EmployeeAdminPortal\bin\Debug\net8.0\Azure.Core.dll
 E:\Club_Management_System\Club_Management_System\EmployeeAdminPortal\EmployeeAdminPortal\bin\Debug\net8.0\Azure.Identity.dll
 E:\Club_Management_System\Club_Management_System\EmployeeAdminPortal\EmployeeAdminPortal\bin\Debug\net8.0\Humanizer.dll

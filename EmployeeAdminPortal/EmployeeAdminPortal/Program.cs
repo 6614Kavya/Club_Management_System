@@ -13,7 +13,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+        options.JsonSerializerOptions.WriteIndented = true; // optional
+    });
 
 var allowedOrigins = builder.Configuration.GetValue<string>("allowedOrigins");
 
@@ -26,6 +31,8 @@ builder.Services.AddCors(options =>
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddSwaggerExplorer();
+
+builder.Services.AddAutoMapper(typeof(Program));
 
 //Repositories and services
 builder.Services.AddAppRepositories();
@@ -57,7 +64,10 @@ app.UseHttpsRedirection();
 
 app.UseCors();
 
-app.AddIdentityAuthMiddlewares();
+//app.AddIdentityAuthMiddlewares();
+app.UseAuthentication();  // 
+app.UseAuthorization();   // 
+
 
 app.MapControllers();
 

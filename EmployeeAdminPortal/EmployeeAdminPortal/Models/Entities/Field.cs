@@ -2,9 +2,14 @@
 {
     public class Field
     {
-    
         public Guid Id { get; set; }
-        public string Name { get; set; }
-        public ICollection<UserField> UserFields { get; set; }
+        public required string Name { get; set; }
+        public required string Address { get; set; }
+        public string? Description { get; set; }
+        public string[]? Facilities { get; set; }
+        public Boolean HasLighting { get; set; }
+        public Boolean HasHeating { get; set; }
+        public ICollection<FieldPart>? FieldPart { get; set; }
+        public ICollection<UserField>? UserFields { get; set; }
     }
 }

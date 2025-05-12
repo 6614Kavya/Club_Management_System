@@ -19,7 +19,8 @@ export class TeamService {
     const club = Clubs.find((c) => c.id === clubId);
 
     if (club) {
-      return club.teams;
+      // return club.teams;
+      return [];
     } else {
       return [];
     }

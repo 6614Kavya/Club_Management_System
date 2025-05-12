@@ -31,6 +31,14 @@ namespace EmployeeAdminPortal.Controllers
             return Ok(result);
         }
 
+        [HttpGet("{clubId}/fields")]
+        public async Task<IActionResult> GetFieldByClubId(Guid clubId)
+        {
+            var result = await _fieldService.GetFieldsByClubId(clubId);
+
+            return Ok(result);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateField(CreateFieldDto createFieldDto)
         {

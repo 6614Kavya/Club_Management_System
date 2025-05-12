@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmployeeAdminPortal.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20250506060716_MovedData")]
-    partial class MovedData
+    [Migration("20250511232100_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,6 +30,10 @@ namespace EmployeeAdminPortal.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("BookingPurpose")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("BookingStatus")
                         .IsRequired()
@@ -60,13 +64,22 @@ namespace EmployeeAdminPortal.Migrations
                     b.Property<bool>("Activated")
                         .HasColumnType("bit");
 
-                    b.Property<int>("CountryCode")
-                        .HasColumnType("int");
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CountryCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShortName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -110,7 +123,7 @@ namespace EmployeeAdminPortal.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("ClubId")
+                    b.Property<Guid>("ClubId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
@@ -165,7 +178,7 @@ namespace EmployeeAdminPortal.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ClubId")
+                    b.Property<Guid>("ClubId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
@@ -444,9 +457,13 @@ namespace EmployeeAdminPortal.Migrations
 
             modelBuilder.Entity("EmployeeAdminPortal.Models.Entities.Field", b =>
                 {
-                    b.HasOne("EmployeeAdminPortal.Models.Entities.Club", null)
+                    b.HasOne("EmployeeAdminPortal.Models.Entities.Club", "Club")
                         .WithMany("FieldList")
-                        .HasForeignKey("ClubId");
+                        .HasForeignKey("ClubId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Club");
                 });
 
             modelBuilder.Entity("EmployeeAdminPortal.Models.Entities.FieldPart", b =>
@@ -462,9 +479,13 @@ namespace EmployeeAdminPortal.Migrations
 
             modelBuilder.Entity("EmployeeAdminPortal.Models.Entities.Team", b =>
                 {
-                    b.HasOne("EmployeeAdminPortal.Models.Entities.Club", null)
+                    b.HasOne("EmployeeAdminPortal.Models.Entities.Club", "Club")
                         .WithMany("TeamList")
-                        .HasForeignKey("ClubId");
+                        .HasForeignKey("ClubId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Club");
                 });
 
             modelBuilder.Entity("EmployeeAdminPortal.Models.Entities.UserClub", b =>

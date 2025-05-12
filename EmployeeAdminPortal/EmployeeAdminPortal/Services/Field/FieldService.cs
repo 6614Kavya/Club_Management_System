@@ -14,12 +14,13 @@ namespace EmployeeAdminPortal.Services.Field
         public async Task<Models.Entities.Field> CreateField(CreateFieldDto model)
         {
             var field = new Models.Entities.Field {
+                ClubId = model.ClubId,
                 Address = model.Address,
                 Name = model.Name,
                 FieldPart = new List<FieldPart>()
             };
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 6; i++)
             {
                 field.FieldPart.Add(new FieldPart
                 {
@@ -48,6 +49,13 @@ namespace EmployeeAdminPortal.Services.Field
         public Task<Models.Entities.Field> GetFieldById(Guid fieldId)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<Models.Entities.Field[]> GetFieldsByClubId(Guid clubId)
+        {
+            var result = await _fieldRepository.GetFieldsByClubId(clubId);
+
+            return result;
         }
 
         public Task<Models.Entities.Field> UpdateField(Guid fieldId, CreateFieldDto model)

@@ -24,10 +24,22 @@ namespace EmployeeAdminPortal.Services.Booking
             if (fieldPart == null)
                 throw new Exception("Invalid field part");
 
+            model.StartTime = DateTime.SpecifyKind(model.StartTime, DateTimeKind.Utc);
+            model.EndTime = DateTime.SpecifyKind(model.EndTime, DateTimeKind.Utc);
+
             // Conflict check
             bool hasConflict = await _bookingRepository.HasConflictAsync(model.FieldPartId, model.StartTime, model.EndTime);
+            //if (hasConflict)
+            //    throw new Exception("Time slot already booked");
+
             if (hasConflict)
+            {
                 throw new Exception("Time slot already booked");
+            }
+            else
+            {
+                return await _bookingRepository.CreateBookingAsync(model);
+            }
 
             // Create booking entity
             //var booking = new Models.Entities.Booking
@@ -40,7 +52,7 @@ namespace EmployeeAdminPortal.Services.Booking
             //    //CreatedAt = DateTime.UtcNow
             //};
 
-            return await _bookingRepository.CreateBookingAsync(model);
+            
         }
 
         public async Task<bool> DeleteBookingById(Guid bookingId)

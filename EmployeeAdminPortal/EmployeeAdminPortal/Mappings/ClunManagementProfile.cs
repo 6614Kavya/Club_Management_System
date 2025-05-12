@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
-using EmployeeAdminPortal.Models;
 using EmployeeAdminPortal.Models.Entities;
+using EmployeeAdminPortal.Models;
 
 namespace EmployeeAdminPortal.Mappings
 {
-    public class ClubProfile : Profile
+    public class ClunManagementProfile : Profile
     {
-        public ClubProfile() { 
-
+        public ClunManagementProfile()
+        {
             CreateMap<CreateClubDto, Club>()
             .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null)); //skip null values and only overwrite the fields that have values
 

@@ -264,6 +264,22 @@
   },
   {
     "ContainingType": "EmployeeAdminPortal.Controllers.FieldController",
+    "Method": "GetFieldByClubId",
+    "RelativePath": "api/Field/{clubId}/fields",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "clubId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EmployeeAdminPortal.Controllers.FieldController",
     "Method": "GetFieldById",
     "RelativePath": "api/Field/{id}",
     "HttpMethod": "GET",

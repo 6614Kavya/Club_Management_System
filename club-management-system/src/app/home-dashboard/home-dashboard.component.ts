@@ -22,6 +22,11 @@ export class HomeDashboardComponent {
   clubData: Club[] = [];
   clubService: ClubService = inject(ClubService);
   constructor() {
-    this.clubData = this.clubService.getAllClubList();
+    // this.clubData = this.clubService.getAllClubList();
+    this.clubService.getAllClubData().subscribe((clubDetails) => {
+      this.clubData = clubDetails;
+      console.log('Dashboard club data', clubDetails);
+    });
+    // console.log('Dashboard club data', this.clubData);
   }
 }

@@ -448,6 +448,29 @@
         }
       }
     },
+    "/api/Field/{clubId}/fields": {
+      "get": {
+        "tags": [
+          "Field"
+        ],
+        "parameters": [
+          {
+            "name": "clubId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Team": {
       "get": {
         "tags": [
@@ -747,9 +770,17 @@
             "type": "string",
             "nullable": true
           },
+          "shortName": {
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
           "countryCode": {
-            "type": "integer",
-            "format": "int32"
+            "type": "string",
+            "nullable": true
           },
           "activated": {
             "type": "boolean"
@@ -800,6 +831,14 @@
           "bookingStatus": {
             "type": "string",
             "nullable": true
+          },
+          "bookedBy": {
+            "type": "string",
+            "nullable": true
+          },
+          "bookingPurpose": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -814,13 +853,24 @@
             "type": "string",
             "nullable": true
           },
+          "shortName": {
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
           "description": {
             "type": "string",
             "nullable": true
           },
           "countryCode": {
-            "type": "integer",
-            "format": "int32"
+            "type": "string",
+            "nullable": true
+          },
+          "activated": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false
@@ -843,6 +893,10 @@
           "description": {
             "type": "string",
             "nullable": true
+          },
+          "clubId": {
+            "type": "string",
+            "format": "uuid"
           },
           "facilities": {
             "type": "array",
@@ -908,6 +962,13 @@
           },
           "hasHeating": {
             "type": "boolean"
+          },
+          "club": {
+            "$ref": "#/components/schemas/Club"
+          },
+          "clubId": {
+            "type": "string",
+            "format": "uuid"
           },
           "fieldPart": {
             "type": "array",
@@ -1001,6 +1062,13 @@
           "name": {
             "type": "string",
             "nullable": true
+          },
+          "club": {
+            "$ref": "#/components/schemas/Club"
+          },
+          "clubId": {
+            "type": "string",
+            "format": "uuid"
           },
           "userTeams": {
             "type": "array",

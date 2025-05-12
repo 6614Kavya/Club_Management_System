@@ -69,7 +69,7 @@ export class CalendarComponent {
       // allDay: true,
       start: newBooking.startTime,
       end: newBooking.endTime,
-      id: newBooking.id.toString(),
+      id: newBooking.id,
       extendedProps: {
         bookingId: newBooking.id,
         name: newBooking.bookedBy,
@@ -84,16 +84,25 @@ export class CalendarComponent {
     this.eventList.push(newEvent); // update local list
     this.allBookings.push({
       id: 0,
-      selectedDate: newEvent.date,
+      // selectedDate: newEvent.date,
       startTime: newEvent.extendedProps.startTime,
       endTime: newEvent.extendedProps.endTime,
       bookingStatus: '',
-      bookedBy: newEvent.extendedProps.name,
+      // bookedBy: newEvent.extendedProps.name,
       bookingPurpose: newEvent.extendedProps.purpose,
-      fieldPart: newEvent.extendedProps.fieldPart,
-      facilities: [''],
+      // fieldPart: newEvent.extendedProps.fieldPart,
+      // facilities: [''],
     });
     this.calendarOptions.events = [...this.eventList];
+
+    this.bookingService.createBooking(newBooking).subscribe({
+      next: (response: any) => {
+        console.log('Respone of create booking', response);
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 
   /** Load all bookings and set them in FullCalendar */

@@ -12,12 +12,12 @@ import { Field } from '../../services/field/field.service';
   template: `
     <mat-card appearance="outlined" (click)="onCardClick()">
       <mat-card-header>
-        <mat-card-title>{{ fieldData.field_name }}</mat-card-title>
+        <mat-card-title>{{ fieldData.name }}</mat-card-title>
         <!-- <mat-card-subtitle>{{ clubData.short_name }}</mat-card-subtitle> -->
       </mat-card-header>
       <img mat-card-image [src]="fieldData.field_image" alt="" />
       <mat-card-content>
-        <p>{{ fieldData.field_description }}</p>
+        <p>{{ fieldData.description }}</p>
       </mat-card-content>
       <mat-card-actions>
         <!-- <button mat-button>LIKE</button> -->

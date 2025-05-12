@@ -1,14 +1,17 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Clubs } from '../../Data/club-main-data';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment.development';
+import { Observable } from 'rxjs';
 
 export interface Field {
-  id: number;
-  field_name: string;
-  field_address: string;
-  field_admins: string[];
-  field_description: string;
-  field_image: string;
-  facilities: string[];
+  id: any;
+  name: string | undefined;
+  address: string | undefined;
+  field_admins: string[] | undefined;
+  description: string | undefined;
+  field_image?: string | undefined;
+  facilities?: string[] | undefined;
 }
 
 @Injectable({
@@ -17,13 +20,19 @@ export interface Field {
 export class FieldService {
   constructor() {}
 
-  getFieldsByClubId(clubId: number): Field[] {
-    const club = Clubs.find((c) => c.id === clubId);
+  private http = inject(HttpClient);
+  private getFieldsByClubIdUrl =
+    environment.apiURL + '/api/Field/${clubId}/fields';
 
-    if (club) {
-      return club.fields;
-    } else {
-      return [];
-    }
+  getFieldsByClubId(clubId: any): Observable<any> {
+    // const club = Clubs.find((c) => c.id === clubId);
+
+    // if (club) {
+    //   // return club.fields;
+    //   return [];
+    // } else {
+    //   return [];
+    // }
+    return this.http.get(environment.apiURL + `/api/Field/${clubId}/fields`);
   }
 }

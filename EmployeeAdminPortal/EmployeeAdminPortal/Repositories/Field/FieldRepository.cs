@@ -46,6 +46,15 @@ namespace EmployeeAdminPortal.Repositories.Field
             return result;
         }
 
+        public async Task<Models.Entities.Field[]> GetFieldsByClubId(Guid clubId)
+        {
+            var fields = await _context.Fields
+                .Where(f => f.ClubId == clubId)
+                .ToListAsync();
+
+            return fields.ToArray();
+        }
+
         public async Task<Models.Entities.Field> UpdateFieldAsync(Guid id, CreateFieldDto createFieldDto)
         {
             var existingField = await _context.Fields.FindAsync(id);

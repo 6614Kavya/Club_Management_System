@@ -6,8 +6,11 @@
         public Guid FieldPartId { get; set; }  //foreign key
         public FieldPart FieldPart { get; set; }  //navigation property
 
+        //public DateOnly SelectedDate { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public string BookingStatus { get; set; }
+        public string BookingPurpose { get; set; }
+
     }
 }

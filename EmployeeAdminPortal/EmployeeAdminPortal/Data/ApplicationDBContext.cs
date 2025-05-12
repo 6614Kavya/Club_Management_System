@@ -42,13 +42,21 @@ namespace EmployeeAdminPortal.Data
             modelBuilder.Entity<Field>(entity =>
             {
                 entity.HasKey(x => x.Id);
-                entity.Property(x => x.Name).IsRequired();
+                //entity.Property(x => x.Name).IsRequired();
+
+                entity.HasOne(a => a.Club)
+                .WithMany(b => b.FieldList)
+                .HasForeignKey(a => a.ClubId);
             });
 
             modelBuilder.Entity<Team>(entity =>
             {
                 entity.HasKey(x => x.Id);
-                entity.Property(x => x.Name).IsRequired();
+                //entity.Property(x => x.Name).IsRequired();
+
+                entity.HasOne(a => a.Club)
+                .WithMany(b => b.TeamList)
+                .HasForeignKey(a => a.ClubId);
             });
 
             modelBuilder.Entity<UserClub>(entity =>

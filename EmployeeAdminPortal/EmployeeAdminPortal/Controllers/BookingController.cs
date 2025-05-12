@@ -37,9 +37,16 @@ namespace EmployeeAdminPortal.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateBooking([FromBody] CreateBookingDto createBookingDto)
         {
-            var result = await _bookingService.CreateBooking(createBookingDto);
+            try
+            {
+                var result = await _bookingService.CreateBooking(createBookingDto);
 
-            return Ok(result);
+                return Ok(result);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(new { error = ex.Message });
+            }
         }
 
         // PUT api/<BookingController>/5

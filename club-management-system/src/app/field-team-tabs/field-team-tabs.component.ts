@@ -48,7 +48,10 @@ export class FieldTeamTabsComponent {
   constructor() {
     const clubId = Number(this.route.snapshot.params['id']);
 
-    this.fieldData = this.fieldService.getFieldsByClubId(clubId);
+    this.fieldService
+      .getFieldsByClubId('36E24CD8-56F6-4334-435C-08DD8E8BC8B3')
+      .subscribe((fieldDetails) => (this.fieldData = fieldDetails));
+    // this.fieldData = this.fieldService.getFieldsByClubId(clubId);
     this.teamData = this.teamService.getTeamsByClubId(clubId);
   }
 }

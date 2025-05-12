@@ -1,15 +1,16 @@
 export const Clubs = [
   {
     id: 1,
-    club_name: 'Elite Soccer Academy',
-    short_name: 'Elite SA',
-    club_description: 'A premier soccer academy focused on youth development.',
-    club_address: '123 Main St, New York, NY',
+    name: 'Elite Soccer Academy',
+    shortName: 'Elite SA',
+    description: 'A premier soccer academy focused on youth development.',
+    address: '123 Main St, New York, NY',
     club_logo: 'images/club1.jpg',
-    country_code: 'US',
+    countryCode: 'US',
     activated: true,
     club_admins: ['John Doe', 'Jane Smith'],
-    fields: [
+    userClubs: [],
+    fieldList: [
       {
         id: 101,
         field_name: 'Elite Stadium',
@@ -203,7 +204,7 @@ export const Clubs = [
         bookings: [],
       },
     ],
-    teams: [
+    teamList: [
       {
         id: 1,
         team_name: 'NYC Strikers',
@@ -243,15 +244,16 @@ export const Clubs = [
   },
   {
     id: 2,
-    club_name: 'Champions Football Club',
-    short_name: 'Champions FC',
-    club_description: 'A competitive football club with a history of success.',
-    club_address: '456 Park Ave, Los Angeles, CA',
+    name: 'Champions Football Club',
+    shortName: 'Champions FC',
+    description: 'A competitive football club with a history of success.',
+    address: '456 Park Ave, Los Angeles, CA',
     club_logo: 'images/club2.jpg',
-    country_code: 'US',
+    countryCode: 'US',
     activated: true,
     club_admins: ['Sarah Smith', 'James Wilson'],
-    fields: [
+    userClubs: [],
+    fieldList: [
       {
         id: 106,
         field_name: 'Champions Arena',
@@ -333,7 +335,7 @@ export const Clubs = [
         bookings: [],
       },
     ],
-    teams: [
+    teamList: [
       {
         id: 6,
         team_name: 'LA Champions',
@@ -373,15 +375,16 @@ export const Clubs = [
   },
   {
     id: 3,
-    club_name: 'Golden Goal Soccer Club',
-    short_name: 'Golden Goal',
-    club_description: 'Dedicated to developing top-tier soccer talent.',
-    club_address: '789 Oak St, Chicago, IL',
+    name: 'Golden Goal Soccer Club',
+    shortName: 'Golden Goal',
+    description: 'Dedicated to developing top-tier soccer talent.',
+    address: '789 Oak St, Chicago, IL',
     club_logo: 'images/club3.jpg',
-    country_code: 'US',
+    countryCode: 'US',
     activated: false,
     club_admins: ['Mike Johnson', 'Emily Davis'],
-    fields: [
+    userClubs: [],
+    fieldList: [
       {
         id: 111,
         field_name: 'Golden Field',
@@ -417,7 +420,7 @@ export const Clubs = [
         bookings: [],
       },
     ],
-    teams: [
+    teamList: [
       {
         id: 5,
         team_name: 'Chicago Warriors',

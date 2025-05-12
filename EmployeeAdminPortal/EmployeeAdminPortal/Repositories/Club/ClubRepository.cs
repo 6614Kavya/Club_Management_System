@@ -22,7 +22,7 @@ namespace EmployeeAdminPortal.Repositories.Club
         {
             
             Models.Entities.Club newClub = _mapper.Map<Models.Entities.Club>(createClubDto);
-            _context.Clubs.Add(newClub);
+            await _context.Clubs.AddAsync(newClub);
 
             var result = await _context.SaveChangesAsync();
             return result > 0;
@@ -30,7 +30,10 @@ namespace EmployeeAdminPortal.Repositories.Club
 
         public async Task<Models.Entities.Club[]> GetAllClubsAsync()
         {
-            var result = await _context.Clubs.ToListAsync();
+            var result = await _context.Clubs
+        .Include(c => c.FieldList) // related fields
+        .Include(c => c.TeamList)
+        .ToListAsync();
 
             return result.ToArray();
         }
@@ -51,9 +54,7 @@ namespace EmployeeAdminPortal.Repositories.Club
                 return null;
             }
 
-            existingClub.Name = createClubDto.Name;
-            existingClub.CountryCode = createClubDto.CountryCode;
-            existingClub.Description = createClubDto.Description;
+            existingClub = _mapper.Map<Models.Entities.Club>(createClubDto);
 
             await _context.SaveChangesAsync();
 

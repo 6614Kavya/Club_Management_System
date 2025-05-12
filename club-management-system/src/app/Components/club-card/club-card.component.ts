@@ -3,6 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 // import { ClubData } from '../../Data/club-data';
 import { Router } from '@angular/router';
+import { Club } from '../../services/club/club.service';
 
 interface ClubData {
   id: number;
@@ -23,12 +24,12 @@ interface ClubData {
   template: `
     <mat-card appearance="outlined" (click)="onCardClick()">
       <mat-card-header>
-        <mat-card-title>{{ clubData.club_name }}</mat-card-title>
-        <mat-card-subtitle>{{ clubData.short_name }}</mat-card-subtitle>
+        <mat-card-title>{{ clubData.name }}</mat-card-title>
+        <mat-card-subtitle>{{ clubData.shortName }}</mat-card-subtitle>
       </mat-card-header>
       <img mat-card-image [src]="clubData.club_logo" alt="" />
       <mat-card-content>
-        <p>{{ clubData.club_description }}</p>
+        <p>{{ clubData.description }}</p>
       </mat-card-content>
       <mat-card-actions>
         <!-- <button mat-button>LIKE</button> -->
@@ -43,5 +44,5 @@ export class ClubCardComponent {
   onCardClick() {
     this.router.navigate(['/dashboard/fieldTeamData', this.clubData.id]);
   }
-  @Input() clubData!: ClubData;
+  @Input() clubData!: Club;
 }

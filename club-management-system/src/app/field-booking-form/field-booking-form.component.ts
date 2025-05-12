@@ -106,8 +106,8 @@ export class FieldBookingFormComponent {
   name = new FormControl('');
   bookingPurpose = new FormControl('');
   bookingDate = new FormControl<string | null>(null);
-  startTime = new FormControl<string | null>(null);
-  endTime = new FormControl<string | null>(null);
+  startTime = new FormControl<any | null>(null);
+  endTime = new FormControl<any | null>(null);
   fieldPart: string | undefined;
 
   minDate: Date = new Date(); //restricts past dates
@@ -121,21 +121,59 @@ export class FieldBookingFormComponent {
       this.endTime
     );
 
-    const formattedDate = this.bookingDate.value
-      ? new Date(this.bookingDate.value).toLocaleDateString('en-CA') // outputs YYYY-MM-DD in local time
-      : null;
+    // const formattedDate = this.bookingDate.value
+    //   ? new Date(this.bookingDate.value).toLocaleDateString('en-CA') // outputs YYYY-MM-DD in local time
+    //   : null;
 
-    const formattedStartTime = this.startTime.value
-      ? new Date(this.startTime.value).toTimeString().split(' ')[0].slice(0, 5)
+    // const formattedStartTime = this.startTime.value
+    //   ? new Date(this.startTime.value).toTimeString().split(' ')[0].slice(0, 5)
+    //   : null;
+    // const formattedEndTime = this.endTime.value
+    //   ? new Date(this.endTime.value).toTimeString().split(' ')[0].slice(0, 5)
+    //   : null;
+    const dateValue = this.bookingDate.value
+      ? new Date(this.bookingDate.value)
       : null;
-    const formattedEndTime = this.endTime.value
-      ? new Date(this.endTime.value).toTimeString().split(' ')[0].slice(0, 5)
-      : null;
+    const start = this.startTime.value as Date;
+    const end = this.endTime.value as Date;
+
+    if (!dateValue || !start || !end) {
+      alert('Please fill in all fields.');
+      return;
+    }
+
+    // Construct local DateTime (in SLST)
+    const startDateTimeLocal = new Date(
+      dateValue.getFullYear(),
+      dateValue.getMonth(),
+      dateValue.getDate(),
+      start.getHours(),
+      start.getMinutes()
+    );
+
+    const endDateTimeLocal = new Date(
+      dateValue.getFullYear(),
+      dateValue.getMonth(),
+      dateValue.getDate(),
+      end.getHours(),
+      end.getMinutes()
+    );
+
+    // Convert to UTC ISO string manually
+    const startDateTimeUtc = new Date(
+      startDateTimeLocal.getTime() -
+        startDateTimeLocal.getTimezoneOffset() * 60000
+    ).toISOString();
+
+    const endDateTimeUtc = new Date(
+      endDateTimeLocal.getTime() - endDateTimeLocal.getTimezoneOffset() * 60000
+    ).toISOString();
+
     this.dialogRef.close({
-      id: 0,
-      selectedDate: formattedDate,
-      startTime: `${formattedDate}T${formattedStartTime}:00`,
-      endTime: `${formattedDate}T${formattedEndTime}:00`,
+      FieldPartId: 'C04DC7BA-A804-4020-84DB-1715DF777FFC',
+      // selectedDate: formattedDate,
+      startTime: startDateTimeUtc,
+      endTime: endDateTimeUtc,
       bookingStatus: '',
       bookedBy: this.name.value,
       bookingPurpose: this.bookingPurpose.value,

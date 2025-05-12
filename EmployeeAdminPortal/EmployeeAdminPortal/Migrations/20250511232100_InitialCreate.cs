@@ -58,7 +58,9 @@ namespace EmployeeAdminPortal.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CountryCode = table.Column<int>(type: "int", nullable: false),
+                    ShortName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CountryCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Activated = table.Column<bool>(type: "bit", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -199,7 +201,7 @@ namespace EmployeeAdminPortal.Migrations
                     Facilities = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     HasLighting = table.Column<bool>(type: "bit", nullable: false),
                     HasHeating = table.Column<bool>(type: "bit", nullable: false),
-                    ClubId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    ClubId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -208,7 +210,8 @@ namespace EmployeeAdminPortal.Migrations
                         name: "FK_Fields_Clubs_ClubId",
                         column: x => x.ClubId,
                         principalTable: "Clubs",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -217,7 +220,7 @@ namespace EmployeeAdminPortal.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ClubId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    ClubId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -226,7 +229,8 @@ namespace EmployeeAdminPortal.Migrations
                         name: "FK_Teams_Clubs_ClubId",
                         column: x => x.ClubId,
                         principalTable: "Clubs",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -254,22 +258,23 @@ namespace EmployeeAdminPortal.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FieldPart",
+                name: "FieldParts",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsBooked = table.Column<bool>(type: "bit", nullable: false),
-                    FieldId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    FieldId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FieldPart", x => x.Id);
+                    table.PrimaryKey("PK_FieldParts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_FieldPart_Fields_FieldId",
+                        name: "FK_FieldParts_Fields_FieldId",
                         column: x => x.FieldId,
                         principalTable: "Fields",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -328,15 +333,16 @@ namespace EmployeeAdminPortal.Migrations
                     FieldPartId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    BookingStatus = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    BookingStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BookingPurpose = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Bookings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Bookings_FieldPart_FieldPartId",
+                        name: "FK_Bookings_FieldParts_FieldPartId",
                         column: x => x.FieldPartId,
-                        principalTable: "FieldPart",
+                        principalTable: "FieldParts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -386,8 +392,8 @@ namespace EmployeeAdminPortal.Migrations
                 column: "FieldPartId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FieldPart_FieldId",
-                table: "FieldPart",
+                name: "IX_FieldParts_FieldId",
+                table: "FieldParts",
                 column: "FieldId");
 
             migrationBuilder.CreateIndex(
@@ -453,7 +459,7 @@ namespace EmployeeAdminPortal.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "FieldPart");
+                name: "FieldParts");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

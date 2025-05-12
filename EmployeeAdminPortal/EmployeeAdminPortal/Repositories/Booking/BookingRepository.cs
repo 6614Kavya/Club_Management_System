@@ -18,7 +18,7 @@ namespace EmployeeAdminPortal.Repositories.Booking
         public async Task<Models.Entities.Booking> CreateBookingAsync(CreateBookingDto createBookingDto)
         {
             Models.Entities.Booking newBooking = _mapper.Map<Models.Entities.Booking>(createBookingDto);
-            _context.Bookings.AddAsync(newBooking);
+            await _context.Bookings.AddAsync(newBooking);
             await _context.SaveChangesAsync();
             return newBooking;
 
@@ -43,8 +43,7 @@ namespace EmployeeAdminPortal.Repositories.Booking
         {
             return await _context.Bookings.AnyAsync(b =>
             b.FieldPartId == fieldPartId &&
-            b.StartTime < endTime &&
-            b.EndTime > startTime); ;
+            endTime < startTime); ;
         }
 
         public async Task<IEnumerable<Models.Entities.Booking>> GetBookingsByFieldPartAsync(Guid fieldPartId)

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using EmployeeAdminPortal.Models;
 
 namespace EmployeeAdminPortal.Services.User
 {
@@ -17,13 +18,24 @@ namespace EmployeeAdminPortal.Services.User
     {
         private readonly IUserRepository _userRepository;
         private readonly IConfiguration _configuration;
-        public UserService(IUserRepository userRepository, IConfiguration configuration)
+        private readonly UserManager<Entities.User> _userManager;
+        public UserService(IUserRepository userRepository, IConfiguration configuration, UserManager<Entities.User> userManager)
         {
             _userRepository = userRepository;
             _configuration = configuration;
+            _userManager = userManager;
         }
 
-        public async Task<Entities.User> GetUserDetails(string userId)
+        public async Task<string> AssignRole(AssignRoleDto model)
+        {
+            var result = await _userRepository.AssignRoles(model);
+
+            return result
+        ? "Role assigned successfully."
+        : "Failed to assign role.";
+        }
+
+        public async Task<UserRoleDetailsDto> GetUserDetails(string userId)
         {
             //string userID = User.Claims.First(x => x.Type == "UserID").Value;
             var userDetails = await _userRepository.GetUserByIdAsync(userId);
@@ -40,6 +52,7 @@ namespace EmployeeAdminPortal.Services.User
                 Password = model.Password
             };
             var result = await _userRepository.CreateUserAsync(user, model.Password);
+            //await _userRepository.AssignRoles(user);
 
             if (!result)
             {
@@ -55,23 +68,33 @@ namespace EmployeeAdminPortal.Services.User
 
             if (user != null && await _userRepository.CheckPasswordAsync(user, model.Password))
             {
-                var signInKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
-                            _configuration["AppSettings:JWTSecret"]!));
+                // Get user roles
+                var roles = await _userManager.GetRolesAsync(user);
+                var roleClaims = roles.Select(r => new Claim(ClaimTypes.Role, r));
 
+                // Base claims
+                var claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new Claim(ClaimTypes.Name, user.UserName ?? user.Email ?? ""),
+        }.Union(roleClaims);
+
+                // Generate signing key
+                var signInKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+                             _configuration["AppSettings:JWTSecret"]!));
+
+                // Create token
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
-                    //Data for payload
-                    Subject = new ClaimsIdentity(new Claim[]
-                    {
-                        new Claim("UserID", user.Id.ToString()),
-                    }),
-                    Expires = DateTime.UtcNow.AddDays(10),
+                    // Data for payload
+                    Subject = new ClaimsIdentity(claims),
+                    Expires = DateTime.UtcNow.AddSeconds(30),
 
-                    //SignIn key and the encryption algorithm
+                    // Sign-in key and the encryption algorithm
                     SigningCredentials = new SigningCredentials(
                         signInKey,
                         SecurityAlgorithms.HmacSha256
-                        )
+                    )
                 };
 
                 var tokenHandler = new JwtSecurityTokenHandler();

@@ -9,6 +9,7 @@ namespace EmployeeAdminPortal.Repositories.Booking
         Task<Models.Entities.Booking> GetBookingByIdAsync(Guid id);
         Task<Models.Entities.Booking> UpdateBookingAsync(Guid id, CreateBookingDto createBookingDto);
         Task<bool> DeleteBookingByIdAsync(Guid id);
+        Task ValidateBookingConflictAsync(Guid fieldPartId, DateTime startTime, DateTime endTime);
         Task<bool> HasConflictAsync(Guid fieldPartId, DateTime startTime, DateTime endTime);
         Task<IEnumerable<Models.Entities.Booking>> GetBookingsByFieldPartAsync(Guid fieldPartId);
     }

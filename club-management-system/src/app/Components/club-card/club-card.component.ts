@@ -42,6 +42,7 @@ interface ClubData {
 export class ClubCardComponent {
   constructor(private router: Router) {}
   onCardClick() {
+    console.log('ClubID', this.clubData.id);
     this.router.navigate(['/dashboard/fieldTeamData', this.clubData.id]);
   }
   @Input() clubData!: Club;

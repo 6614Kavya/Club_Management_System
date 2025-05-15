@@ -20,9 +20,12 @@ namespace EmployeeAdminPortal.Data
         public DbSet<Team> Teams { get; set; }
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<FieldPart> FieldParts { get; set; }
-        public DbSet<UserClub> UserClubs { get; set; }
-        public DbSet<UserField> UserFields { get; set; }
-        public DbSet<UserTeam> UserTeams { get; set; }
+        //public DbSet<UserClub> UserClubs { get; set; }
+        //public DbSet<UserField> UserFields { get; set; }
+        //public DbSet<UserTeam> UserTeams { get; set; }
+        public DbSet<UserClubRole> UserClubRoles { get; set; }
+        public DbSet<UserFieldRole> UserFieldRoles { get; set; }
+        public DbSet<UserTeamRole> UserTeamRoles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -59,42 +62,42 @@ namespace EmployeeAdminPortal.Data
                 .HasForeignKey(a => a.ClubId);
             });
 
-            modelBuilder.Entity<UserClub>(entity =>
+            modelBuilder.Entity<UserClubRole>(entity =>
             {
                 entity.HasKey(uc => new { uc.UserId, uc.ClubId });
 
                 entity.HasOne(uc => uc.User)
-                .WithMany(c => c.UserClubs)
+                .WithMany(c => c.UserClubRoles)
                 .HasForeignKey(uc => uc.UserId);
 
                 entity.HasOne(uc => uc.Club)
-                .WithMany(c => c.UserClubs)
+                .WithMany(c => c.UserClubRoles)
                 .HasForeignKey(uc => uc.ClubId);
             });
 
-            modelBuilder.Entity<UserField>(entity =>
+            modelBuilder.Entity<UserFieldRole>(entity =>
             {
                 entity.HasKey(uf => new { uf.UserId, uf.FieldId });
 
                 entity.HasOne(uf => uf.User)
-                .WithMany(f => f.UserFields)
+                .WithMany(f => f.UserFieldRoles)
                 .HasForeignKey(uf => uf.UserId);
 
                 entity.HasOne(uf => uf.Field)
-                .WithMany(f => f.UserFields)
+                .WithMany(f => f.UserFieldRoles)
                 .HasForeignKey(uf => uf.FieldId);
             });
 
-            modelBuilder.Entity<UserTeam>(entity =>
+            modelBuilder.Entity<UserTeamRole>(entity =>
             {
                 entity.HasKey(ut => new { ut.UserId, ut.TeamId });
 
                 entity.HasOne(ut => ut.User)
-                .WithMany(t => t.UserTeams)
+                .WithMany(t => t.UserTeamRoles)
                 .HasForeignKey(ut => ut.UserId);
 
                 entity.HasOne(ut => ut.Team)
-                .WithMany(t => t.UserTeams)
+                .WithMany(t => t.UserTeamRoles)
                 .HasForeignKey(ut => ut.TeamId);
             });
 

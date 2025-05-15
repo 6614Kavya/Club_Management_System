@@ -20,12 +20,14 @@ namespace EmployeeAdminPortal.Services.Field
                 FieldPart = new List<FieldPart>()
             };
 
+            int[] bitMasks = [0b0001, 0b0010, 0b0100, 0b1000, 0b0011, 0b1100, 0b1111];
+
             for (int i = 0; i < 6; i++)
             {
                 field.FieldPart.Add(new FieldPart
                 {
                     Id = Guid.NewGuid(),
-                    Name = model.Name,
+                    Bitmask = bitMasks[i],
                     IsBooked = false,
                     FieldId = field.Id,
                 });

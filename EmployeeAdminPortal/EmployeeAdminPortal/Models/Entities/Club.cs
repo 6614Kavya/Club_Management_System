@@ -12,6 +12,8 @@
         public string? Description { get; set; }
         public ICollection<Field> FieldList { get; set; }
         public ICollection<Team> TeamList { get; set; }
-        public ICollection<UserClub> UserClubs { get; set; }
+        //public ICollection<UserClub> UserClubs { get; set; }
+        public ICollection<UserClubRole> UserClubRoles { get; set; }
+
     }
 }

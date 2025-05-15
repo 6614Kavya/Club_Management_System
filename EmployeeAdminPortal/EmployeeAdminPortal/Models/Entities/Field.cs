@@ -15,6 +15,8 @@
         public Guid ClubId { get; set; }
 
         public ICollection<FieldPart>? FieldPart { get; set; }
-        public ICollection<UserField>? UserFields { get; set; }
+        //public ICollection<UserField>? UserFields { get; set; }
+        public ICollection<UserFieldRole>? UserFieldRoles { get; set; }
+
     }
 }

@@ -12,8 +12,12 @@ namespace EmployeeAdminPortal.Models.Entities
         //public ICollection<Field> Fields { get; set; }
         //public ICollection<Team> Teams { get; set; }
 
-        public ICollection<UserClub> UserClubs { get; set; }
-        public ICollection<UserField> UserFields { get; set; }
-        public ICollection<UserTeam> UserTeams { get; set; }
+        //public ICollection<UserClub> UserClubs { get; set; }
+        //public ICollection<UserField> UserFields { get; set; }
+        //public ICollection<UserTeam> UserTeams { get; set; }
+
+        public ICollection<UserClubRole> UserClubRoles { get; set; }
+        public ICollection<UserFieldRole> UserFieldRoles { get; set; }
+        public ICollection<UserTeamRole> UserTeamRoles { get; set; }
     }
 }

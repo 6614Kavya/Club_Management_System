@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EmployeeAdminPortal.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20250511232100_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250515010218_CustomRoles")]
+    partial class CustomRoles
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -155,15 +155,14 @@ namespace EmployeeAdminPortal.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("Bitmask")
+                        .HasColumnType("int");
+
                     b.Property<Guid>("FieldId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsBooked")
                         .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -266,7 +265,7 @@ namespace EmployeeAdminPortal.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("EmployeeAdminPortal.Models.Entities.UserClub", b =>
+            modelBuilder.Entity("EmployeeAdminPortal.Models.Entities.UserClubRole", b =>
                 {
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -274,14 +273,18 @@ namespace EmployeeAdminPortal.Migrations
                     b.Property<Guid>("ClubId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("UserId", "ClubId");
 
                     b.HasIndex("ClubId");
 
-                    b.ToTable("UserClubs");
+                    b.ToTable("UserClubRoles");
                 });
 
-            modelBuilder.Entity("EmployeeAdminPortal.Models.Entities.UserField", b =>
+            modelBuilder.Entity("EmployeeAdminPortal.Models.Entities.UserFieldRole", b =>
                 {
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -289,14 +292,18 @@ namespace EmployeeAdminPortal.Migrations
                     b.Property<Guid>("FieldId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("UserId", "FieldId");
 
                     b.HasIndex("FieldId");
 
-                    b.ToTable("UserFields");
+                    b.ToTable("UserFieldRoles");
                 });
 
-            modelBuilder.Entity("EmployeeAdminPortal.Models.Entities.UserTeam", b =>
+            modelBuilder.Entity("EmployeeAdminPortal.Models.Entities.UserTeamRole", b =>
                 {
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -304,11 +311,15 @@ namespace EmployeeAdminPortal.Migrations
                     b.Property<Guid>("TeamId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("UserId", "TeamId");
 
                     b.HasIndex("TeamId");
 
-                    b.ToTable("UserTeams");
+                    b.ToTable("UserTeamRoles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -488,16 +499,16 @@ namespace EmployeeAdminPortal.Migrations
                     b.Navigation("Club");
                 });
 
-            modelBuilder.Entity("EmployeeAdminPortal.Models.Entities.UserClub", b =>
+            modelBuilder.Entity("EmployeeAdminPortal.Models.Entities.UserClubRole", b =>
                 {
                     b.HasOne("EmployeeAdminPortal.Models.Entities.Club", "Club")
-                        .WithMany("UserClubs")
+                        .WithMany("UserClubRoles")
                         .HasForeignKey("ClubId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("EmployeeAdminPortal.Models.Entities.User", "User")
-                        .WithMany("UserClubs")
+                        .WithMany("UserClubRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -507,16 +518,16 @@ namespace EmployeeAdminPortal.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("EmployeeAdminPortal.Models.Entities.UserField", b =>
+            modelBuilder.Entity("EmployeeAdminPortal.Models.Entities.UserFieldRole", b =>
                 {
                     b.HasOne("EmployeeAdminPortal.Models.Entities.Field", "Field")
-                        .WithMany("UserFields")
+                        .WithMany("UserFieldRoles")
                         .HasForeignKey("FieldId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("EmployeeAdminPortal.Models.Entities.User", "User")
-                        .WithMany("UserFields")
+                        .WithMany("UserFieldRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -526,16 +537,16 @@ namespace EmployeeAdminPortal.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("EmployeeAdminPortal.Models.Entities.UserTeam", b =>
+            modelBuilder.Entity("EmployeeAdminPortal.Models.Entities.UserTeamRole", b =>
                 {
                     b.HasOne("EmployeeAdminPortal.Models.Entities.Team", "Team")
-                        .WithMany("UserTeams")
+                        .WithMany("UserTeamRoles")
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("EmployeeAdminPortal.Models.Entities.User", "User")
-                        .WithMany("UserTeams")
+                        .WithMany("UserTeamRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -602,28 +613,28 @@ namespace EmployeeAdminPortal.Migrations
 
                     b.Navigation("TeamList");
 
-                    b.Navigation("UserClubs");
+                    b.Navigation("UserClubRoles");
                 });
 
             modelBuilder.Entity("EmployeeAdminPortal.Models.Entities.Field", b =>
                 {
                     b.Navigation("FieldPart");
 
-                    b.Navigation("UserFields");
+                    b.Navigation("UserFieldRoles");
                 });
 
             modelBuilder.Entity("EmployeeAdminPortal.Models.Entities.Team", b =>
                 {
-                    b.Navigation("UserTeams");
+                    b.Navigation("UserTeamRoles");
                 });
 
             modelBuilder.Entity("EmployeeAdminPortal.Models.Entities.User", b =>
                 {
-                    b.Navigation("UserClubs");
+                    b.Navigation("UserClubRoles");
 
-                    b.Navigation("UserFields");
+                    b.Navigation("UserFieldRoles");
 
-                    b.Navigation("UserTeams");
+                    b.Navigation("UserTeamRoles");
                 });
 #pragma warning restore 612, 618
         }

@@ -3,9 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeAdminPortal.Controllers
 {
-    [Authorize]
+    
+    
+    [Route("api/weather")]
     [ApiController]
-    [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
         private static readonly string[] Summaries = new[]
@@ -20,7 +21,9 @@ namespace EmployeeAdminPortal.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
+        
+        [Authorize(AuthenticationSchemes = "Bearer", Roles ="SuperAdmin, ClubAdmin")]
+        [HttpGet(Name = "GetWeatherForecast")]       
         public IEnumerable<WeatherForecast> Get()
         {
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast

@@ -19,6 +19,15 @@ namespace EmployeeAdminPortal.Mappings
 
             CreateMap<CreateBookingDto, Booking>()
             .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+
+            CreateMap<AssignRoleDto, UserClubRole>()
+            .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+
+            CreateMap<AssignRoleDto, UserFieldRole>()
+            .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+
+            CreateMap<AssignRoleDto, UserTeamRole>()
+            .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
         }
     }
 }

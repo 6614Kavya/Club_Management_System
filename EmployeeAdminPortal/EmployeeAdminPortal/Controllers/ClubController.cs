@@ -56,7 +56,7 @@ namespace EmployeeAdminPortal.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteClub(Guid id)
         {
-            var result = _clubService.DeleteClubById(id);
+            var result = await _clubService.DeleteClubById(id);
 
             return Ok(result);
         }

@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Security.Claims;
+using System.Text;
 using EmployeeAdminPortal.Data;
 using EmployeeAdminPortal.Models.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -21,6 +22,7 @@ namespace EmployeeAdminPortal.Extensions
                 // Optional: Add additional password/user settings here
                 options.User.RequireUniqueEmail = true;
             })
+            .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDBContext>()
             .AddDefaultTokenProviders(); // Needed for password reset, email confirmation, etc.
 
@@ -88,7 +90,10 @@ namespace EmployeeAdminPortal.Extensions
                 config["AppSettings:JWTSecret"]!)),
             ValidateIssuer = false,
             ValidateAudience = false,
-            ClockSkew = TimeSpan.Zero
+            //ValidIssuer = config["Jwt:Issuer"],
+            //ValidAudience = config["Jwt:Audience"],
+            ClockSkew = TimeSpan.Zero,
+            //RoleClaimType = ClaimTypes.Role
         };
     });
 

@@ -375,6 +375,54 @@
   },
   {
     "ContainingType": "EmployeeAdminPortal.Controllers.userController",
+    "Method": "AssignClubAdminRole",
+    "RelativePath": "api/user/assignClubAdmin",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "EmployeeAdminPortal.Models.AssignRoleDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EmployeeAdminPortal.Controllers.userController",
+    "Method": "AssignFieldAdminRole",
+    "RelativePath": "api/user/assignFieldAdmin",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "EmployeeAdminPortal.Models.AssignRoleDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EmployeeAdminPortal.Controllers.userController",
+    "Method": "AssignTeamManagerRole",
+    "RelativePath": "api/user/assignTeamManger",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "EmployeeAdminPortal.Models.AssignRoleDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EmployeeAdminPortal.Controllers.userController",
     "Method": "CreateUser",
     "RelativePath": "api/user/register",
     "HttpMethod": "POST",
@@ -428,7 +476,7 @@
   {
     "ContainingType": "EmployeeAdminPortal.Controllers.WeatherForecastController",
     "Method": "Get",
-    "RelativePath": "WeatherForecast",
+    "RelativePath": "api/weather",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

@@ -28,29 +28,22 @@ namespace EmployeeAdminPortal.Services.Booking
             model.EndTime = DateTime.SpecifyKind(model.EndTime, DateTimeKind.Utc);
 
             // Conflict check
-            bool hasConflict = await _bookingRepository.HasConflictAsync(model.FieldPartId, model.StartTime, model.EndTime);
+            await _bookingRepository.ValidateBookingConflictAsync(model.FieldPartId, model.StartTime, model.EndTime);
+
+            model.BookingStatus = "Accepted";
+
+            return await _bookingRepository.CreateBookingAsync(model);
             //if (hasConflict)
             //    throw new Exception("Time slot already booked");
 
-            if (hasConflict)
-            {
-                throw new Exception("Time slot already booked");
-            }
-            else
-            {
-                return await _bookingRepository.CreateBookingAsync(model);
-            }
-
-            // Create booking entity
-            //var booking = new Models.Entities.Booking
+            //if (hasConflict)
             //{
-            //    Id = Guid.NewGuid(),
-            //    FieldPartId = model.FieldPartId,
-            //    StartTime = model.StartTime,
-            //    EndTime = model.EndTime,
-            //    BookingStatus = "Pending",
-            //    //CreatedAt = DateTime.UtcNow
-            //};
+            //    throw new Exception("Time slot already booked");
+            //}
+            //else
+            //{
+            //    return await _bookingRepository.CreateBookingAsync(model);
+            //}
 
             
         }

@@ -2,6 +2,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using EmployeeAdminPortal.Models;
 using EmployeeAdminPortal.Services.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -66,6 +67,40 @@ namespace EmployeeAdminPortal.Controllers
             if (userDetails == null) return NotFound();
 
             return Ok(userDetails);
+        }
+
+        [HttpGet("userDetails/{id}")]
+        public async Task<ActionResult<UserRoleDetailsDto>> GetUserDetailsById(string id)
+        {          
+            var userDetails = await _userService.GetUserDetails(id);
+
+            if (userDetails == null) return NotFound();
+
+            return Ok(userDetails);
+        }
+
+        [HttpPost("assignClubAdmin")]
+        public async Task<IActionResult> AssignClubAdminRole([FromBody] AssignRoleDto model)
+        {
+            var result = await _userService.AssignRole(model);
+
+            return Ok(new { result });
+        }
+
+        [HttpPost("assignFieldAdmin")]
+        public async Task<IActionResult> AssignFieldAdminRole([FromBody] AssignRoleDto model)
+        {
+            var result = await _userService.AssignRole(model);
+
+            return Ok(new { result });
+        }
+
+        [HttpPost("assignTeamManger")]
+        public async Task<IActionResult> AssignTeamManagerRole([FromBody] AssignRoleDto model)
+        {
+            var result = await _userService.AssignRole(model);
+
+            return Ok(new { result });
         }
     }
 }

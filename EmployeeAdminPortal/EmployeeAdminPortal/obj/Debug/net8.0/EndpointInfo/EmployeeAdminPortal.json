@@ -687,7 +687,100 @@
         }
       }
     },
-    "/WeatherForecast": {
+    "/api/user/assignClubAdmin": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignRoleDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignRoleDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignRoleDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/user/assignFieldAdmin": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignRoleDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignRoleDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignRoleDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/user/assignTeamManger": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignRoleDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignRoleDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AssignRoleDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/weather": {
       "get": {
         "tags": [
           "WeatherForecast"
@@ -755,6 +848,32 @@
         },
         "additionalProperties": false
       },
+      "AssignRoleDto": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "nullable": true
+          },
+          "clubId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "fieldId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "teamId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "role": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "Club": {
         "required": [
           "id",
@@ -803,10 +922,10 @@
             },
             "nullable": true
           },
-          "userClubs": {
+          "userClubRoles": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/UserClub"
+              "$ref": "#/components/schemas/UserClubRole"
             },
             "nullable": true
           }
@@ -977,10 +1096,10 @@
             },
             "nullable": true
           },
-          "userFields": {
+          "userFieldRoles": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/UserField"
+              "$ref": "#/components/schemas/UserFieldRole"
             },
             "nullable": true
           }
@@ -994,9 +1113,9 @@
             "type": "string",
             "format": "uuid"
           },
-          "name": {
-            "type": "string",
-            "nullable": true
+          "bitmask": {
+            "type": "integer",
+            "format": "int32"
           },
           "isBooked": {
             "type": "boolean"
@@ -1070,10 +1189,10 @@
             "type": "string",
             "format": "uuid"
           },
-          "userTeams": {
+          "userTeamRoles": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/UserTeam"
+              "$ref": "#/components/schemas/UserTeamRole"
             },
             "nullable": true
           }
@@ -1174,86 +1293,98 @@
             "type": "string",
             "nullable": true
           },
-          "userClubs": {
+          "userClubRoles": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/UserClub"
+              "$ref": "#/components/schemas/UserClubRole"
             },
             "nullable": true
           },
-          "userFields": {
+          "userFieldRoles": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/UserField"
+              "$ref": "#/components/schemas/UserFieldRole"
             },
             "nullable": true
           },
-          "userTeams": {
+          "userTeamRoles": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/UserTeam"
+              "$ref": "#/components/schemas/UserTeamRole"
             },
             "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "UserClub": {
+      "UserClubRole": {
         "type": "object",
         "properties": {
-          "user": {
-            "$ref": "#/components/schemas/User"
-          },
           "userId": {
             "type": "string",
             "nullable": true
           },
-          "club": {
-            "$ref": "#/components/schemas/Club"
+          "user": {
+            "$ref": "#/components/schemas/User"
           },
           "clubId": {
             "type": "string",
             "format": "uuid"
+          },
+          "club": {
+            "$ref": "#/components/schemas/Club"
+          },
+          "role": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "UserField": {
+      "UserFieldRole": {
         "type": "object",
         "properties": {
-          "user": {
-            "$ref": "#/components/schemas/User"
-          },
           "userId": {
             "type": "string",
             "nullable": true
           },
-          "field": {
-            "$ref": "#/components/schemas/Field"
+          "user": {
+            "$ref": "#/components/schemas/User"
           },
           "fieldId": {
             "type": "string",
             "format": "uuid"
+          },
+          "field": {
+            "$ref": "#/components/schemas/Field"
+          },
+          "role": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "UserTeam": {
+      "UserTeamRole": {
         "type": "object",
         "properties": {
-          "user": {
-            "$ref": "#/components/schemas/User"
-          },
           "userId": {
             "type": "string",
             "nullable": true
           },
-          "team": {
-            "$ref": "#/components/schemas/Team"
+          "user": {
+            "$ref": "#/components/schemas/User"
           },
           "teamId": {
             "type": "string",
             "format": "uuid"
+          },
+          "team": {
+            "$ref": "#/components/schemas/Team"
+          },
+          "role": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

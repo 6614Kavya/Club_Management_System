@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,7 +45,14 @@ builder.Services.InjectDbContext(builder.Configuration);
 builder.Services.AddIdentityAuth(builder.Configuration);
 
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("ManageUsers", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireRole("SuperAdmin");
+    });
+});
 
 //Services from Identity core
 builder.Services.AddIdentityHandlersAndStores();
@@ -66,9 +74,42 @@ app.UseCors();
 
 //app.AddIdentityAuthMiddlewares();
 app.UseAuthentication();  // 
+app.Use(async (context, next) =>
+{
+    var user = context.User;
+    if (user.Identity?.IsAuthenticated == true)
+    {
+        var roles = string.Join(",", user.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value));
+        Console.WriteLine($"Authenticated user: {user.Identity.Name}, Roles: {roles}");
+    }
+    else
+    {
+        Console.WriteLine("Unauthenticated request.");
+    }
+    await next();
+});
 app.UseAuthorization();   // 
 
+//app.UseEndpoints(endpoints =>
+//{
+//    endpoints.MapControllers();
+//});
 
 app.MapControllers();
+
+using(var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+    var roles = new[] { "SuperAdmin", "ClubAdmin", "FieldAdmin", "TeamManager", "IndividualUser" };
+
+    foreach (var role in roles)
+    {
+        if (!await roleManager.RoleExistsAsync(role))
+        {
+            await roleManager.CreateAsync(new IdentityRole(role));
+        }
+    }
+}
 
 app.Run();

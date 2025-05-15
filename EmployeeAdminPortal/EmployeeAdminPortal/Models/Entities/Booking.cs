@@ -9,7 +9,7 @@
         //public DateOnly SelectedDate { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
-        public string BookingStatus { get; set; }
+        public string BookingStatus { get; set; } = "Pending";
         public string BookingPurpose { get; set; }
 
     }

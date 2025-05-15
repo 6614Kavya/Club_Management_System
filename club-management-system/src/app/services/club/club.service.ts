@@ -5,7 +5,7 @@ import { environment } from '../../../environments/environment.development';
 import { Observable } from 'rxjs';
 
 export interface Club {
-  id: number;
+  id: any;
   name: string | undefined;
   shortName: string | undefined;
   description: string | undefined;

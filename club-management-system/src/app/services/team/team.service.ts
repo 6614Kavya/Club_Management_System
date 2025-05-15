@@ -15,14 +15,14 @@ export interface Team {
 export class TeamService {
   constructor() {}
 
-  getTeamsByClubId(clubId: number): Team[] {
-    const club = Clubs.find((c) => c.id === clubId);
+  // getTeamsByClubId(clubId: string): Team[] {
+  //   const club = Clubs.find((c) => c.id === clubId);
 
-    if (club) {
-      // return club.teams;
-      return [];
-    } else {
-      return [];
-    }
-  }
+  //   if (club) {
+  //     // return club.teams;
+  //     return [];
+  //   } else {
+  //     return [];
+  //   }
+  // }
 }

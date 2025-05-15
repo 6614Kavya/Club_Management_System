@@ -39,6 +39,25 @@ namespace EmployeeAdminPortal.Repositories.Booking
             throw new NotImplementedException();
         }
 
+        public async Task ValidateBookingConflictAsync(Guid fieldPartId, DateTime startTime, DateTime endTime)
+        {
+            if (startTime >= endTime)
+            {
+                throw new ArgumentException("Start time must be earlier than end time");
+            }
+
+            bool isOverlapping = await _context.Bookings.AnyAsync(b =>
+                b.FieldPartId == fieldPartId &&
+                ((startTime < b.EndTime) && (endTime > b.StartTime))
+            );
+
+            if (isOverlapping)
+            {
+                throw new InvalidOperationException("Time slot already booked");
+            }
+        }
+
+
         public async Task<bool> HasConflictAsync(Guid fieldPartId, DateTime startTime, DateTime endTime)
         {
             return await _context.Bookings.AnyAsync(b =>

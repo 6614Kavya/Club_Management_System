@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EmployeeAdminPortal.Models;
+using Microsoft.AspNetCore.Mvc;
 using Entities = EmployeeAdminPortal.Models.Entities;
 
 namespace EmployeeAdminPortal.Services.User
@@ -7,6 +8,7 @@ namespace EmployeeAdminPortal.Services.User
     {
         Task<bool> RegisterUser (RegisterUserDto model);
         Task<string> SignInUser (SignInUserDto model);
-        Task<Entities.User> GetUserDetails(string userId);
+        Task<string> AssignRole(AssignRoleDto model);
+        Task<UserRoleDetailsDto> GetUserDetails(string userId);
     }
 }

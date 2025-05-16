@@ -6,7 +6,7 @@ namespace EmployeeAdminPortal.Repositories.Club
     {
         Task<bool> CreateClubAsync(CreateClubDto createClubDto);
         Task<Models.Entities.Club[]> GetAllClubsAsync();
-        Task<Models.Entities.Club> GetClubByIdAsync(Guid id);
+        Task<ClubDetailsDto> GetClubByIdAsync(Guid id);
         Task<Models.Entities.Club> UpdateClubAsync(Guid id, CreateClubDto createClubDto);
         Task<bool> DeleteClubByIdAsync(Guid id);
     }

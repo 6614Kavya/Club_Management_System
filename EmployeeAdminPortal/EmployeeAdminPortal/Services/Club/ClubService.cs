@@ -33,7 +33,7 @@ namespace EmployeeAdminPortal.Services.Club
             return result;
         }
 
-        public async Task<Models.Entities.Club> GetClubById(Guid clubId)
+        public async Task<ClubDetailsDto> GetClubById(Guid clubId)
         {
             var result = await _clubRepository.GetClubByIdAsync(clubId);
             return result;

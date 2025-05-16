@@ -33,6 +33,14 @@ namespace EmployeeAdminPortal.Controllers
             return Ok(result);
         }
 
+        [HttpGet("/field/{id}")]
+        public async Task<IActionResult> GetBookingByFieldId(Guid id)
+        {
+            var result = await _bookingService.GetBookingByFieldId(id);
+
+            return Ok(result);
+        }
+
         // POST api/<BookingController>
         [HttpPost]
         public async Task<IActionResult> CreateBooking([FromBody] CreateBookingDto createBookingDto)

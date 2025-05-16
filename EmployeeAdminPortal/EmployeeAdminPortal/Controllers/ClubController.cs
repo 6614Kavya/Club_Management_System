@@ -43,6 +43,14 @@ namespace EmployeeAdminPortal.Controllers
             else return BadRequest(new { succeeded = false });
         }
 
+        [HttpGet("getClubAdmins/{id}")]
+        public async Task<IActionResult> GetClubAdmins(Guid id)
+        {
+            var result = await _clubService.GetClubById(id);
+
+            return Ok(result);
+        }
+
         // PUT api/<TeamController>/5
         [HttpPatch("updateClub/{id}")]
         public async Task<IActionResult> UpdateClub(Guid id, [FromBody] CreateClubDto createClubDto)

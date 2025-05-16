@@ -24,19 +24,33 @@ namespace EmployeeAdminPortal.Repositories.Booking
 
         }
 
-        public Task<bool> DeleteBookingByIdAsync(Guid id)
+        public async Task<bool> DeleteBookingByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var booking = await _context.Bookings.FindAsync(id);
+            if (booking == null)
+            {
+                return false;
+            }
+
+            _context.Bookings.Remove(booking);
+            await _context.SaveChangesAsync();
+            return true;
         }
 
-        public Task<Models.Entities.Booking[]> GetAllBookingsAsync()
+        public async Task<Models.Entities.Booking[]> GetAllBookingsAsync()
         {
-            throw new NotImplementedException();
+            return await _context.Bookings
+                    .Include(b => b.FieldPart)
+                        .ThenInclude(fp => fp.Field)
+                    .ToArrayAsync();
         }
 
-        public Task<Models.Entities.Booking> GetBookingByIdAsync(Guid id)
+        public async Task<Models.Entities.Booking> GetBookingByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await _context.Bookings
+                    .Include(b => b.FieldPart)
+                        .ThenInclude(fp => fp.Field)
+                    .FirstOrDefaultAsync(b => b.Id == id);
         }
 
         public async Task ValidateBookingConflictAsync(Guid fieldPartId, DateTime startTime, DateTime endTime)
@@ -72,9 +86,47 @@ namespace EmployeeAdminPortal.Repositories.Booking
                 .ToListAsync();
         }
 
-        public Task<Models.Entities.Booking> UpdateBookingAsync(Guid id, CreateBookingDto createBookingDto)
+        public async Task<Models.Entities.Booking> UpdateBookingAsync(Guid id, CreateBookingDto createBookingDto)
         {
-            throw new NotImplementedException();
+            var existingBooking = await _context.Bookings.FindAsync(id);
+            if (existingBooking == null)
+            {
+                return null;
+            }
+
+            //Check for conflict before updating
+            await ValidateBookingConflictAsync(createBookingDto.FieldPartId, createBookingDto.StartTime, createBookingDto.EndTime);
+
+            existingBooking.FieldPartId = createBookingDto.FieldPartId;
+            existingBooking.StartTime = createBookingDto.StartTime;
+            existingBooking.EndTime = createBookingDto.EndTime;
+            existingBooking.BookingPurpose = createBookingDto.BookingPurpose;
+
+            await _context.SaveChangesAsync();
+            return existingBooking;
+        }
+
+        //for super admins, club admins and field admins to accept bookings of individual users
+        public async Task<bool> ConfirmBookingAsync(Guid bookingId)
+        {
+            var booking = await _context.Bookings.FindAsync(bookingId);
+            if (booking == null || booking.BookingStatus != "Pending")
+                return false;
+
+            await ValidateBookingConflictAsync(booking.FieldPartId, booking.StartTime, booking.EndTime);
+
+            booking.BookingStatus = "Accepted";
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<Models.Entities.Booking[]> GetBookingsByFieldId(Guid fieldId)
+        {
+            var result = await _context.Bookings
+                .Where(b => b.FieldPart.FieldId == fieldId)
+                .ToListAsync();
+
+            return result.ToArray();
         }
     }
 }

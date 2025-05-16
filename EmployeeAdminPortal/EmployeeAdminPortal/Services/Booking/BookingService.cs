@@ -61,6 +61,12 @@ namespace EmployeeAdminPortal.Services.Booking
             return result;
         }
 
+        public async Task<Models.Entities.Booking[]> GetBookingByFieldId(Guid fieldId)
+        {
+            var result = await _bookingRepository.GetBookingsByFieldId(fieldId);
+            return result;
+        }
+
         public async Task<Models.Entities.Booking> GetBookingById(Guid bookingId)
         {
             var result = await _bookingRepository.GetBookingByIdAsync(bookingId);

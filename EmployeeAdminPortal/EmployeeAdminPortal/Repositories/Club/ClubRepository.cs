@@ -38,11 +38,34 @@ namespace EmployeeAdminPortal.Repositories.Club
             return result.ToArray();
         }
 
-        public async Task<Models.Entities.Club> GetClubByIdAsync(Guid id)
+        public async Task<ClubDetailsDto> GetClubByIdAsync(Guid id)
         {
-            var result = await _context.Clubs.FindAsync(id);
+            //var result = await _context.Clubs.FindAsync(id);
 
-            return result;
+            //return result;
+
+            var club = await _context.Clubs
+                .Where(c => c.Id == id)
+                .Select(c => new ClubDetailsDto
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    ShortName = c.ShortName,
+                    Address = c.Address,
+                    CountryCode = c.CountryCode,
+                    Activated = c.Activated,
+                    Description = c.Description,
+                    ClubAdmins = c.UserClubRoles
+                       .Where(r => r.Role == "ClubAdmin")
+                       .Select(r => new ClubAdminDto
+                       {
+                           UserId = r.UserId,
+                           Name = r.User.Name,
+                           Email = r.User.Email
+                       }).ToList()
+                }).FirstOrDefaultAsync();
+
+            return club;
         }
 
         public async Task<Models.Entities.Club> UpdateClubAsync(Guid Id, CreateClubDto createClubDto)

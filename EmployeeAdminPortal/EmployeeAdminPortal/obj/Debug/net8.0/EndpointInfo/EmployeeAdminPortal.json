@@ -130,6 +130,29 @@
         }
       }
     },
+    "/field/{id}": {
+      "get": {
+        "tags": [
+          "Booking"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Club/clubs": {
       "get": {
         "tags": [
@@ -210,6 +233,29 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Club/getClubAdmins/{id}": {
+      "get": {
+        "tags": [
+          "Club"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -687,6 +733,45 @@
         }
       }
     },
+    "/api/user/userDetails/{id}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserRoleDetailsDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserRoleDetailsDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserRoleDetailsDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/user/assignClubAdmin": {
       "post": {
         "tags": [
@@ -932,6 +1017,24 @@
         },
         "additionalProperties": false
       },
+      "ClubRoleDto": {
+        "type": "object",
+        "properties": {
+          "clubId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "clubName": {
+            "type": "string",
+            "nullable": true
+          },
+          "role": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "CreateBookingDto": {
         "type": "object",
         "properties": {
@@ -1130,6 +1233,24 @@
         },
         "additionalProperties": false
       },
+      "FieldRoleDto": {
+        "type": "object",
+        "properties": {
+          "fieldId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "fieldName": {
+            "type": "string",
+            "nullable": true
+          },
+          "role": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "RegisterUserDto": {
         "required": [
           "email",
@@ -1194,6 +1315,24 @@
             "items": {
               "$ref": "#/components/schemas/UserTeamRole"
             },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "TeamRoleDto": {
+        "type": "object",
+        "properties": {
+          "teamId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "teamName": {
+            "type": "string",
+            "nullable": true
+          },
+          "role": {
+            "type": "string",
             "nullable": true
           }
         },
@@ -1360,6 +1499,48 @@
           },
           "role": {
             "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserRoleDetailsDto": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "globalRoles": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "clubRoles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClubRoleDto"
+            },
+            "nullable": true
+          },
+          "fieldRoles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FieldRoleDto"
+            },
+            "nullable": true
+          },
+          "teamRoles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TeamRoleDto"
+            },
             "nullable": true
           }
         },

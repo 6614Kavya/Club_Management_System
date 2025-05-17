@@ -1,4 +1,9 @@
-import { Component, ChangeDetectionStrategy, Inject } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  Inject,
+  inject,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -12,6 +17,7 @@ import {
   FieldPart,
   FieldPartSelectionComponent,
 } from '../field-part-selection/field-part-selection.component';
+import { FieldService } from '../services/field/field.service';
 
 @Component({
   selector: 'app-field-booking-form',
@@ -98,11 +104,23 @@ import {
 export class FieldBookingFormComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA)
-    public data: { date: string },
+    public data: { date: string; fieldId: string },
     private dialogRef: MatDialogRef<FieldBookingFormComponent> // @Inject(MAT_DIALOG_DATA) // public data: { clubName: string; clubAddress: string; admins: string[] }
   ) {
     this.bookingDate.setValue(data.date);
+    this.fieldId = data.fieldId;
+
+    this.fieldService.getFieldDetailsById(this.fieldId).subscribe(
+      (fieldDetails) => (
+        console.log('Field details', fieldDetails),
+        // (this.fieldData = fieldDetails)
+        (this.fieldTemplate.parts = fieldDetails.fieldPart?.$values.map(
+          (p: any) => new FieldPart(p.id, p.name, p.bitmask, p.selected)
+        ))
+      )
+    );
   }
+  fieldId: string;
   name = new FormControl('');
   bookingPurpose = new FormControl('');
   bookingDate = new FormControl<string | null>(null);
@@ -113,6 +131,9 @@ export class FieldBookingFormComponent {
   minDate: Date = new Date(); //restricts past dates
 
   value: Date | undefined;
+
+  fieldService: FieldService = inject(FieldService);
+
   submit() {
     console.log(
       'Time and date',
@@ -182,19 +203,21 @@ export class FieldBookingFormComponent {
     });
   }
 
-  fieldTemplate = {
-    // name: 'FIELDS.TEMPLATE2',
-    // physicalPartsMask: 0b1111,
-    parts: [
-      new FieldPart('1', 0b0001), // Top-left
-      new FieldPart('2', 0b0010), // Below Part 1
-      new FieldPart('3', 0b0100), // Top-right
-      new FieldPart('4', 0b1000), // Below Part 3
-      new FieldPart('1-2', 0b0011),
-      new FieldPart('3-4', 0b1100),
-      new FieldPart('1-4', 0b1111),
-    ],
-  };
+  // fieldTemplate = {
+  //   // name: 'FIELDS.TEMPLATE2',
+  //   // physicalPartsMask: 0b1111,
+  //   parts: [
+  //     new FieldPart('1', 0b0001), // Top-left
+  //     new FieldPart('2', 0b0010), // Below Part 1
+  //     new FieldPart('3', 0b0100), // Top-right
+  //     new FieldPart('4', 0b1000), // Below Part 3
+  //     new FieldPart('1-2', 0b0011),
+  //     new FieldPart('3-4', 0b1100),
+  //     new FieldPart('1-4', 0b1111),
+  //   ],
+  // };
+
+  fieldTemplate = { parts: [] };
 
   onFieldPartChange(event: string) {
     console.log('Field part', event);

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EmployeeAdminPortal.Data;
 using EmployeeAdminPortal.Models;
+using EmployeeAdminPortal.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeAdminPortal.Repositories.Field
@@ -41,14 +42,18 @@ namespace EmployeeAdminPortal.Repositories.Field
 
         public async Task<Models.Entities.Field> GetFieldByIdAsync(Guid id)
         {
-            var result = await _context.Fields.FindAsync(id);
+            //var result = await _context.Fields.FindAsync(id);
+            var field = await _context.Fields
+                .Include(f => f.FieldPart)
+                .FirstOrDefaultAsync(f => f.Id == id);
 
-            return result;
+            return field;
         }
 
         public async Task<Models.Entities.Field[]> GetFieldsByClubId(Guid clubId)
         {
             var fields = await _context.Fields
+                .Include(f => f.FieldPart)
                 .Where(f => f.ClubId == clubId)
                 .ToListAsync();
 

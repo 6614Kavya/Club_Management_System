@@ -24,4 +24,9 @@ export const navBarData = [
     icon: 'home',
     label: 'Users',
   },
+  {
+    routeLink: '/dashboard/bookingRequests',
+    icon: 'home',
+    label: 'Requests',
+  },
 ];

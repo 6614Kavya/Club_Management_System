@@ -13,7 +13,8 @@ namespace EmployeeAdminPortal.Services.Field
         }
         public async Task<Models.Entities.Field> CreateField(CreateFieldDto model)
         {
-            var field = new Models.Entities.Field {
+            var field = new Models.Entities.Field
+            {
                 ClubId = model.ClubId,
                 Address = model.Address,
                 Name = model.Name,
@@ -22,14 +23,14 @@ namespace EmployeeAdminPortal.Services.Field
 
             int[] bitMasks = [0b0001, 0b0010, 0b0100, 0b1000, 0b0011, 0b1100, 0b1111];
 
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 7; i++)
             {
                 field.FieldPart.Add(new FieldPart
                 {
                     Id = Guid.NewGuid(),
                     Bitmask = bitMasks[i],
                     IsBooked = false,
-                    FieldId = field.Id,
+                    FieldId = field.Id, 
                 });
             }
 
@@ -48,9 +49,11 @@ namespace EmployeeAdminPortal.Services.Field
             throw new NotImplementedException();
         }
 
-        public Task<Models.Entities.Field> GetFieldById(Guid fieldId)
+        public async Task<Models.Entities.Field> GetFieldById(Guid fieldId)
         {
-            throw new NotImplementedException();
+            var result = await _fieldRepository.GetFieldByIdAsync(fieldId);
+
+            return result;
         }
 
         public async Task<Models.Entities.Field[]> GetFieldsByClubId(Guid clubId)

@@ -24,6 +24,8 @@ export class FieldService {
   private getFieldsByClubIdUrl =
     environment.apiURL + '/api/Field/${clubId}/fields';
 
+  private getFieldDetailsByIdUrl = environment.apiURL + '/api/Field/${id}';
+
   getFieldsByClubId(clubId: any): Observable<any> {
     // const club = Clubs.find((c) => c.id === clubId);
 
@@ -34,5 +36,9 @@ export class FieldService {
     //   return [];
     // }
     return this.http.get(environment.apiURL + `/api/Field/${clubId}/fields`);
+  }
+
+  getFieldDetailsById(fieldId: any): Observable<any> {
+    return this.http.get(environment.apiURL + `/api/Field/${fieldId}`);
   }
 }

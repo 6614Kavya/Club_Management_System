@@ -1,3 +1,19 @@
+// import { Component } from '@angular/core';
+
+// @Component({
+//   selector: 'app-booking-requests',
+//   imports: [],
+//   template: `
+//     <p>
+//       booking-requests works!
+//     </p>
+//   `,
+//   styleUrl: './booking-requests.component.css'
+// })
+// export class BookingRequestsComponent {
+
+// }
+
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -16,11 +32,13 @@ import { AdminSelectDropdownComponent } from '../Components/admin-select-dropdow
 import { DeletePopupComponent } from '../Components/delete-popup/delete-popup.component';
 import { EditComponentComponent } from '../Components/edit-component/edit-component.component';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Clubs } from '../Data/club-main-data';
+import { ConfirmBookingComponent } from './../confirm-booking/confirm-booking.component';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 @Component({
-  selector: 'app-clubs',
+  selector: 'app-booking-requests',
   imports: [
     AgGridAngular,
     CommonModule,
@@ -61,9 +79,9 @@ ModuleRegistry.registerModules([AllCommunityModule]);
       (gridReady)="onGridReady($event)"
     />
   `,
-  styleUrl: './clubs.component.css',
+  styleUrl: './booking-requests.component.css',
 })
-export class ClubsComponent {
+export class BookingRequestsComponent {
   constructor(private dialogRef: MatDialog) {}
   @ViewChild('agGrid') agGrid!: AgGridAngular; // Access the grid component
 
@@ -118,16 +136,16 @@ export class ClubsComponent {
       // this.addAdmin(clubName, data);
     });
   }
-  clubData = ClubData;
-  clubAdmins = ClubAdmins;
+  clubData = Clubs;
+  clubAdmins = this.clubData.map((club) => club.club_admins);
   rowData: any[] = [];
   // Row Data: The data to be displayed.
 
   generateRowData() {
     this.rowData = this.clubData.map((club) => ({
-      Name: club.club_name,
-      Address: club.address,
-      Admin: club.admins.join(','),
+      Field: club.name,
+      Date: club.address,
+      Time: club.club_admins.join(','),
     }));
 
     if (this.gridApi) {
@@ -138,15 +156,15 @@ export class ClubsComponent {
   // Function to add a new admin dynamically
   addAdmin(clubName: string, newAdmin: string, params?: any) {
     // Find the club in the ClubData array
-    const club = this.clubData.find((c) => c.club_name === clubName);
+    const club = this.clubData.find((c) => c.name === clubName);
     if (club) {
-      club.admins.push(newAdmin); // Add new admin to the data structure
+      club.club_admins.push(newAdmin); // Add new admin to the data structure
 
       // Update the row immediately
       if (params && this.gridApi) {
-        const updatedClub = this.clubData.find((c) => c.club_name === clubName);
+        const updatedClub = this.clubData.find((c) => c.name === clubName);
         if (updatedClub) {
-          params.node.setDataValue('Admin', updatedClub.admins.join(', '));
+          params.node.setDataValue('Admin', updatedClub.club_admins.join(', '));
         }
       }
       this.generateRowData(); // Refresh rowData
@@ -154,17 +172,17 @@ export class ClubsComponent {
   }
 
   removeAdmin(clubName: string, selectedAdmins: string[], params?: any) {
-    const club = this.clubData.find((c) => c.club_name === clubName);
+    const club = this.clubData.find((c) => c.name === clubName);
     if (club) {
-      club.admins = club.admins.filter(
+      club.club_admins = club.club_admins.filter(
         (admin) => !selectedAdmins.includes(admin)
       );
 
       // Update the row immediately
       if (params && this.gridApi) {
-        const updatedClub = this.clubData.find((c) => c.club_name === clubName);
+        const updatedClub = this.clubData.find((c) => c.name === clubName);
         if (updatedClub) {
-          params.node.setDataValue('Admin', updatedClub.admins.join(', '));
+          params.node.setDataValue('Admin', updatedClub.club_admins.join(', '));
         }
       }
       this.generateRowData(); // Refresh rowData
@@ -183,11 +201,11 @@ export class ClubsComponent {
   filterDataByClub(selectedClub: string) {
     if (selectedClub) {
       this.rowData = this.clubData
-        .filter((club) => club.club_name === selectedClub)
+        .filter((club) => club.name === selectedClub)
         .map((club) => ({
-          Name: club.club_name,
+          Name: club.name,
           Address: club.address,
-          Admin: club.admins.join(', '),
+          Admin: club.club_admins.join(', '),
         }));
     } else {
       this.generateRowData(); // Reset to all data if no club is selected
@@ -201,20 +219,20 @@ export class ClubsComponent {
 
   // Column Definitions: Defines the columns to be displayed.
   colDefs: ColDef[] = [
-    { field: 'Name' },
-    { field: 'Address' },
+    { field: 'Field' },
+    { field: 'Date' },
     {
-      field: 'Admin',
+      field: 'Time',
       editable: true,
       cellEditor: 'agSelectCellEditor',
       cellEditorParams: {
-        values: this.clubData.map((club) => club.admins),
+        values: this.clubData.map((club) => club.club_admins),
       },
     },
     {
       field: '',
       headerName: '',
-      cellRenderer: EditComponentComponent,
+      cellRenderer: ConfirmBookingComponent,
       width: 100,
       cellRendererParams: {
         updateClubData: (event: any) => this.handleUpdatedClub(event),
@@ -254,20 +272,24 @@ export class ClubsComponent {
   addNewClub(clubName: string, clubAddress: string, clubDescription: string) {
     this.clubData.push({
       id: 0,
-      club_name: clubName,
+      name: clubName,
       address: clubAddress,
-      admins: [''],
-      short_name: '',
+      club_admins: [''],
+      shortName: '',
       description: '',
-      country_code: '',
+      countryCode: '',
       activated: false,
+      club_logo: '',
+      userClubs: [],
+      fieldList: [],
+      teamList: [],
     });
 
     this.rowData = [
       ...this.clubData.map((club) => ({
-        Name: club.club_name,
+        Name: club.name,
         Address: club.address,
-        Admin: club.admins,
+        Admin: club.club_admins,
       })),
     ];
   }
@@ -286,10 +308,10 @@ export class ClubsComponent {
     }
 
     // Update the clubData array
-    const club = this.clubData.find((c) => c.club_name === clubName);
+    const club = this.clubData.find((c) => c.name === clubName);
     if (club) {
       club.address = clubAddress;
-      club.admins = admins;
+      club.club_admins = admins;
     }
   }
 }

@@ -3,14 +3,15 @@ import { CommonModule } from '@angular/common';
 
 export class FieldPart {
   constructor(
+    public id: string,
     public name: string,
     // public row: number,
     // public top: number,
     // public left: number,
     // public width: number,
     // public height: number,
-    public bitmask: number,
-    public selected: boolean = false
+    public bitmask: any | undefined,
+    public isBooked: boolean | undefined
   ) {}
 }
 
@@ -23,33 +24,33 @@ export class FieldPart {
       <div class="field-column">
         <div
           class="field-part"
-          [class.selected]="parts[0].selected"
+          [class.selected]="parts[0]?.isBooked"
           (click)="toggleSelection(parts[0])"
         >
-          {{ parts[0].name }}
+          {{ parts[0]?.bitmask }}
         </div>
         <div
           class="field-part"
-          [class.selected]="parts[1].selected"
+          [class.selected]="parts[1]?.isBooked"
           (click)="toggleSelection(parts[1])"
         >
-          {{ parts[1].name }}
+          {{ parts[1]?.bitmask }}
         </div>
       </div>
       <div class="field-column">
         <div
           class="field-part"
-          [class.selected]="parts[2].selected"
+          [class.selected]="parts[2]?.isBooked"
           (click)="toggleSelection(parts[2])"
         >
-          {{ parts[2].name }}
+          {{ parts[2]?.bitmask }}
         </div>
         <div
           class="field-part"
-          [class.selected]="parts[3].selected"
+          [class.selected]="parts[3]?.isBooked"
           (click)="toggleSelection(parts[3])"
         >
-          {{ parts[3].name }}
+          {{ parts[3]?.bitmask }}
         </div>
       </div>
     </div>
@@ -59,19 +60,19 @@ export class FieldPart {
       <div class="field-column">
         <div
           class="field-part"
-          [class.selected]="parts[4].selected"
+          [class.selected]="parts[4]?.isBooked"
           (click)="toggleSelection(parts[4])"
         >
-          {{ parts[4].name }}
+          {{ parts[4]?.bitmask }}
         </div>
       </div>
       <div class="field-column">
         <div
           class="field-part"
-          [class.selected]="parts[5].selected"
+          [class.selected]="parts[5]?.isBooked"
           (click)="toggleSelection(parts[5])"
         >
-          {{ parts[5].name }}
+          {{ parts[5]?.bitmask }}
         </div>
       </div>
     </div>
@@ -81,10 +82,10 @@ export class FieldPart {
       <div class="field-column">
         <div
           class="field-part"
-          [class.selected]="parts[6].selected"
+          [class.selected]="parts[6]?.isBooked"
           (click)="toggleSelection(parts[6])"
         >
-          {{ parts[6].name }}
+          {{ parts[6]?.bitmask }}
         </div>
       </div>
     </div>
@@ -117,12 +118,12 @@ export class FieldPartSelectionComponent {
     //   'selected mask',
     //   this.selectedMask.toString(2).padStart(4, '0')
     // );
-    this.selectionChanged.emit(part.name);
+    this.selectionChanged.emit(part.id);
     // Deselect all parts first
-    this.parts.forEach((p) => (p.selected = false));
+    this.parts.forEach((p) => (p.isBooked = false));
 
     // Select the clicked part
-    part.selected = true;
-    console.log('selected field part', part.name);
+    part.isBooked = true;
+    console.log('selected field part', part.bitmask);
   }
 }

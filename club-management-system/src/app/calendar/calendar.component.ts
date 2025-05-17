@@ -15,6 +15,9 @@ import {
   FieldPartSelectionComponent,
 } from '../field-part-selection/field-part-selection.component';
 import { WeekNumberContainer } from '@fullcalendar/core/internal';
+import { ActivatedRoute } from '@angular/router';
+import { FieldService } from '../services/field/field.service';
+import { Field } from '../services/field/field.service';
 
 @Component({
   selector: 'app-calendar',
@@ -30,18 +33,31 @@ import { WeekNumberContainer } from '@fullcalendar/core/internal';
   styleUrl: './calendar.component.css',
 })
 export class CalendarComponent {
+  route: ActivatedRoute = inject(ActivatedRoute);
   onFieldPartChange(event: number) {
     console.log('Field part', event);
   }
   bookingService: BookingService = inject(BookingService);
+  fieldService: FieldService = inject(FieldService);
 
   selectedDate: string | null = null;
   allBookings: Booking[] = [];
+  fieldId: string;
 
   eventList: any = [];
 
   constructor(private dialogRef: MatDialog) {
     this.loadAllBookings();
+    this.fieldId = String(this.route.snapshot.params['id']);
+
+    // this.fieldService
+    //   .getFieldDetailsById(this.fieldId)
+    //   .subscribe(
+    //     (fieldDetails) => (
+    //       console.log('Field details', fieldDetails),
+    //       (this.fieldData = fieldDetails)
+    //     )
+    //   );
   }
 
   handleEventClick(arg: EventClickArg): void {
@@ -123,6 +139,8 @@ export class CalendarComponent {
         endTime: booking.endTime,
         bookingDate: booking.selectedDate,
         fieldPart: booking.fieldPart,
+        display: 'background',
+        backgroundColor: '#ff9f89', //
       },
     }));
 
@@ -146,7 +164,7 @@ export class CalendarComponent {
       height: 'auto',
       maxWidth: '90vw',
       panelClass: 'custom-dialog-container',
-      data: { date: this.selectedDate },
+      data: { date: this.selectedDate, fieldId: this.fieldId },
     });
 
     dialogRef.afterClosed().subscribe((newBooking: Booking | null) => {
@@ -157,17 +175,17 @@ export class CalendarComponent {
     });
   }
 
-  fieldTemplate = {
-    // name: 'FIELDS.TEMPLATE2',
-    // physicalPartsMask: 0b1111,
-    parts: [
-      new FieldPart('1', 0b0001), // Top-left
-      new FieldPart('2', 0b0010), // Below Part 1
-      new FieldPart('3', 0b0100), // Top-right
-      new FieldPart('4', 0b1000), // Below Part 3
-      new FieldPart('1-2', 0b0011),
-      new FieldPart('3-4', 0b1100),
-      new FieldPart('1-4', 0b1111),
-    ],
-  };
+  // fieldTemplate = {
+  //   // name: 'FIELDS.TEMPLATE2',
+  //   // physicalPartsMask: 0b1111,
+  //   parts: [
+  //     new FieldPart('1', 0b0001), // Top-left
+  //     new FieldPart('2', 0b0010), // Below Part 1
+  //     new FieldPart('3', 0b0100), // Top-right
+  //     new FieldPart('4', 0b1000), // Below Part 3
+  //     new FieldPart('1-2', 0b0011),
+  //     new FieldPart('3-4', 0b1100),
+  //     new FieldPart('1-4', 0b1111),
+  //   ],
+  // };
 }

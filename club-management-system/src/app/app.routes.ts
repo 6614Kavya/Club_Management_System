@@ -11,6 +11,7 @@ import { FieldTeamTabsComponent } from './field-team-tabs/field-team-tabs.compon
 import { CalendarComponent } from './calendar/calendar.component';
 import { BookingPageComponent } from './booking-page/booking-page.component';
 import { authGuard } from './shared/auth.guard';
+import { BookingRequestsComponent } from './booking-requests/booking-requests.component';
 
 const routeConfig: Routes = [
   {
@@ -26,7 +27,7 @@ const routeConfig: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    canActivate: [authGuard],
+    // canActivate: [authGuard],
     children: [
       { path: '', component: HomeDashboardComponent, canActivate: [authGuard] },
       { path: 'clubs', component: ClubsComponent, canActivate: [authGuard] },
@@ -41,10 +42,16 @@ const routeConfig: Routes = [
       {
         path: 'fieldTeamData/:id/calendar/:id',
         component: CalendarComponent,
-        canActivate: [authGuard],
+        // canActivate: [authGuard],
+      },
+      {
+        path: 'bookingRequests',
+        component: BookingRequestsComponent,
+        // canActivate: [authGuard],
       },
     ],
   },
+
   { path: '', redirectTo: '', pathMatch: 'full' }, // Default route
 ];
 

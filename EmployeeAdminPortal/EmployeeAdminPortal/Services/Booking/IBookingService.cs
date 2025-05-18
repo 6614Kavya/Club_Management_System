@@ -12,5 +12,6 @@ namespace EmployeeAdminPortal.Services.Booking
         Task<Entities.Booking> UpdateBooking(Guid bookingId, CreateBookingDto model);
         Task<bool> UpdateBookingStatus(Guid bookingId, string newStatus);
         Task<bool> DeleteBookingById(Guid bookingId);
+        Task<Entities.Booking[]> GetBookingByStatusAsync(string status);
     }
 }

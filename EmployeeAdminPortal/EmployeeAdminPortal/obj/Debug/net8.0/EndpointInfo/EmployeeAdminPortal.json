@@ -195,6 +195,27 @@
         }
       }
     },
+    "/status": {
+      "get": {
+        "tags": [
+          "Booking"
+        ],
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Club/clubs": {
       "get": {
         "tags": [

@@ -141,5 +141,14 @@ namespace EmployeeAdminPortal.Repositories.Booking
             return true;
         }
 
+        public async Task<Models.Entities.Booking[]> GetBookingByStatusAsync(string status)
+        {
+            return await _context.Bookings
+                .Include(b => b.FieldPart)
+                    .ThenInclude(fp => fp.Field)
+                .Where(b => b.BookingStatus == status)
+                .ToArrayAsync();
+        }
+
     }
 }

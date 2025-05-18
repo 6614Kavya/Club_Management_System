@@ -572,5 +572,21 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EmployeeAdminPortal.Controllers.BookingController",
+    "Method": "GetBookingsByStatus",
+    "RelativePath": "status",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "status",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
   }
 ]

@@ -49,4 +49,11 @@ export class BookingService {
   createBooking(booking: Booking) {
     return this.http.post(this.createBookingUrl, booking);
   }
+
+  getBookingsByStatus(status: string) {
+    const url = `${environment.apiURL}/status?status=${encodeURIComponent(
+      status
+    )}`;
+    return this.http.get<Booking[]>(url);
+  }
 }

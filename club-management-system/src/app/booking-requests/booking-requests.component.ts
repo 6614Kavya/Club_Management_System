@@ -14,7 +14,7 @@
 
 // }
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -34,6 +34,8 @@ import { EditComponentComponent } from '../Components/edit-component/edit-compon
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Clubs } from '../Data/club-main-data';
 import { ConfirmBookingComponent } from './../confirm-booking/confirm-booking.component';
+import { BookingService } from '../services/bookings/booking.service';
+import { Booking } from '../services/bookings/booking.service';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -83,7 +85,10 @@ ModuleRegistry.registerModules([AllCommunityModule]);
 })
 export class BookingRequestsComponent {
   constructor(private dialogRef: MatDialog) {}
+
   @ViewChild('agGrid') agGrid!: AgGridAngular; // Access the grid component
+
+  bookingService: BookingService = inject(BookingService);
 
   private gridApi: any; // Store API reference
 
@@ -190,6 +195,15 @@ export class BookingRequestsComponent {
   }
 
   ngOnInit() {
+    this.bookingService.getBookingsByStatus('Pending').subscribe({
+      next: (bookings) => {
+        console.log('Pending bookings:', bookings);
+      },
+      error: (err) => {
+        console.error('Error fetching bookings:', err);
+      },
+    });
+
     this.generateRowData(); // Load all data initially
 
     // Listen to changes in the selected club

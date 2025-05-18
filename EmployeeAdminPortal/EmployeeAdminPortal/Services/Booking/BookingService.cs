@@ -77,6 +77,11 @@ namespace EmployeeAdminPortal.Services.Booking
             return result;
         }
 
+        public async Task<Models.Entities.Booking[]> GetBookingByStatusAsync(string status)
+        {
+            return await _bookingRepository.GetBookingByStatusAsync(status);
+        }
+
         public async Task<Models.Entities.Booking> UpdateBooking(Guid bookingId, CreateBookingDto model)
         {
             var result = await _bookingRepository.UpdateBookingAsync(bookingId, model);

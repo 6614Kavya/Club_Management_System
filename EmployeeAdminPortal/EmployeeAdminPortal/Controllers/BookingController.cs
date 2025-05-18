@@ -88,5 +88,13 @@ namespace EmployeeAdminPortal.Controllers
 
             return Ok("Status updated.");
         }
+
+        [HttpGet("/status")]
+        public async Task<IActionResult> GetBookingsByStatus(string status)
+        {
+            var result = await _bookingService.GetBookingByStatusAsync(status);
+
+            return Ok(result);
+        }
     }
 }

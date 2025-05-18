@@ -15,6 +15,7 @@ namespace EmployeeAdminPortal.Repositories.Booking
         Task<IEnumerable<Models.Entities.Booking>> GetBookingsByFieldPartAsync(Guid fieldPartId);
         Task<Models.Entities.Booking[]> GetBookingsByFieldId(Guid fieldId);
         Task<bool> UpdateBookingStatusAsync(Guid bookingId, string newStatus);
+        Task<Models.Entities.Booking[]> GetBookingByStatusAsync(string status);
 
     }
 }

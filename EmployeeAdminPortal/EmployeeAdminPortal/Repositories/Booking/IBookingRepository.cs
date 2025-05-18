@@ -14,5 +14,7 @@ namespace EmployeeAdminPortal.Repositories.Booking
         Task<bool> HasConflictAsync(Guid fieldPartId, DateTime startTime, DateTime endTime);
         Task<IEnumerable<Models.Entities.Booking>> GetBookingsByFieldPartAsync(Guid fieldPartId);
         Task<Models.Entities.Booking[]> GetBookingsByFieldId(Guid fieldId);
+        Task<bool> UpdateBookingStatusAsync(Guid bookingId, string newStatus);
+
     }
 }

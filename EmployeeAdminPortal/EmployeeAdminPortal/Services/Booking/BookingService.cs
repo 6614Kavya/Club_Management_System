@@ -24,13 +24,17 @@ namespace EmployeeAdminPortal.Services.Booking
             if (fieldPart == null)
                 throw new Exception("Invalid field part");
 
-            model.StartTime = DateTime.SpecifyKind(model.StartTime, DateTimeKind.Utc);
-            model.EndTime = DateTime.SpecifyKind(model.EndTime, DateTimeKind.Utc);
+            //model.StartTime = DateTime.SpecifyKind(model.StartTime, DateTimeKind.Utc);
+            //model.EndTime = DateTime.SpecifyKind(model.EndTime, DateTimeKind.Utc);
+
+            model.StartTime = TimeZoneInfo.ConvertTimeToUtc(model.StartTime);
+            model.EndTime = TimeZoneInfo.ConvertTimeToUtc(model.EndTime);
+
 
             // Conflict check
-            await _bookingRepository.ValidateBookingConflictAsync(model.FieldPartId, model.StartTime, model.EndTime);
+            //await _bookingRepository.ValidateBookingConflictAsync(model.FieldPartId, model.StartTime, model.EndTime);
 
-            model.BookingStatus = "Accepted";
+            model.BookingStatus = "Pending";
 
             return await _bookingRepository.CreateBookingAsync(model);
             //if (hasConflict)
@@ -79,5 +83,11 @@ namespace EmployeeAdminPortal.Services.Booking
 
             return result;
         }
+
+        public async Task<bool> UpdateBookingStatus(Guid bookingId, string newStatus)
+        {
+            return await _bookingRepository.UpdateBookingStatusAsync(bookingId, newStatus);
+        }
+
     }
 }

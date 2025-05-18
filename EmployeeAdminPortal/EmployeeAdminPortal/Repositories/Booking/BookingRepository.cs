@@ -128,5 +128,18 @@ namespace EmployeeAdminPortal.Repositories.Booking
 
             return result.ToArray();
         }
+
+        public async Task<bool> UpdateBookingStatusAsync(Guid bookingId, string newStatus)
+        {
+            var booking = await _context.Bookings.FindAsync(bookingId);
+            if (booking == null)
+                return false;
+
+            booking.BookingStatus = newStatus;
+            _context.Bookings.Update(booking);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
     }
 }

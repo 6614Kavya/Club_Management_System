@@ -81,11 +81,13 @@ export class CalendarComponent {
   addNewEvent(newBooking: Booking) {
     const newEvent = {
       title: newBooking.bookingPurpose,
-      date: newBooking.selectedDate,
+      // date: newBooking.selectedDate,
       // allDay: true,
       start: newBooking.startTime,
       end: newBooking.endTime,
       id: newBooking.id,
+      // display: 'background',
+      // backgroundColor: '#ff9f89', //
       extendedProps: {
         bookingId: newBooking.id,
         name: newBooking.bookedBy,
@@ -94,6 +96,8 @@ export class CalendarComponent {
         endTime: newBooking.endTime,
         bookingDate: newBooking.selectedDate,
         fieldPart: newBooking.fieldPart,
+        // display: 'background',
+        // eventColor: '#ff9f89',
       },
     };
 
@@ -126,11 +130,13 @@ export class CalendarComponent {
     this.allBookings = this.bookingService.getBookingsByFieldId(101); // Implement this method in BookingService
     this.eventList = this.allBookings.map((booking) => ({
       title: booking.bookingPurpose,
-      date: booking.selectedDate,
+      // date: booking.selectedDate,
       start: booking.startTime,
       end: booking.endTime,
       // allDay: true,
       id: booking.id.toString(),
+      // display: 'background',
+      // eventColor: '#ff9f89', //
       extendedProps: {
         bookingId: booking.id,
         name: booking.bookedBy,
@@ -139,18 +145,51 @@ export class CalendarComponent {
         endTime: booking.endTime,
         bookingDate: booking.selectedDate,
         fieldPart: booking.fieldPart,
-        display: 'background',
-        backgroundColor: '#ff9f89', //
+        // display: 'background',
+        // backgroundColor: '#ff9f89', //
       },
     }));
 
     this.calendarOptions.events = [...this.eventList];
+
+    // this.calendarOptions.events = [
+    //   {
+    //     title: 'Event A',
+    //     start: '2025-05-20T10:00:00',
+    //     end: '2025-05-20T13:00:00',
+    //     id: '1',
+    //   },
+    //   {
+    //     title: 'Event B',
+    //     start: '2025-05-20T10:00:00',
+    //     end: '2025-05-20T17:00:00',
+    //     id: '2',
+    //   },
+    // ];
   }
   calendarOptions: CalendarOptions = {
     initialView: 'timeGridWeek',
     plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+    timeZone: 'local',
+    slotEventOverlap: false, // Forces side-by-side layout
+    eventOverlap: true, // Allows overlapping
+    eventDisplay: 'auto', // Ensures full event block shows
+    nowIndicator: true, // Optional: shows current time line
     dateClick: (arg) => this.handleDateClick(arg),
     eventClick: (arg) => this.handleEventClick(arg),
+    // events: [
+    //   {
+    //     title: 'Event A',
+    //     start: '2025-05-19T10:00:00',
+    //     end: '2025-05-19T11:00:00',
+    //   },
+    //   {
+    //     title: 'Event B',
+    //     start: '2025-05-19T10:00:00',
+    //     end: '2025-05-19T11:00:00',
+    //   },
+    // ],
+
     // validRange: {
     //   start: new Date().toISOString().split('T')[0], // disables past dates
     // },

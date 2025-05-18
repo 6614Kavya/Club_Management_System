@@ -190,8 +190,11 @@ export class FieldBookingFormComponent {
       endDateTimeLocal.getTime() - endDateTimeLocal.getTimezoneOffset() * 60000
     ).toISOString();
 
+    // const startDateTimeUtc = startDateTimeLocal.toISOString();
+    // const endDateTimeUtc = endDateTimeLocal.toISOString();
+
     this.dialogRef.close({
-      FieldPartId: 'C04DC7BA-A804-4020-84DB-1715DF777FFC',
+      FieldPartId: this.fieldPart,
       // selectedDate: formattedDate,
       startTime: startDateTimeUtc,
       endTime: endDateTimeUtc,

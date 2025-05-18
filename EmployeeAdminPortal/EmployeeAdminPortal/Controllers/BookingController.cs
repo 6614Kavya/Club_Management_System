@@ -74,5 +74,19 @@ namespace EmployeeAdminPortal.Controllers
 
             return Ok(result);
         }
+
+        [HttpPatch("{bookingId}/status")]
+        public async Task<IActionResult> UpdateBookingStatus(Guid bookingId, [FromBody] string newStatus)
+        {
+            var validStatuses = new[] { "Pending", "Accepted", "Rejected", "Cancelled" };
+            if (!validStatuses.Contains(newStatus))
+                return BadRequest("Invalid status.");
+
+            var success = await _bookingService.UpdateBookingStatus(bookingId, newStatus);
+            if (!success)
+                return NotFound("Booking not found.");
+
+            return Ok("Status updated.");
+        }
     }
 }

@@ -7,7 +7,7 @@ namespace EmployeeAdminPortal.Services.Club
     public interface IClubService
     {
         Task<bool> CreateClub(CreateClubDto model);
-        Task<Entities.Club[]> GetAllClubs();
+        Task<ClubDetailsDto[]> GetAllClubs();
         Task<ClubDetailsDto> GetClubById(Guid clubId);
         Task<Entities.Club> UpdateClub(Guid clubId, CreateClubDto model);
         Task<bool> DeleteClubById(Guid clubId);

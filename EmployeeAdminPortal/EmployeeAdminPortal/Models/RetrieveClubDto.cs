@@ -11,6 +11,8 @@
         public string? Description { get; set; }
 
         public List<ClubAdminDto> ClubAdmins { get; set; }
+        public List<FieldDto> FieldList { get; set; }
+        public List<TeamDto> TeamList { get; set; }
     }
 
     public class ClubAdminDto
@@ -18,5 +20,17 @@
         public string UserId { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
+    }
+
+    public class FieldDto
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+    }
+
+    public class TeamDto
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
     }
 }

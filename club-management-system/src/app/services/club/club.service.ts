@@ -12,10 +12,10 @@ export interface Club {
   club_logo?: string | null;
   address: string | undefined;
   countryCode: string | undefined;
-  activated: boolean;
-  club_admins: string[];
-  fieldList: any[] | undefined;
-  teamList: any[] | undefined;
+  activated?: boolean;
+  clubAdmins?: string[];
+  fieldList?: any[] | undefined;
+  teamList?: any[] | undefined;
   userClubs?: any | null;
 }
 
@@ -37,6 +37,11 @@ export class ClubService {
     var response = this.http.get(this.getClubsUrl);
     console.log('Get all clubs', response);
     return response;
+  }
+
+  getAllClubs(): Observable<Club[]> {
+    const url = `${environment.apiURL}/api/Club/clubs`;
+    return this.http.get<Club[]>(url);
   }
 
   getAllClubList(): Club[] {

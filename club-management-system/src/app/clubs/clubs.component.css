@@ -3,6 +3,11 @@ ag-grid-angular {
   height: 100%; /* Adjust as needed */
 }
 
+.top-container {
+  top: 100;
+  position: relative;
+}
+
 .button-container {
   display: flex;
   justify-content: flex-end;

@@ -5,59 +5,51 @@ import { RouterModule } from '@angular/router';
 import { UserService } from '../user.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [SideNavComponent, RouterModule, FormsModule, CommonModule],
+  imports: [
+    SideNavComponent,
+    RouterModule,
+    FormsModule,
+    CommonModule,
+    MatFormFieldModule,
+    MatSelectModule,
+  ],
   template: `
     <div class="dashboard-container">
-      <div class="role-switcher">
-        <!-- Role Type Dropdown -->
-        <label>
-          Role:
-          <select
-            [(ngModel)]="selectedRole"
-            (ngModelChange)="onRoleChange($event)"
-          >
-            <option value="ClubAdmin">Club Admin</option>
-            <option value="FieldAdmin">Field Admin</option>
-          </select>
-        </label>
+      <!-- Top Navbar -->
+      <header class="top-navbar">
+        <div class="navbar-left">
+          <img src="assets/logo.png" alt="App Logo" class="app-logo" />
+          <span class="app-title">Club Arena</span>
+        </div>
 
-        <!-- Club Selector -->
-        <label *ngIf="selectedRole === 'ClubAdmin'">
-          Club:
-          <select
-            [(ngModel)]="selectedClubId"
-            (ngModelChange)="onContextChange()"
-          >
-            <option *ngFor="let club of clubRoles" [value]="club.clubId">
-              {{ club.clubName }}
-            </option>
-          </select>
-        </label>
+        <div class="navbar-right">
+          <mat-form-field>
+            <mat-label>Select Role</mat-label>
+            <mat-select
+              [(ngModel)]="selectedRoleContext"
+              (selectionChange)="onUnifiedRoleChange()"
+            >
+              <mat-option *ngFor="let option of roleOptions" [value]="option">
+                {{ option.display }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </header>
 
-        <!-- Field Selector -->
-        <label *ngIf="selectedRole === 'FieldAdmin'">
-          Field:
-          <select
-            [(ngModel)]="selectedFieldId"
-            (ngModelChange)="onContextChange()"
-          >
-            <option *ngFor="let field of fieldRoles" [value]="field.fieldId">
-              {{ field.fieldName }}
-            </option>
-          </select>
-        </label>
+      <!-- Main Layout -->
+      <div class="main-layout">
+        <app-side-nav class="side-nav"></app-side-nav>
+
+        <div class="content">
+          <router-outlet></router-outlet>
+        </div>
       </div>
-
-      <app-side-nav class="side-nav"></app-side-nav>
-
-      <div class="content">
-        <router-outlet></router-outlet>
-      </div>
-
-      <!-- <div><p>hiiiiiiiiiiiiii</p></div> -->
     </div>
   `,
   styleUrl: './dashboard.component.css',
@@ -76,6 +68,9 @@ export class DashboardComponent {
   selectedClubId = '';
   selectedFieldId = '';
 
+  selectedRoleContext: any;
+  roleOptions: any[] = [];
+
   clubRoles: any[] = [];
   fieldRoles: any[] = [];
 
@@ -93,6 +88,19 @@ export class DashboardComponent {
 
         this.clubRoles = res.clubRoles?.$values || [];
         this.fieldRoles = res.fieldRoles?.$values || [];
+
+        this.roleOptions = [
+          ...this.clubRoles.map((club) => ({
+            display: `Club Admin - ${club.clubName}`,
+            role: 'ClubAdmin',
+            clubId: club.clubId,
+          })),
+          ...this.fieldRoles.map((field) => ({
+            display: `Field Admin - ${field.fieldName}`,
+            role: 'FieldAdmin',
+            fieldId: field.fieldId,
+          })),
+        ];
       },
       error: (err) => {
         console.error('Error fetching user details', err);
@@ -100,10 +108,13 @@ export class DashboardComponent {
     });
   }
 
-  onRoleChange(newRole: string) {
-    this.selectedClubId = '';
-    this.selectedFieldId = '';
-    this.onContextChange();
+  onUnifiedRoleChange() {
+    const context = this.selectedRoleContext;
+    this.selectedRole = context.role;
+    this.selectedClubId = context.clubId || '';
+    this.selectedFieldId = context.fieldId || '';
+
+    this.onContextChange(); // Call your existing method
   }
 
   onContextChange() {

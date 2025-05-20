@@ -27,7 +27,7 @@ namespace EmployeeAdminPortal.Services.Club
             return result;
         }
 
-        public async Task<Models.Entities.Club[]> GetAllClubs()
+        public async Task<ClubDetailsDto[]> GetAllClubs()
         {
             var result = await _clubRepository.GetAllClubsAsync();
             return result;

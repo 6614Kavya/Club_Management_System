@@ -1,74 +1,79 @@
+/* Dashboard Container */
 .dashboard-container {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  flex-direction: column;
   height: 90vh;
-  right: 50px;
+  /* width: 100vw; */
 }
 
-.role-switcher {
+/* Top Navbar */
+.top-navbar {
+  /* left: 0; */
+  margin-top: -10px;
   position: fixed;
-  top: 0;
-  left: 250px; /* Adjust depending on your side nav width */
-  right: 0;
-  height: 60px;
-  background-color: #f4f4f4;
-  padding: 10px 24px;
+  width: 100vw;
   display: flex;
-  gap: 16px;
+  justify-content: space-between;
   align-items: center;
-  justify-content: flex-end;
-  z-index: 1000;
-  border-bottom: 1px solid #e0e0e0;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-}
-
-.role-switcher label {
-  font-weight: 500;
-  color: #333;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 14px;
-}
-
-.role-switcher select {
-  padding: 6px 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 14px;
-  background-color: #f9f9f9;
-  transition: border-color 0.2s;
-}
-
-.role-switcher select:focus {
-  border-color: #333;
-  outline: none;
-}
-
-.role-switcher button {
-  padding: 6px 12px;
   background-color: #2c3e50;
   color: white;
-  border: none;
-  border-radius: 6px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.2s;
+  padding: 10px 24px;
+  margin-left: -10px;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
 }
 
-.role-switcher button:hover {
-  background-color: #333;
+/* Left: Logo and Title */
+.navbar-left {
+  display: flex;
+  align-items: center;
 }
 
+.app-logo {
+  width: 40px;
+  height: 40px;
+  margin-right: 12px;
+}
+
+.app-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* Right: Role Dropdown */
+.navbar-right {
+  display: flex;
+  align-items: flex-end;
+}
+
+.navbar-right mat-form-field {
+  /* top: 120px; */
+  min-width: 250px;
+  /* background-color: white; */
+  border-radius: 4px;
+  margin-right: 50px;
+}
+
+/* Main layout */
+.main-layout {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Side Navigation */
 .side-nav {
+  /* margin-top: 250px; */
   width: 240px;
-  background-color: #333;
+  /* background-color: #333; */
   color: white;
 }
 
+/* Content Area */
 .content {
+  /* margin-left: 240px; */
+  margin-top: 100px;
+  padding: 24px;
+  overflow-y: auto;
   flex-grow: 1;
-  padding: 20px;
-  padding-top: 100px;
+  height: calc(100vh - 64px);
 }

@@ -21,6 +21,16 @@ export class BookingPageComponent {
   bookingService: BookingService = inject(BookingService);
 
   constructor() {
-    this.bookingData = this.bookingService.getBookingsByFieldId(1);
+    // this.bookingData = this.bookingService.getBookingsByFieldId(1);
+    this.bookingService
+      .getBookingsByFieldId('77C928BE-EBAA-4ED6-CA0E-08DD965BEEED')
+      .subscribe({
+        next: (field) => {
+          console.log('Field:', field);
+        },
+        error: (err) => {
+          console.error('Error loading field:', err);
+        },
+      });
   }
 }

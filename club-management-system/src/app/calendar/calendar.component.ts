@@ -42,13 +42,15 @@ export class CalendarComponent {
 
   selectedDate: string | null = null;
   allBookings: Booking[] = [];
-  fieldId: string;
+  fieldId: any;
 
   eventList: any = [];
 
   constructor(private dialogRef: MatDialog) {
     this.loadAllBookings();
     this.fieldId = String(this.route.snapshot.params['id']);
+
+    this.loadAllBookings();
 
     // this.fieldService
     //   .getFieldDetailsById(this.fieldId)
@@ -127,30 +129,60 @@ export class CalendarComponent {
 
   /** Load all bookings and set them in FullCalendar */
   loadAllBookings() {
-    this.allBookings = this.bookingService.getBookingsByFieldId(101); // Implement this method in BookingService
-    this.eventList = this.allBookings.map((booking) => ({
-      title: booking.bookingPurpose,
-      // date: booking.selectedDate,
-      start: booking.startTime,
-      end: booking.endTime,
-      // allDay: true,
-      id: booking.id.toString(),
-      // display: 'background',
-      // eventColor: '#ff9f89', //
-      extendedProps: {
-        bookingId: booking.id,
-        name: booking.bookedBy,
-        purpose: booking.bookingPurpose,
-        startTime: booking.startTime,
-        endTime: booking.endTime,
-        bookingDate: booking.selectedDate,
-        fieldPart: booking.fieldPart,
-        // display: 'background',
-        // backgroundColor: '#ff9f89', //
-      },
-    }));
+    // this.allBookings = this.bookingService.getBookingsByFieldId(this.fieldId); // Implement this method in BookingService
 
-    this.calendarOptions.events = [...this.eventList];
+    this.bookingService.getBookingsByFieldId(this.fieldId).subscribe({
+      next: (booking) => {
+        console.log('Bookings for this field:', booking);
+        this.allBookings = booking;
+        console.log('allBookings for this field:', this.allBookings);
+
+        this.eventList = this.allBookings.map((booking) => ({
+          title: booking.bookingPurpose,
+          start: booking.startTime,
+          end: booking.endTime,
+          id: booking.id.toString(),
+          extendedProps: {
+            bookingId: booking.id,
+            name: booking.bookedBy,
+            purpose: booking.bookingPurpose,
+            startTime: booking.startTime,
+            endTime: booking.endTime,
+            bookingDate: booking.selectedDate,
+            fieldPart: booking.fieldPart,
+          },
+        }));
+
+        this.calendarOptions.events = [...this.eventList];
+      },
+      error: (err) => {
+        console.error('Error loading bookings:', err);
+      },
+    });
+
+    // this.eventList = this.allBookings.map((booking) => ({
+    //   title: booking.bookingPurpose,
+    //   // date: booking.selectedDate,
+    //   start: booking.startTime,
+    //   end: booking.endTime,
+    //   // allDay: true,
+    //   id: booking.id.toString(),
+    //   // display: 'background',
+    //   // eventColor: '#ff9f89', //
+    //   extendedProps: {
+    //     bookingId: booking.id,
+    //     name: booking.bookedBy,
+    //     purpose: booking.bookingPurpose,
+    //     startTime: booking.startTime,
+    //     endTime: booking.endTime,
+    //     bookingDate: booking.selectedDate,
+    //     fieldPart: booking.fieldPart,
+    //     // display: 'background',
+    //     // backgroundColor: '#ff9f89', //
+    //   },
+    // }));
+
+    // this.calendarOptions.events = [...this.eventList];
 
     // this.calendarOptions.events = [
     //   {

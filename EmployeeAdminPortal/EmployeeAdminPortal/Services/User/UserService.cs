@@ -88,7 +88,7 @@ namespace EmployeeAdminPortal.Services.User
                 {
                     // Data for payload
                     Subject = new ClaimsIdentity(claims),
-                    Expires = DateTime.UtcNow.AddSeconds(30),
+                    Expires = DateTime.UtcNow.AddDays(10),
 
                     // Sign-in key and the encryption algorithm
                     SigningCredentials = new SigningCredentials(
@@ -105,5 +105,43 @@ namespace EmployeeAdminPortal.Services.User
             }
             else return null;
         }
+
+        public async Task<string> CreateToken(Entities.User user)
+        {
+            var roles = await _userManager.GetRolesAsync(user);
+            var roleClaims = roles.Select(r => new Claim(ClaimTypes.Role, r));
+
+            // Base claims
+            var claims = new List<Claim>
+                {
+            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new Claim(ClaimTypes.Name, user.UserName ?? user.Email ?? ""),
+        }.Union(roleClaims);
+
+            // Generate signing key
+            var signInKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+                         _configuration["AppSettings:JWTSecret"]!));
+
+            // Create token
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                // Data for payload
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.UtcNow.AddDays(10),
+
+                // Sign-in key and the encryption algorithm
+                SigningCredentials = new SigningCredentials(
+                    signInKey,
+                    SecurityAlgorithms.HmacSha256
+                )
+            };
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var securityToken = tokenHandler.CreateToken(tokenDescriptor);
+            var token = tokenHandler.WriteToken(securityToken); // encrypted token
+
+            return token;
+        }
+    
     }
 }

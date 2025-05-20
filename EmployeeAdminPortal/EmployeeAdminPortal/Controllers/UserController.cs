@@ -22,10 +22,15 @@ namespace EmployeeAdminPortal.Controllers
         //private readonly UserManager<IdentityUser> _userManager;
         //private readonly IConfiguration _configuration;
         private readonly IUserService _userService;
+        private readonly UserManager<Entities.User> _userManager;
+        private readonly SignInManager<Entities.User> _signInManager;
 
-        public userController(IUserService userService)
+        public userController(IUserService userService, UserManager<Entities.User> userManager,
+    SignInManager<Entities.User> signInManager)
         {
             _userService = userService;
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         [HttpPost("register")]
@@ -50,7 +55,7 @@ namespace EmployeeAdminPortal.Controllers
             return Ok(new { token });
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet("userDetails")]
         public async Task<ActionResult<Entities.User>> GetUserDetails()
         {
@@ -101,6 +106,37 @@ namespace EmployeeAdminPortal.Controllers
             var result = await _userService.AssignRole(model);
 
             return Ok(new { result });
+        }
+
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpPost("set-active-role")]
+        public async Task<IActionResult> SetActiveRole([FromBody] ActiveRoleDto dto)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null) return Unauthorized();
+
+            var existingClaims = await _userManager.GetClaimsAsync(user);
+
+            // Remove any previous context claims
+            foreach (var claim in existingClaims.Where(c => c.Type == "ActiveRole" || c.Type == "ContextId"))
+            {
+                await _userManager.RemoveClaimAsync(user, claim);
+            }
+
+            // Add new role and context claims
+            await _userManager.AddClaimAsync(user, new Claim("ActiveRole", dto.Role));
+
+            if (dto.Role == "ClubAdmin" && dto.ClubId.HasValue)
+                await _userManager.AddClaimAsync(user, new Claim("ContextId", dto.ClubId.Value.ToString()));
+            else if (dto.Role == "FieldAdmin" && dto.FieldId.HasValue)
+                await _userManager.AddClaimAsync(user, new Claim("ContextId", dto.FieldId.Value.ToString()));
+
+            await _signInManager.SignInAsync(user, isPersistent: false);
+
+            // generate and return new JWT
+            var token = await _userService.CreateToken(user);
+
+            return Ok(new { token });
         }
     }
 }

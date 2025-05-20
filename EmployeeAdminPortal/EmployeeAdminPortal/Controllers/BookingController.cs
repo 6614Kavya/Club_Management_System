@@ -86,7 +86,7 @@ namespace EmployeeAdminPortal.Controllers
             if (!success)
                 return NotFound("Booking not found.");
 
-            return Ok("Status updated.");
+            return Ok(new { message = "Status updated." });
         }
 
         [HttpGet("/status")]

@@ -476,6 +476,22 @@
   },
   {
     "ContainingType": "EmployeeAdminPortal.Controllers.userController",
+    "Method": "SetActiveRole",
+    "RelativePath": "api/user/set-active-role",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "EmployeeAdminPortal.Models.ActiveRoleDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EmployeeAdminPortal.Controllers.userController",
     "Method": "SignInUser",
     "RelativePath": "api/user/signin",
     "HttpMethod": "POST",

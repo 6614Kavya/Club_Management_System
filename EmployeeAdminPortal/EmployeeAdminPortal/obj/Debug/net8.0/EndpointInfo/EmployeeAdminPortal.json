@@ -928,6 +928,37 @@
         }
       }
     },
+    "/api/user/set-active-role": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActiveRoleDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActiveRoleDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ActiveRoleDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/weather": {
       "get": {
         "tags": [
@@ -970,6 +1001,31 @@
   },
   "components": {
     "schemas": {
+      "ActiveRoleDto": {
+        "type": "object",
+        "properties": {
+          "role": {
+            "type": "string",
+            "nullable": true
+          },
+          "clubId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "fieldId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "teamId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "AddEmployeeDto": {
         "required": [
           "email",

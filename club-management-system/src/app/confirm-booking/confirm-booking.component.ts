@@ -14,7 +14,7 @@
 
 // }
 
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { ICellRendererParams } from 'ag-grid-community';
 import {
@@ -24,6 +24,7 @@ import {
 } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { BookingService } from '../services/bookings/booking.service';
 // import { EditClubComponent } from '../../Forms/edit-club/edit-club.component';
 // import { EditFieldComponent } from '../../Forms/edit-field/edit-field.component';
 // import { EditTeamComponent } from '../../Forms/edit-team/edit-team.component';
@@ -47,7 +48,16 @@ export class ConfirmBookingComponent implements ICellRendererAngularComp {
   @Output() updateFieldData = new EventEmitter<any>();
   @Output() updateTeamData = new EventEmitter<any>();
   value: any;
-  constructor(private dialogRef: MatDialog) {}
+  constructor(private dialogRef: MatDialog) {
+    // this.bookingService
+    //   .updateBookingStatus(this.params.data.id, 'Approved')
+    //   .subscribe({
+    //     next: (res) => console.log('Booking updated', res),
+    //     error: (err) => console.error('Update failed', err),
+    //   });
+  }
+
+  bookingService: BookingService = inject(BookingService);
 
   private params!: ICellRendererParams;
 
@@ -64,6 +74,13 @@ export class ConfirmBookingComponent implements ICellRendererAngularComp {
     // } else if ((this.params as any).section === 'Team') {
     //   this.openEditTeamComponent(this.params);
     // }
+
+    this.bookingService
+      .updateBookingStatus(this.params.data.id, 'Accepted')
+      .subscribe({
+        next: (res) => console.log('Booking updated', res),
+        error: (err) => console.error('Update failed', err),
+      });
   }
 
   refresh(params: ICellRendererParams): boolean {

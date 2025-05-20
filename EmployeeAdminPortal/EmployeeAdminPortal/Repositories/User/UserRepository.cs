@@ -40,28 +40,78 @@ namespace EmployeeAdminPortal.Repositories.User
         public async Task<bool> AssignRoles( AssignRoleDto assignRoleDto)
         {
             //var result = await _userManager.AddToRoleAsync(user, "SuperAdmin");
+            //var user = await _userManager.FindByIdAsync(assignRoleDto.UserId);
+            //if (user == null) return false;
+
+            var allUserIds = _userManager.Users.Select(u => u.Id).ToList();
+            Console.WriteLine("Known users:");
+            foreach (var id in allUserIds)
+                Console.WriteLine(id);
+
             var user = await _userManager.FindByIdAsync(assignRoleDto.UserId);
-            if (user == null) return false;
+            if (user == null)
+            {
+                Console.WriteLine($"User not found with ID: {assignRoleDto.UserId}");
+                return false;
+            }
+
 
             //Add to ASP.NET Identity role
-            var identityResult = await _userManager.AddToRoleAsync(user, assignRoleDto.Role);
-            if (!identityResult.Succeeded) return false;
+            if (!await _userManager.IsInRoleAsync(user, assignRoleDto.Role))
+            {
+                var identityResult = await _userManager.AddToRoleAsync(user, assignRoleDto.Role);
+                if (!identityResult.Succeeded)
+                    return false;
+            }
 
             //Add custom role info
             if (assignRoleDto.Role == "ClubAdmin")
             {
-                Entities.UserClubRole newClubAdmin = _mapper.Map<Entities.UserClubRole>(assignRoleDto);
-                await _dbContext.UserClubRoles.AddAsync(newClubAdmin);
+                var alreadyExists = await _dbContext.UserClubRoles
+                    .AnyAsync(r => r.UserId == assignRoleDto.UserId && r.ClubId == assignRoleDto.ClubId);
+
+                if (!alreadyExists)
+                {
+                    var newClubAdmin = new Entities.UserClubRole
+                    {
+                        UserId = assignRoleDto.UserId,
+                        ClubId = assignRoleDto.ClubId,
+                        Role = assignRoleDto.Role
+                    };
+                    await _dbContext.UserClubRoles.AddAsync(newClubAdmin);
+                }
             }
             else if (assignRoleDto.Role == "FieldAdmin")
             {
-                Entities.UserFieldRole newFieldAdmin = _mapper.Map<Entities.UserFieldRole>(assignRoleDto);
-                await _dbContext.UserFieldRoles.AddAsync(newFieldAdmin);
+                var alreadyExists = await _dbContext.UserFieldRoles
+                    .AnyAsync(r => r.UserId == assignRoleDto.UserId && r.FieldId == assignRoleDto.FieldId);
+
+                if (!alreadyExists)
+                {
+                    var newFieldAdmin = new Entities.UserFieldRole
+                    {
+                        UserId = assignRoleDto.UserId,
+                        FieldId = assignRoleDto.FieldId,
+                        Role = assignRoleDto.Role
+                    };
+                    await _dbContext.UserFieldRoles.AddAsync(newFieldAdmin);
+                }
             }
             else if (assignRoleDto.Role == "TeamManager")
             {
-                Entities.UserTeamRole newTeamManager = _mapper.Map<Entities.UserTeamRole>(assignRoleDto);
-                await _dbContext.UserTeamRoles.AddAsync(newTeamManager);
+                var alreadyExists = await _dbContext.UserTeamRoles
+                    .AnyAsync(r => r.UserId == assignRoleDto.UserId && r.TeamId == assignRoleDto.TeamId);
+
+                if (!alreadyExists)
+                {
+                    var newTeamManager = new Entities.UserTeamRole
+                    {
+                        UserId = assignRoleDto.UserId,
+                        TeamId = assignRoleDto.TeamId,
+                        Role = assignRoleDto.Role
+                    };
+                    await _dbContext.UserTeamRoles.AddAsync(newTeamManager);
+                }
             }
             else
             {

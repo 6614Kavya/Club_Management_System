@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   AllCommunityModule,
@@ -18,6 +18,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { TeamService, Team } from '../services/team/team.service';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -73,6 +74,8 @@ ModuleRegistry.registerModules([AllCommunityModule]);
 export class TeamsComponent {
   constructor(private dialogRef: MatDialog) {}
 
+  teamService: TeamService = inject(TeamService);
+
   @ViewChild('agGrid') agGrid!: AgGridAngular; // Access the grid component
 
   private gridApi: any; // Store API reference
@@ -109,37 +112,58 @@ export class TeamsComponent {
       );
     });
   }
-  teamData = TeamData;
+  teamData: Team[] = [];
 
   rowData: any[] = [];
   // Row Data: The data to be displayed.
   ngOnInit() {
-    this.generateRowData(); // Load all data initially
+    // this.generateRowData(); // Load all data initially
 
     // Listen to changes in the selected club
     this.teamName.valueChanges.subscribe((selectedTeam: any) => {
       this.filterDataByTeam(selectedTeam);
     });
+
+    this.teamService.getAllTeams().subscribe({
+      next: (data) => {
+        this.teamData = data;
+        console.log('Teams:', data);
+
+        // Wait to call generateRowData() until gridApi is available
+        if (this.gridApi) {
+          this.generateRowData();
+        }
+      },
+      error: (err) => {
+        console.error('Failed to load teams:', err);
+      },
+    });
   }
 
   generateRowData() {
     this.rowData = this.teamData.map((team) => ({
-      Name: team.team_name,
-      Address: team.team_address,
-      Club: team.club_name,
-      Admin: team.team_admin, //check
+      Name: team.name,
+      // Address: team.team_address,
+      Club: team.clubName,
+      Admin:
+        (team.teamManagers as any)?.$values
+          ?.map((admin: any) => admin.name)
+          .join(', ') || '', //check
     }));
   }
 
   filterDataByTeam(selectedTeam: string) {
     if (selectedTeam) {
       this.rowData = this.teamData
-        .filter((team) => team.team_name === selectedTeam)
+        .filter((team) => team.name === selectedTeam)
         .map((team) => ({
-          Name: team.team_name,
-          Address: team.team_address,
-          Club: team.club_name,
-          Admin: team.team_admin, //check
+          Name: team.name,
+          // Address: team.team_address,
+          Club: team.clubName,
+          Admin:
+            (team.teamManagers as any)?.$values
+              ?.map((admin: any) => admin.name)
+              .join(', ') || '', //check
         }));
     } else {
       this.generateRowData(); // Reset to all data if no club is selected
@@ -154,14 +178,19 @@ export class TeamsComponent {
   // Column Definitions: Defines the columns to be displayed.
   colDefs: ColDef[] = [
     { field: 'Name' },
-    { field: 'Address' },
+    // { field: 'Address' },
     { field: 'Club' },
     {
       field: 'Admin',
       editable: true,
       cellEditor: 'agSelectCellEditor',
       cellEditorParams: {
-        values: this.teamData.map((team) => team.team_admin),
+        values: this.teamData.map(
+          (team) =>
+            (team.teamManagers as any)?.$values
+              ?.map((admin: any) => admin.name)
+              .join(', ') || ''
+        ),
       },
     },
     {
@@ -203,26 +232,25 @@ export class TeamsComponent {
     });
   }
 
-  addNewTeam(
-    teamName: string,
-    teamAddress: string,
-    teamDescription: string,
-    clubName: string
-  ) {
+  addNewTeam(teamId: any, teamName: string, clubId: any, clubName: string) {
     this.teamData.push({
-      id: 1,
-      team_name: teamName,
-      team_address: teamAddress,
-      team_admin: '',
-      club_name: clubName,
+      id: teamId,
+      name: teamName,
+      // team_address: teamAddress,
+      teamManagers: [''],
+      clubId: clubId,
+      clubName: clubName,
     });
 
     this.rowData = [
       ...this.teamData.map((team) => ({
-        Name: team.team_name,
-        Address: team.team_address,
-        Club: team.club_name,
-        Admin: team.team_admin,
+        Name: team.name,
+        // Address: team.team_address,
+        Club: team.clubName,
+        Admin:
+          (team.teamManagers as any)?.$values
+            ?.map((admin: any) => admin.name)
+            .join(', ') || '',
       })),
     ];
   }
@@ -241,12 +269,12 @@ export class TeamsComponent {
     }
 
     // Update the clubData array
-    const team = this.teamData.find((t) => t.team_name === teamName);
+    const team = this.teamData.find((t) => t.name === teamName);
     if (team) {
-      team.team_name = teamName;
-      team.team_address = teamAddress;
-      team.club_name = clubName;
-      team.team_admin = admins;
+      team.name = teamName;
+      // team.team_address = teamAddress;
+      team.clubName = clubName;
+      team.teamManagers = admins;
     }
   }
 }

@@ -642,54 +642,16 @@
             "description": "OK"
           }
         }
-      },
-      "patch": {
+      }
+    },
+    "/api/Team/{clubId}/teams": {
+      "get": {
         "tags": [
           "Team"
         ],
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateTeamDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateTeamDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateTeamDto"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Team"
-        ],
-        "parameters": [
-          {
-            "name": "id",
+            "name": "clubId",
             "in": "path",
             "required": true,
             "schema": {
@@ -1264,6 +1226,10 @@
           "name": {
             "type": "string",
             "nullable": true
+          },
+          "clubId": {
+            "type": "string",
+            "format": "uuid"
           }
         },
         "additionalProperties": false

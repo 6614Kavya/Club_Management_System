@@ -359,14 +359,14 @@
   },
   {
     "ContainingType": "EmployeeAdminPortal.Controllers.TeamController",
-    "Method": "GetTeamById",
-    "RelativePath": "api/Team/{id}",
+    "Method": "GetTeamByClubId",
+    "RelativePath": "api/Team/{clubId}/teams",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "id",
+        "Name": "clubId",
         "Type": "System.Guid",
         "IsRequired": true
       }
@@ -375,30 +375,9 @@
   },
   {
     "ContainingType": "EmployeeAdminPortal.Controllers.TeamController",
-    "Method": "UpdateTeam",
+    "Method": "GetTeamById",
     "RelativePath": "api/Team/{id}",
-    "HttpMethod": "PATCH",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "id",
-        "Type": "System.Guid",
-        "IsRequired": true
-      },
-      {
-        "Name": "createTeamDto",
-        "Type": "EmployeeAdminPortal.Models.CreateTeamDto",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "EmployeeAdminPortal.Controllers.TeamController",
-    "Method": "DeleteTeam",
-    "RelativePath": "api/Team/{id}",
-    "HttpMethod": "DELETE",
+    "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [

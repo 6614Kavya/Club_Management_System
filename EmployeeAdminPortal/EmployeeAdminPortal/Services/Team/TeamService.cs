@@ -22,7 +22,7 @@ namespace EmployeeAdminPortal.Services.Team
 
             if (!result)
             {
-                Console.WriteLine("Failed to create user");
+                Console.WriteLine("Failed to create team");
             }
 
             return result;
@@ -35,15 +35,24 @@ namespace EmployeeAdminPortal.Services.Team
             return result;
         }
 
-        public async Task<Models.Entities.Team[]> GetAllTeams()
+        public async Task<TeamDetailsDto[]> GetAllTeams()
         {
             var result = await _teamRepository.GetAllTeamsAsync();
+
             return result;
         }
 
         public async Task<Models.Entities.Team> GetTeamById(Guid teamId)
         {
             var result = await _teamRepository.GetTeamByIdAsync(teamId);
+
+            return result;
+        }
+
+        public async Task<Models.Entities.Team[]> GetTeamsByClubId(Guid clubId)
+        {
+            var result = await _teamRepository.GetTeamsByClubId(clubId);
+
             return result;
         }
 

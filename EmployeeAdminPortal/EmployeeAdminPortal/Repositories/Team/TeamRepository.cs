@@ -29,18 +29,46 @@ namespace EmployeeAdminPortal.Repositories.Team
             throw new NotImplementedException();
         }
 
-        public async Task<Models.Entities.Team[]> GetAllTeamsAsync()
+        public async Task<TeamDetailsDto[]> GetAllTeamsAsync()
         {
-            var result = await _context.Teams.ToListAsync();
+            var teams = await _context.Teams
+        .Select(t => new TeamDetailsDto
+        {
+            Id = t.Id,
+            Name = t.Name,
+            ClubId = t.ClubId,
+            ClubName = t.Club.Name,
+            TeamManagers = t.UserTeamRoles
+                .Where(r => r.Role == "TeamManager")
+                .Select(r => new TeamManagerDto
+                {
+                    UserId = r.UserId,
+                    Name = r.User.Name,
+                    Email = r.User.Email
+                })
+                .ToList()
+        })
+        .ToListAsync();
 
-            return result.ToArray();
+            return teams.ToArray();
         }
 
         public async Task<Models.Entities.Team> GetTeamByIdAsync(Guid id)
         {
-            var result = await _context.Teams.FindAsync(id);
+            //var result = await _context.Fields.FindAsync(id);
+            var team = await _context.Teams
+                .FirstOrDefaultAsync(f => f.Id == id);
 
-            return result;
+            return team;
+        }
+
+        public async Task<Models.Entities.Team[]> GetTeamsByClubId(Guid clubId)
+        {
+            var teams = await _context.Teams
+                .Where(t => t.ClubId == clubId)
+                .ToListAsync();
+
+            return teams.ToArray();
         }
 
         public async Task<Models.Entities.Team> UpdateTeamAsync(Guid id, CreateTeamDto createTeamDto)

@@ -127,9 +127,11 @@ namespace EmployeeAdminPortal.Controllers
             await _userManager.AddClaimAsync(user, new Claim("ActiveRole", dto.Role));
 
             if (dto.Role == "ClubAdmin" && dto.ClubId.HasValue)
-                await _userManager.AddClaimAsync(user, new Claim("ContextId", dto.ClubId.Value.ToString()));
+                await _userManager.AddClaimAsync(user, new Claim("ContextId", dto.ClubId.ToString()));
             else if (dto.Role == "FieldAdmin" && dto.FieldId.HasValue)
-                await _userManager.AddClaimAsync(user, new Claim("ContextId", dto.FieldId.Value.ToString()));
+                await _userManager.AddClaimAsync(user, new Claim("ContextId", dto.FieldId.ToString()));
+            else if (dto.Role == "TeamManager" && dto.TeamId.HasValue)
+                await _userManager.AddClaimAsync(user, new Claim("ContextId", dto.TeamId.ToString()));
 
             await _signInManager.SignInAsync(user, isPersistent: false);
 

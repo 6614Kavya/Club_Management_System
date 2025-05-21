@@ -56,6 +56,15 @@ export class FieldTeamTabsComponent {
           (this.fieldData = fieldDetails)
         )
       );
+
+    this.teamService
+      .getTeamsByClubId(clubId)
+      .subscribe(
+        (teamDetails) => (
+          console.log('Team details', teamDetails),
+          (this.teamData = teamDetails)
+        )
+      );
     // this.fieldData = this.fieldService.getFieldsByClubId(clubId);
     // this.teamData = this.teamService.getTeamsByClubId(clubId);
   }

@@ -12,13 +12,13 @@ import { TeamService, Team } from '../../services/team/team.service';
   template: `
     <mat-card appearance="outlined" (click)="onCardClick()">
       <mat-card-header>
-        <mat-card-title>{{ teamData.team_name }}</mat-card-title>
+        <mat-card-title>{{ teamData.name }}</mat-card-title>
         <!-- <mat-card-subtitle>{{ clubData.short_name }}</mat-card-subtitle> -->
       </mat-card-header>
-      <img mat-card-image [src]="teamData.team_logo" alt="" />
-      <mat-card-content>
+      <img mat-card-image [src]="teamData?.team_logo" alt="" />
+      <!-- <mat-card-content>
         <p>{{ teamData.team_address }}</p>
-      </mat-card-content>
+      </mat-card-content> -->
       <mat-card-actions>
         <!-- <button mat-button>LIKE</button> -->
         <button mat-button>Details</button>

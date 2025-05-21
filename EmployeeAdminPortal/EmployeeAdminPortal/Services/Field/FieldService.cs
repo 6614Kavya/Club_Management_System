@@ -44,9 +44,11 @@ namespace EmployeeAdminPortal.Services.Field
             throw new NotImplementedException();
         }
 
-        public Task<Models.Entities.Field[]> GetAllFields()
+        public async Task<FieldDetailsDto[]> GetAllFields()
         {
-            throw new NotImplementedException();
+            var result = await _fieldRepository.GetAllFieldsAsync();
+
+            return result;
         }
 
         public async Task<Models.Entities.Field> GetFieldById(Guid fieldId)

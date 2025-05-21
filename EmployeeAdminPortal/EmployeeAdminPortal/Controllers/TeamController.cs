@@ -19,9 +19,9 @@ namespace EmployeeAdminPortal.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllTeams()
         {
-            var teams = await _teamService.GetAllTeams();
+            var result = await _teamService.GetAllTeams();
 
-            return Ok(teams);
+            return Ok(result);
         }
 
         // GET api/<TeamController>/5
@@ -33,9 +33,17 @@ namespace EmployeeAdminPortal.Controllers
             return Ok(result);
         }
 
+        [HttpGet("{clubId}/teams")]
+        public async Task<IActionResult> GetTeamByClubId(Guid clubId)
+        {
+            var result = await _teamService.GetTeamsByClubId(clubId);
+
+            return Ok(result);
+        }
+
         // POST api/<TeamController>
         [HttpPost]
-        public async Task<IActionResult> CreateTeam([FromBody] CreateTeamDto createTeamDto)
+        public async Task<IActionResult> CreateTeam(CreateTeamDto createTeamDto)
         {
             var result = await _teamService.CreateTeam(createTeamDto);
 
@@ -43,21 +51,21 @@ namespace EmployeeAdminPortal.Controllers
         }
 
         // PUT api/<TeamController>/5
-        [HttpPatch("{id}")]
-        public async Task<IActionResult> UpdateTeam(Guid id, [FromBody] CreateTeamDto createTeamDto)
-        {
-            var result = await _teamService.UpdateTeam(id, createTeamDto);
+        //[HttpPatch("{id}")]
+        //public async Task<IActionResult> UpdateTeam(Guid id, [FromBody] CreateTeamDto createTeamDto)
+        //{
+        //    var result = await _teamService.UpdateTeam(id, createTeamDto);
 
-            return Ok(result);
-        }
+        //    return Ok(result);
+        //}
 
         // DELETE api/<TeamController>/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTeam(Guid id)
-        {
-            var result = await _teamService.DeleteTeamById(id);
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> DeleteTeam(Guid id)
+        //{
+        //    var result = await _teamService.DeleteTeamById(id);
 
-            return Ok(result);
-        }
+        //    return Ok(result);
+        //}
     }
 }

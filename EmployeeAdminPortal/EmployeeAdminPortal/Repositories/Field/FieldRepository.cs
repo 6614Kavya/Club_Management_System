@@ -33,11 +33,32 @@ namespace EmployeeAdminPortal.Repositories.Field
             throw new NotImplementedException();
         }
 
-        public async Task<Models.Entities.Field[]> GetAllFieldsAsync()
+        public async Task<FieldDetailsDto[]> GetAllFieldsAsync()
         {
-            var result = await _context.Fields.ToListAsync();
+            var fields = await _context.Fields
+        .Select(f => new FieldDetailsDto
+        {
+            Id = f.Id,
+            Name = f.Name,
+            Address = f.Address,
+            Description = f.Description,
+            HasLighting = f.HasLighting,
+            HasHeating = f.HasHeating,
+            ClubId = f.ClubId,
+            ClubName= f.Club.Name,
+            FieldAdmins = f.UserFieldRoles
+                .Where(r => r.Role == "FieldAdmin")
+                .Select(r => new FieldAdminDto
+                {
+                    UserId = r.UserId,
+                    Name = r.User.Name,
+                    Email = r.User.Email
+                })
+                .ToList()
+        })
+        .ToListAsync();
 
-            return result.ToArray();
+            return fields.ToArray();
         }
 
         public async Task<Models.Entities.Field> GetFieldByIdAsync(Guid id)

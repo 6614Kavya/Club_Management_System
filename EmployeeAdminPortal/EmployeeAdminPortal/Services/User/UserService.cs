@@ -108,40 +108,41 @@ namespace EmployeeAdminPortal.Services.User
 
         public async Task<string> CreateToken(Entities.User user)
         {
+            // 1. Fetch role-based claims
             var roles = await _userManager.GetRolesAsync(user);
             var roleClaims = roles.Select(r => new Claim(ClaimTypes.Role, r));
 
-            // Base claims
+            // 2. Fetch custom claims (e.g., ActiveRole, ContextId)
+            var userClaims = await _userManager.GetClaimsAsync(user);
+
+            // 3. Base identity claims
             var claims = new List<Claim>
-                {
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(ClaimTypes.Name, user.UserName ?? user.Email ?? ""),
-        }.Union(roleClaims);
+    {
+        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+        new Claim(ClaimTypes.Name, user.UserName ?? user.Email ?? "")
+    }
+            .Union(roleClaims)
+            .Union(userClaims); // 👈 Merge custom claims here
 
-            // Generate signing key
-            var signInKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
-                         _configuration["AppSettings:JWTSecret"]!));
+            // 4. Generate signing key
+            var signInKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(_configuration["AppSettings:JWTSecret"]!)
+            );
 
-            // Create token
+            // 5. Create token descriptor
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                // Data for payload
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddDays(10),
-
-                // Sign-in key and the encryption algorithm
-                SigningCredentials = new SigningCredentials(
-                    signInKey,
-                    SecurityAlgorithms.HmacSha256
-                )
+                SigningCredentials = new SigningCredentials(signInKey, SecurityAlgorithms.HmacSha256)
             };
 
+            // 6. Create and return token
             var tokenHandler = new JwtSecurityTokenHandler();
             var securityToken = tokenHandler.CreateToken(tokenDescriptor);
-            var token = tokenHandler.WriteToken(securityToken); // encrypted token
-
-            return token;
+            return tokenHandler.WriteToken(securityToken);
         }
-    
+
+
     }
 }

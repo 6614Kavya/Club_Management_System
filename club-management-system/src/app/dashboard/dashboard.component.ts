@@ -23,7 +23,7 @@ import { MatSelectModule } from '@angular/material/select';
       <!-- Top Navbar -->
       <header class="top-navbar">
         <div class="navbar-left">
-          <img src="assets/logo.png" alt="App Logo" class="app-logo" />
+          <!-- <img src="assets/logo.png" alt="App Logo" class="app-logo" /> -->
           <span class="app-title">Club Arena</span>
         </div>
 
@@ -67,12 +67,14 @@ export class DashboardComponent {
   selectedRole = '';
   selectedClubId = '';
   selectedFieldId = '';
+  selectedTeamId = '';
 
   selectedRoleContext: any;
   roleOptions: any[] = [];
 
   clubRoles: any[] = [];
   fieldRoles: any[] = [];
+  teamRoles: any[] = [];
 
   constructor(private route: ActivatedRoute) {
     this.route.queryParams.subscribe((params) => {
@@ -88,6 +90,7 @@ export class DashboardComponent {
 
         this.clubRoles = res.clubRoles?.$values || [];
         this.fieldRoles = res.fieldRoles?.$values || [];
+        this.teamRoles = res.teamRoles?.$values || [];
 
         this.roleOptions = [
           ...this.clubRoles.map((club) => ({
@@ -99,6 +102,11 @@ export class DashboardComponent {
             display: `Field Admin - ${field.fieldName}`,
             role: 'FieldAdmin',
             fieldId: field.fieldId,
+          })),
+          ...this.teamRoles.map((team) => ({
+            display: `Team Manager - ${team.teamName}`,
+            role: 'TeamManager',
+            teamId: team.teamId,
           })),
         ];
       },
@@ -113,34 +121,25 @@ export class DashboardComponent {
     this.selectedRole = context.role;
     this.selectedClubId = context.clubId || '';
     this.selectedFieldId = context.fieldId || '';
+    this.selectedTeamId = context.teamId || '';
 
     this.onContextChange(); // Call your existing method
   }
 
   onContextChange() {
-    const payload: any = {
-      role: this.selectedRole,
-    };
-    if (this.selectedRole === 'ClubAdmin') {
-      payload.clubId = this.selectedClubId;
-    } else if (this.selectedRole === 'FieldAdmin') {
-      payload.fieldId = this.selectedFieldId;
-    }
-
-    console.log('role switch:', payload);
-
     this.userService
       .setActiveRole(
         this.selectedRole,
-        this.selectedClubId,
-        this.selectedFieldId
+        this.selectedClubId || undefined,
+        this.selectedFieldId || undefined,
+        this.selectedTeamId || undefined
       )
       .subscribe({
-        next: (response) => {
-          const newToken = response.token;
-          localStorage.setItem('token', newToken);
-          console.log('New token:', response.token);
-          console.log('Token updated');
+        next: () => {
+          const newPayload = this.userService.getDecodedToken();
+          console.log('Role switched to:', newPayload?.role);
+          console.log('New context ID:', newPayload?.ContextId);
+          // Optionally refresh the view or reload the component/router
         },
         error: (err) => {
           console.error('Failed to set active role', err);

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   AllCommunityModule,
@@ -19,6 +19,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FieldService, Field } from '../services/field/field.service';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -74,6 +75,8 @@ ModuleRegistry.registerModules([AllCommunityModule]);
 export class FieldsComponent {
   constructor(private dialogRef: MatDialog) {}
 
+  fieldService: FieldService = inject(FieldService);
+
   @ViewChild('agGrid') agGrid!: AgGridAngular; // Access the grid component
 
   private gridApi: any; // Store API reference
@@ -102,12 +105,12 @@ export class FieldsComponent {
 
     dialogRef.afterClosed().subscribe((data) => {
       console.log(data);
-      this.addNewField(
-        data.fieldName,
-        data.fieldAddress,
-        data.fieldDescription,
-        data.clubName
-      );
+      // this.addNewField(
+      //   data.fieldName,
+      //   data.fieldAddress,
+      //   data.fieldDescription,
+      //   data.clubName
+      // );
     });
   }
 
@@ -151,18 +154,27 @@ export class FieldsComponent {
       // this.addAdmin(clubName, data);
     });
   }
-  fieldData = FieldData;
-  fieldAdmins = FieldAdmins;
+  // fieldData = FieldData;
+  fieldData: Field[] = [];
+  fieldAdmins = this.fieldData.map(
+    (field) =>
+      (field.fieldAdmins as any)?.$values
+        ?.map((admin: any) => admin.name)
+        .join(', ') || ''
+  );
 
   rowData: any[] = [];
   // Row Data: The data to be displayed.
 
   generateRowData() {
     this.rowData = this.fieldData.map((field) => ({
-      Name: field.field_name,
-      Address: field.field_address,
-      Club: field.club_name,
-      Admin: field.field_admin.join(', '), // Combine all admins in one cell
+      Name: field.name,
+      Address: field.address,
+      Club: field.clubName,
+      Admin:
+        (field.fieldAdmins as any)?.$values
+          ?.map((admin: any) => admin.name)
+          .join(', ') || '', // Combine all admins in one cell
     }));
   }
 
@@ -178,19 +190,19 @@ export class FieldsComponent {
 
   addAdmin(fieldName: string, newAdmin: string, params?: any) {
     // Find the club in the ClubData array
-    const field = this.fieldData.find((f) => f.field_name === fieldName);
+    const field = this.fieldData.find((f) => f.name === fieldName);
     if (field) {
-      field.field_admin.push(newAdmin); // Add new admin to the data structure
+      field.fieldAdmins.push(newAdmin); // Add new admin to the data structure
 
       // Update the row immediately
       if (params && this.gridApi) {
-        const updatedField = this.fieldData.find(
-          (f) => f.field_name === fieldName
-        );
+        const updatedField = this.fieldData.find((f) => f.name === fieldName);
         if (updatedField) {
           params.node.setDataValue(
             'Admin',
-            updatedField.field_admin.join(', ')
+            (updatedField.fieldAdmins as any)?.$values
+              ?.map((admin: any) => admin.name)
+              .join(', ') || ''
           );
         }
       }
@@ -199,21 +211,21 @@ export class FieldsComponent {
   }
 
   removeAdmin(fieldName: string, selectedAdmins: string[], params?: any) {
-    const field = this.fieldData.find((f) => f.field_name === fieldName);
+    const field = this.fieldData.find((f) => f.name === fieldName);
     if (field) {
-      field.field_admin = field.field_admin.filter(
+      field.fieldAdmins = field.fieldAdmins.filter(
         (admin) => !selectedAdmins.includes(admin)
       );
 
       // Update the row immediately
       if (params && this.gridApi) {
-        const updatedField = this.fieldData.find(
-          (f) => f.field_name === fieldName
-        );
+        const updatedField = this.fieldData.find((f) => f.name === fieldName);
         if (updatedField) {
           params.node.setDataValue(
             'Admin',
-            updatedField.field_admin.join(', ')
+            (updatedField.fieldAdmins as any)?.$values
+              ?.map((admin: any) => admin.name)
+              .join(', ') || ''
           );
         }
       }
@@ -222,23 +234,41 @@ export class FieldsComponent {
   }
 
   ngOnInit() {
-    this.generateRowData(); // Load all data initially
+    // this.generateRowData(); // Load all data initially
 
     // Listen to changes in the selected club
     this.fieldName.valueChanges.subscribe((selectedField: any) => {
       this.filterDataByField(selectedField);
+    });
+
+    this.fieldService.getAllFields().subscribe({
+      next: (data) => {
+        this.fieldData = data;
+        console.log('Clubs:', data);
+
+        // Wait to call generateRowData() until gridApi is available
+        if (this.gridApi) {
+          this.generateRowData();
+        }
+      },
+      error: (err) => {
+        console.error('Failed to load clubs:', err);
+      },
     });
   }
 
   filterDataByField(selectedField: string) {
     if (selectedField) {
       this.rowData = this.fieldData
-        .filter((field) => field.field_name === selectedField)
+        .filter((field) => field.name === selectedField)
         .map((field) => ({
-          Name: field.field_name,
-          Address: field.field_address,
-          Club: field.club_name,
-          Admin: field.field_admin.join(', '),
+          Name: field.name,
+          Address: field.address,
+          Club: field.clubName,
+          Admin:
+            (field.fieldAdmins as any)?.$values
+              ?.map((admin: any) => admin.name)
+              .join(', ') || '',
         }));
     } else {
       this.generateRowData(); // Reset to all data if no club is selected
@@ -260,7 +290,12 @@ export class FieldsComponent {
       editable: true,
       cellEditor: 'agSelectCellEditor',
       cellEditorParams: {
-        values: this.fieldData.map((field) => field.field_admin),
+        values: this.fieldData.map(
+          (field) =>
+            (field.fieldAdmins as any)?.$values
+              ?.map((admin: any) => admin.name)
+              .join(', ') || ''
+        ),
       },
       // onCellClicked: (event: any) => {
       //   const clubName = event.data.Name;
@@ -349,31 +384,31 @@ export class FieldsComponent {
     });
   }
 
-  addNewField(
-    teamName: string,
-    teamAddress: string,
-    teamDescription: string,
-    clubName: string
-  ) {
-    this.fieldData.push({
-      id: 1,
-      field_name: teamName,
-      field_address: teamAddress,
-      field_admin: [''],
-      description: '',
-      club_name: clubName,
-      facilities: [''],
-    });
+  // addNewField(
+  //   teamName: string,
+  //   teamAddress: string,
+  //   teamDescription: string,
+  //   clubName: string
+  // ) {
+  //   this.fieldData.push({
+  //     id: '',
+  //     field_name: teamName,
+  //     field_address: teamAddress,
+  //     field_admin: [''],
+  //     description: '',
+  //     club_name: clubName,
+  //     facilities: [''],
+  //   });
 
-    this.rowData = [
-      ...this.fieldData.map((field) => ({
-        Name: field.field_name,
-        Address: field.field_address,
-        Club: field.club_name,
-        Admin: field.field_admin,
-      })),
-    ];
-  }
+  //   this.rowData = [
+  //     ...this.fieldData.map((field) => ({
+  //       Name: field.name,
+  //       Address: field.address,
+  //       Club: field.clubName,
+  //       Admin: field.fieldAdmins,
+  //     })),
+  //   ];
+  // }
 
   handleUpdatedField(event: any) {
     const { rowIndex, fieldName, fieldAddress, clubName, admins } = event;
@@ -389,12 +424,12 @@ export class FieldsComponent {
     }
 
     // Update the clubData array
-    const field = this.fieldData.find((f) => f.field_name === fieldName);
+    const field = this.fieldData.find((f) => f.name === fieldName);
     if (field) {
-      field.field_name = fieldName;
-      field.field_address = fieldAddress;
-      field.club_name = clubName;
-      field.field_admin = admins;
+      field.name = fieldName;
+      field.address = fieldAddress;
+      field.clubName = clubName;
+      field.fieldAdmins = admins;
     }
   }
 }

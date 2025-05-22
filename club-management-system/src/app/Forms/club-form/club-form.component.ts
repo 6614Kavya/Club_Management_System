@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -6,6 +6,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { ClubService } from '../../services/club/club.service';
 
 @Component({
   standalone: true,
@@ -56,6 +57,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class ClubFormComponent {
   constructor(private dialogRef: MatDialogRef<ClubFormComponent>) {}
 
+  clubService: ClubService = inject(ClubService);
+
   clubName = new FormControl('');
   clubAddress = new FormControl('');
   clubDescription = new FormControl('');
@@ -66,7 +69,24 @@ export class ClubFormComponent {
       clubAddress: this.clubAddress.value,
       clubDescription: this.clubDescription.value,
     };
+    const clubData = {
+      name: this.clubName.value || undefined,
+      shortName: this.clubName.value || undefined, // You may want to split this later
+      address: this.clubAddress.value || undefined,
+      description: this.clubDescription.value || undefined,
+      countryCode: 'US', // or make this dynamic
+      activated: true,
+    };
 
-    this.dialogRef.close(data);
+    // this.dialogRef.close(data);
+    this.clubService.createClub(clubData).subscribe({
+      next: (response) => {
+        console.log('Club created:', response);
+        this.dialogRef.close(response); // Optionally pass the created club back
+      },
+      error: (error) => {
+        console.error('Error creating club:', error);
+      },
+    });
   }
 }

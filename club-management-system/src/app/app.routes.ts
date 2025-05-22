@@ -12,6 +12,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { BookingPageComponent } from './booking-page/booking-page.component';
 import { authGuard } from './shared/auth.guard';
 import { BookingRequestsComponent } from './booking-requests/booking-requests.component';
+import { ManageAdminsComponent } from './manage-admins/manage-admins.component';
 
 const routeConfig: Routes = [
   {
@@ -47,6 +48,11 @@ const routeConfig: Routes = [
       {
         path: 'bookingRequests',
         component: BookingRequestsComponent,
+        // canActivate: [authGuard],
+      },
+      {
+        path: 'manageAdmins',
+        component: ManageAdminsComponent,
         // canActivate: [authGuard],
       },
     ],

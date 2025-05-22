@@ -346,17 +346,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateClubDto"
+                "$ref": "#/components/schemas/UpdateClubDto"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateClubDto"
+                "$ref": "#/components/schemas/UpdateClubDto"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateClubDto"
+                "$ref": "#/components/schemas/UpdateClubDto"
               }
             }
           }
@@ -1418,6 +1418,36 @@
           },
           "role": {
             "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateClubDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "shortName": {
+            "type": "string",
+            "nullable": true
+          },
+          "address": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "countryCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "activated": {
+            "type": "boolean",
             "nullable": true
           }
         },

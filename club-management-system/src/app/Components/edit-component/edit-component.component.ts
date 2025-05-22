@@ -61,6 +61,7 @@ export class EditComponentComponent implements ICellRendererAngularComp {
   // }
 
   openEditClubComponent(params: ICellRendererParams) {
+    console.log('Edit component to be opened', params.data.Id);
     const admins = Array.isArray(params.data.Admin)
       ? params.data.Admin
       : params.data.Admin?.split(',').map((admin: string) => admin.trim()) ||
@@ -71,6 +72,7 @@ export class EditComponentComponent implements ICellRendererAngularComp {
       maxWidth: '90vw',
       panelClass: 'custom-dialog-container',
       data: {
+        clubId: params.data.Id,
         clubName: params.data.Name,
         clubAddress: params.data.Address,
         admins: admins, // ensure that the data is passed as an array

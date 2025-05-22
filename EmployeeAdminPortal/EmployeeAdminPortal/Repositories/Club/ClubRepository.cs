@@ -94,7 +94,7 @@ namespace EmployeeAdminPortal.Repositories.Club
             return club;
         }
 
-        public async Task<Models.Entities.Club> UpdateClubAsync(Guid Id, CreateClubDto createClubDto)
+        public async Task<Models.Entities.Club> UpdateClubAsync(Guid Id, UpdateClubDto createClubDto)
         {
             var existingClub = await _context.Clubs.FindAsync(Id);
 
@@ -103,7 +103,7 @@ namespace EmployeeAdminPortal.Repositories.Club
                 return null;
             }
 
-            existingClub = _mapper.Map<Models.Entities.Club>(createClubDto);
+            _mapper.Map(createClubDto, existingClub);
 
             await _context.SaveChangesAsync();
 

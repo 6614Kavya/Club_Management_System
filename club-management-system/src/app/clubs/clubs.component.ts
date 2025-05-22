@@ -17,6 +17,7 @@ import { DeletePopupComponent } from '../Components/delete-popup/delete-popup.co
 import { EditComponentComponent } from '../Components/edit-component/edit-component.component';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Club, ClubService } from '../services/club/club.service';
+import { Router } from '@angular/router';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -51,6 +52,13 @@ ModuleRegistry.registerModules([AllCommunityModule]);
         >
           Remove Selected User
         </button>
+        <button
+          class="manage-admins"
+          mat-raised-button
+          (click)="navigateToManageAdmins()"
+        >
+          Manage Admins
+        </button>
       </div>
     </div>
 
@@ -67,7 +75,10 @@ ModuleRegistry.registerModules([AllCommunityModule]);
   styleUrl: './clubs.component.css',
 })
 export class ClubsComponent {
-  constructor(private dialogRef: MatDialog) {}
+  navigateToManageAdmins() {
+    this.router.navigate(['/dashboard/manageAdmins']);
+  }
+  constructor(private dialogRef: MatDialog, private router: Router) {}
   @ViewChild('agGrid') agGrid!: AgGridAngular; // Access the grid component
 
   private gridApi: any; // Store API reference
@@ -96,9 +107,24 @@ export class ClubsComponent {
       panelClass: 'custom-dialog-container',
     });
 
-    dialogRef.afterClosed().subscribe((data) => {
-      console.log(data);
-      this.addNewClub(data.clubName, data.clubAddress, data.clubDescription);
+    // dialogRef.afterClosed().subscribe((data) => {
+    //   console.log(data);
+    //   this.addNewClub(data.clubName, data.clubAddress, data.clubDescription);
+    // });
+
+    dialogRef.afterClosed().subscribe((createdClub) => {
+      if (createdClub) {
+        // Fetch fresh data from backend
+        this.clubService.getAllClubs().subscribe({
+          next: (clubs) => {
+            this.clubData = clubs;
+            this.generateRowData(); // Updates grid
+          },
+          error: (err) => {
+            console.error('Failed to reload clubs:', err);
+          },
+        });
+      }
     });
   }
 
@@ -130,6 +156,7 @@ export class ClubsComponent {
 
   generateRowData() {
     this.rowData = this.clubData.map((club) => ({
+      Id: club.id,
       Name: club.name,
       Address: club.address,
       Admin:
@@ -191,6 +218,7 @@ export class ClubsComponent {
       next: (data) => {
         this.clubData = data;
         console.log('Clubs:', data);
+        this.generateColDefs();
 
         // Wait to call generateRowData() until gridApi is available
         if (this.gridApi) {
@@ -208,6 +236,7 @@ export class ClubsComponent {
       this.rowData = this.clubData
         .filter((club) => club.name === selectedClub)
         .map((club) => ({
+          Id: club.id,
           Name: club.name,
           Address: club.address,
           Admin: club.clubAdmins?.join(', '),
@@ -223,28 +252,43 @@ export class ClubsComponent {
   }
 
   // Column Definitions: Defines the columns to be displayed.
-  colDefs: ColDef[] = [
-    { field: 'Name' },
-    { field: 'Address' },
-    {
-      field: 'Admin',
-      editable: true,
-      cellEditor: 'agSelectCellEditor',
-      cellEditorParams: {
-        values: this.clubData.map((club) => club.clubAdmins),
+  colDefs: ColDef[] = [];
+
+  generateColDefs() {
+    this.colDefs = [
+      { field: 'Name' },
+      { field: 'Address' },
+      {
+        field: 'Admin',
+        editable: true,
+        cellEditor: 'agSelectCellEditor',
+        cellEditorParams: {
+          values: this.clubData.map((club) => club.clubAdmins),
+        },
       },
-    },
-    {
-      field: '',
-      headerName: '',
-      cellRenderer: EditComponentComponent,
-      width: 100,
-      cellRendererParams: {
-        updateClubData: (event: any) => this.handleUpdatedClub(event),
-        section: 'Club',
+      {
+        field: '',
+        headerName: '',
+        cellRenderer: EditComponentComponent,
+        width: 100,
+        cellRendererParams: (params: any) => {
+          const clubId = params.data.Id;
+          const club = this.clubData.find((c) => c.id === clubId);
+          console.log('Cell renderer params id', club?.id);
+          return {
+            updateClubData: (event: any) => this.handleUpdatedClub(event),
+            section: 'Club',
+            clubId: club?.id,
+            clubName: club?.name,
+            clubAddress: club?.address,
+            admins: club?.clubAdmins,
+            rowIndex: params.rowIndex,
+          };
+        },
       },
-    },
-  ];
+    ];
+  }
+
   // enableCellSpan = true;
 
   openDeleteconfirmationDialog() {
@@ -297,22 +341,17 @@ export class ClubsComponent {
 
   // Function to update row data
   handleUpdatedClub(event: any) {
-    const { rowIndex, clubName, clubAddress, admins } = event;
+    const { clubId } = event;
 
-    if (this.gridApi) {
-      const rowNode = this.gridApi.getDisplayedRowAtIndex(rowIndex);
-      if (rowNode) {
-        rowNode.setDataValue('Name', clubName);
-        rowNode.setDataValue('Address', clubAddress);
-        rowNode.setDataValue('Admin', admins.join(', '));
-      }
-    }
-
-    // Update the clubData array
-    const club = this.clubData.find((c) => c.name === clubName);
-    if (club) {
-      club.address = clubAddress;
-      club.clubAdmins = admins;
-    }
+    // 🔁 Fetch fresh data
+    this.clubService.getAllClubs().subscribe({
+      next: (clubs) => {
+        this.clubData = clubs;
+        this.generateRowData(); // Refresh rowData
+      },
+      error: (err) => {
+        console.error('Failed to reload clubs after update:', err);
+      },
+    });
   }
 }

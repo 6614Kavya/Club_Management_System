@@ -7,16 +7,22 @@ import { Observable } from 'rxjs';
 export interface Club {
   id: any;
   name: string | undefined;
-  shortName: string | undefined;
-  description: string | undefined;
+  shortName?: string | undefined;
+  description?: string | undefined;
   club_logo?: string | null;
-  address: string | undefined;
-  countryCode: string | undefined;
+  address?: string | undefined;
+  countryCode?: string | undefined;
   activated?: boolean;
   clubAdmins?: string[];
   fieldList?: any[] | undefined;
   teamList?: any[] | undefined;
   userClubs?: any | null;
+}
+
+export interface Admin {
+  clubName: string;
+  adminName: string;
+  email: string;
 }
 
 @Injectable({
@@ -74,5 +80,15 @@ export class ClubService {
         userClubs,
       })
     );
+  }
+
+  createClub(clubData: Partial<Club>): Observable<any> {
+    const url = `${environment.apiURL}/api/Club/createClub`;
+    return this.http.post(url, clubData);
+  }
+
+  updateClub(clubId: string, updatedData: Partial<Club>): Observable<any> {
+    const url = `${environment.apiURL}/api/Club/updateClub/${clubId}`;
+    return this.http.patch(url, updatedData);
   }
 }

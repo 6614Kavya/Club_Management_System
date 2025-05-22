@@ -188,7 +188,7 @@
       },
       {
         "Name": "createClubDto",
-        "Type": "EmployeeAdminPortal.Models.CreateClubDto",
+        "Type": "EmployeeAdminPortal.Models.UpdateClubDto",
         "IsRequired": true
       }
     ],

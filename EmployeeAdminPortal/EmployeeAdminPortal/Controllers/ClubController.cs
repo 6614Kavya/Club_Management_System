@@ -53,7 +53,7 @@ namespace EmployeeAdminPortal.Controllers
 
         // PUT api/<TeamController>/5
         [HttpPatch("updateClub/{id}")]
-        public async Task<IActionResult> UpdateClub(Guid id, [FromBody] CreateClubDto createClubDto)
+        public async Task<IActionResult> UpdateClub(Guid id, [FromBody] UpdateClubDto createClubDto)
         {
             var result = await _clubService.UpdateClub(id, createClubDto);
 

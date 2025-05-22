@@ -28,6 +28,10 @@ namespace EmployeeAdminPortal.Mappings
 
             CreateMap<AssignRoleDto, UserTeamRole>()
             .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+
+            CreateMap<UpdateClubDto, Club>()
+            .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+
         }
     }
 }

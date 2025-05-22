@@ -39,7 +39,7 @@ namespace EmployeeAdminPortal.Services.Club
             return result;
         }
 
-        public async Task<Models.Entities.Club> UpdateClub(Guid clubId, CreateClubDto model)
+        public async Task<Models.Entities.Club> UpdateClub(Guid clubId, UpdateClubDto model)
         {
             var result = await _clubRepository.UpdateClubAsync(clubId, model);
 

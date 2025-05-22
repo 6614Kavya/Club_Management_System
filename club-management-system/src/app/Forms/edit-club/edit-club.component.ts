@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ClubData } from '../../Data/club-data';
+import { ClubService } from '../../services/club/club.service';
 
 @Component({
   selector: 'app-edit-club',
@@ -63,8 +64,16 @@ export class EditClubComponent {
   constructor(
     private dialogRef: MatDialogRef<EditClubComponent>,
     @Inject(MAT_DIALOG_DATA)
-    public data: { clubName: string; clubAddress: string; admins: string[] }
+    public data: {
+      clubId: any;
+      clubName: string;
+      clubAddress: string;
+      admins: string[];
+    },
+    private clubService: ClubService
   ) {
+    console.log('Dialog data:', data);
+
     this.clubName.setValue(data.clubName);
     this.clubAddress.setValue(data.clubAddress);
     this.clubAdmin.setValue(data.admins ?? []);
@@ -86,10 +95,27 @@ export class EditClubComponent {
 
   submit() {
     // Emit the updated club data, including the selected admins.
-    this.dialogRef.close({
-      clubName: this.clubName.value,
-      clubAddress: this.clubAddress.value,
-      admins: this.clubAdmin.value,
+    // this.dialogRef.close({
+    //   clubName: this.clubName.value,
+    //   clubAddress: this.clubAddress.value,
+    //   admins: this.clubAdmin.value,
+    // });
+
+    const updatedData = {
+      name: this.clubName.value || undefined,
+      address: this.clubAddress.value || undefined,
+      clubAdmins: this.clubAdmin.value || undefined,
+    };
+
+    this.clubService.updateClub(this.data.clubId, updatedData).subscribe({
+      next: (res) => {
+        console.log('Club updated successfully', res);
+        this.dialogRef.close(true); // signal success to the caller
+      },
+      error: (err) => {
+        console.log(this.data.clubId);
+        console.error('Error updating club', err);
+      },
     });
   }
 }

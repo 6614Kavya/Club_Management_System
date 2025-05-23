@@ -11,5 +11,6 @@ namespace EmployeeAdminPortal.Services.User
         Task<string> AssignRole(AssignRoleDto model);
         Task<UserRoleDetailsDto> GetUserDetails(string userId);
         Task<string> CreateToken(Entities.User user);
+        Task<List<UserSummaryDto>> GetAllUsers();
     }
 }

@@ -10,5 +10,6 @@ namespace EmployeeAdminPortal.Repositories
         Task<bool> CreateUserAsync (Entities.User user, string password);
         Task<bool> AssignRoles(AssignRoleDto assignRoleDto);
         Task<bool> CheckPasswordAsync (Entities.User user, string password);
+        Task<List<UserSummaryDto>> GetAllUsersAsync();
     }
 }

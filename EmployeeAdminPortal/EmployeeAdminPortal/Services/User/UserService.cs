@@ -143,6 +143,12 @@ namespace EmployeeAdminPortal.Services.User
             return tokenHandler.WriteToken(securityToken);
         }
 
+        public async Task<List<UserSummaryDto>> GetAllUsers()
+        {
+            //string userID = User.Claims.First(x => x.Type == "UserID").Value;
+            return await _userRepository.GetAllUsersAsync();
+        }
+
 
     }
 }

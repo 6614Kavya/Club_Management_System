@@ -137,9 +137,11 @@ export class FieldBookingFormComponent {
   submit() {
     console.log(
       'Time and date',
+      this.name,
       this.bookingDate,
       this.startTime,
-      this.endTime
+      this.endTime,
+      this.fieldPart
     );
 
     // const formattedDate = this.bookingDate.value

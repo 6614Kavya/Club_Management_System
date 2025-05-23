@@ -18,10 +18,17 @@ import { WeekNumberContainer } from '@fullcalendar/core/internal';
 import { ActivatedRoute } from '@angular/router';
 import { FieldService } from '../services/field/field.service';
 import { Field } from '../services/field/field.service';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-calendar',
-  imports: [FullCalendarModule, MatDialogModule, CommonModule],
+  imports: [
+    FullCalendarModule,
+    MatDialogModule,
+    CommonModule,
+    MatSnackBarModule,
+  ],
   template: `
     <full-calendar [options]="calendarOptions"></full-calendar>
 
@@ -46,7 +53,11 @@ export class CalendarComponent {
 
   eventList: any = [];
 
-  constructor(private dialogRef: MatDialog) {
+  constructor(
+    private dialogRef: MatDialog,
+    private snackBar: MatSnackBar,
+    private toastr: ToastrService
+  ) {
     this.loadAllBookings();
     this.fieldId = String(this.route.snapshot.params['id']);
 
@@ -64,7 +75,16 @@ export class CalendarComponent {
 
   handleEventClick(arg: EventClickArg): void {
     const bookingId = arg.event.extendedProps['bookingId'];
+    const bookingStatus = arg.event.extendedProps['bookingStatus'];
+    const bookedBy = arg.event.extendedProps['name'];
+    const bookingPurpose = arg.event.extendedProps['purpose'];
+    const fieldPart = arg.event.extendedProps['fieldPart'];
+    const bookingDate = arg.event.extendedProps['bookingDate'];
+    const startTime = arg.event.extendedProps['startTime'];
+    const endTime = arg.event.extendedProps['endTime'];
     console.log('Sent booking Id:', bookingId); // Ensure the bookingId is not undefined
+    console.log('Sent booking purpose:', bookingPurpose);
+    console.log('Sent booked by:', bookedBy);
 
     // if (!bookingId) {
     //   console.error('Error: bookingId is undefined. Check event data.');
@@ -76,55 +96,77 @@ export class CalendarComponent {
       // height: 'auto',
       // maxWidth: '90vw',
       panelClass: 'custom-dialog-container',
-      data: { bookingId },
+      data: {
+        bookingId,
+        bookingStatus,
+        bookedBy,
+        bookingPurpose,
+        fieldPart,
+        bookingDate,
+        startTime,
+        endTime,
+      },
     });
   }
 
   addNewEvent(newBooking: Booking) {
-    const newEvent = {
-      title: newBooking.bookingPurpose,
-      // date: newBooking.selectedDate,
-      // allDay: true,
-      start: newBooking.startTime,
-      end: newBooking.endTime,
-      id: newBooking.id,
-      // display: 'background',
-      // backgroundColor: '#ff9f89', //
-      extendedProps: {
-        bookingId: newBooking.id,
-        name: newBooking.bookedBy,
-        purpose: newBooking.bookingPurpose,
-        startTime: newBooking.startTime,
-        endTime: newBooking.endTime,
-        bookingDate: newBooking.selectedDate,
-        fieldPart: newBooking.fieldPart,
-        // display: 'background',
-        // eventColor: '#ff9f89',
-      },
-    };
+    // const newEvent = {
+    //   title: newBooking.bookingPurpose,
+    //   // date: newBooking.selectedDate,
+    //   // allDay: true,
+    //   start: newBooking.startTime,
+    //   end: newBooking.endTime,
+    //   id: newBooking.id,
+    //   // display: 'background',
+    //   // backgroundColor: '#ff9f89', //
+    //   extendedProps: {
+    //     bookingId: newBooking.id,
+    //     name: newBooking.bookedBy,
+    //     purpose: newBooking.bookingPurpose,
+    //     startTime: newBooking.startTime,
+    //     endTime: newBooking.endTime,
+    //     bookingDate: newBooking.selectedDate,
+    //     fieldPart: newBooking.fieldPart,
+    //     // display: 'background',
+    //     // eventColor: '#ff9f89',
+    //   },
+    // };
 
-    this.eventList.push(newEvent); // update local list
-    this.allBookings.push({
-      id: 0,
-      // selectedDate: newEvent.date,
-      startTime: newEvent.extendedProps.startTime,
-      endTime: newEvent.extendedProps.endTime,
-      bookingStatus: '',
-      // bookedBy: newEvent.extendedProps.name,
-      bookingPurpose: newEvent.extendedProps.purpose,
-      // fieldPart: newEvent.extendedProps.fieldPart,
-      // facilities: [''],
-    });
-    this.calendarOptions.events = [...this.eventList];
+    // this.eventList.push(newEvent); // update local list
+    // this.allBookings.push({
+    //   id: 0,
+    //   // selectedDate: newEvent.date,
+    //   startTime: newEvent.extendedProps.startTime,
+    //   endTime: newEvent.extendedProps.endTime,
+    //   bookingStatus: '',
+    //   // bookedBy: newEvent.extendedProps.name,
+    //   bookingPurpose: newEvent.extendedProps.purpose,
+    //   // fieldPart: newEvent.extendedProps.fieldPart,
+    //   // facilities: [''],
+    // });
+    // this.calendarOptions.events = [...this.eventList];
 
     this.bookingService.createBooking(newBooking).subscribe({
       next: (response: any) => {
         console.log('Respone of create booking', response);
+        this.toastr.success(
+          'New booking created!',
+          'Booking Creation Successful',
+          {
+            positionClass: 'toast-top-center',
+          }
+        );
+        this.loadAllBookings();
       },
       error: (err) => {
         console.log(err);
+        this.toastr.error('Booking failed', err.error.error, {
+          positionClass: 'toast-top-center',
+        });
       },
     });
+
+    // this.loadAllBookings();
   }
 
   /** Load all bookings and set them in FullCalendar */
@@ -137,21 +179,42 @@ export class CalendarComponent {
         this.allBookings = booking;
         console.log('allBookings for this field:', this.allBookings);
 
-        this.eventList = this.allBookings.map((booking) => ({
-          title: booking.bookingPurpose,
-          start: booking.startTime,
-          end: booking.endTime,
-          id: booking.id.toString(),
-          extendedProps: {
-            bookingId: booking.id,
-            name: booking.bookedBy,
-            purpose: booking.bookingPurpose,
-            startTime: booking.startTime,
-            endTime: booking.endTime,
-            bookingDate: booking.selectedDate,
-            fieldPart: booking.fieldPart,
-          },
-        }));
+        this.eventList = this.allBookings.map((booking) => {
+          let eventColor = '';
+
+          switch (booking.bookingStatus) {
+            case 'Pending':
+              eventColor = '#FFC107'; // Orange
+              break;
+            case 'Accepted':
+              eventColor = '#4CAF50'; // Green
+              break;
+            case 'Rejected':
+              eventColor = '#F44336'; // Red (optional)
+              break;
+            default:
+              eventColor = '#2196F3'; // Default Blue
+          }
+
+          return {
+            title: booking.bookingPurpose,
+            start: booking.startTime,
+            end: booking.endTime,
+            id: booking.id.toString(),
+            backgroundColor: eventColor,
+            borderColor: eventColor, // Optional for better visibility
+            extendedProps: {
+              bookingId: booking.id,
+              name: booking.bookedBy,
+              purpose: booking.bookingPurpose,
+              startTime: booking.startTime,
+              endTime: booking.endTime,
+              bookingDate: booking.selectedDate,
+              fieldPart: booking.fieldPart,
+              bookingStatus: booking.bookingStatus,
+            },
+          };
+        });
 
         this.calendarOptions.events = [...this.eventList];
       },
@@ -227,8 +290,20 @@ export class CalendarComponent {
     // },
   };
   handleDateClick(arg: DateClickArg) {
+    const clickedDateTime = new Date(arg.date); // exact clicked datetime
+    const now = new Date(); // current date and time
+
+    if (clickedDateTime < now) {
+      console.warn('Cannot book in the past');
+      // Optionally show user feedback:
+      this.snackBar.open('Cannot create a booking in the past', 'Close', {
+        duration: 3000,
+      });
+
+      return;
+    }
+
     this.selectedDate = arg.dateStr;
-    // this.bookings = this.bookingService.getBookingsByDate(arg.dateStr);
 
     const dialogRef = this.dialogRef.open(FieldBookingFormComponent, {
       width: '500px',

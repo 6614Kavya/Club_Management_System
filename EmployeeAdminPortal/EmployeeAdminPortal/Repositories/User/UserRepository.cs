@@ -186,5 +186,17 @@ namespace EmployeeAdminPortal.Repositories.User
         {
             return await _userManager.CheckPasswordAsync(user, password);
         }
+
+        public async Task<List<UserSummaryDto>> GetAllUsersAsync()
+        {
+            return await _userManager.Users
+                .Select(u => new UserSummaryDto
+                {
+                    UserId = u.Id,
+                    Name = u.Name // Replace 'Name' with the actual property name for user's full name
+                })
+                .ToListAsync();
+        }
+
     }
 }

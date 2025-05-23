@@ -14,7 +14,14 @@
 
 // }
 
-import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { ICellRendererParams } from 'ag-grid-community';
 import {
@@ -25,6 +32,8 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { BookingService } from '../services/bookings/booking.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CommonModule } from '@angular/common';
 // import { EditClubComponent } from '../../Forms/edit-club/edit-club.component';
 // import { EditFieldComponent } from '../../Forms/edit-field/edit-field.component';
 // import { EditTeamComponent } from '../../Forms/edit-team/edit-team.component';
@@ -32,11 +41,28 @@ import { BookingService } from '../services/bookings/booking.service';
 @Component({
   selector: 'app-confirm-booking',
   standalone: true,
-  imports: [MatDialogModule, MatButtonModule, MatIconModule],
+  imports: [
+    MatDialogModule,
+    MatButtonModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    CommonModule,
+  ],
   template: `
-    <button class="remove" mat-raised-button (click)="onEditClick()">
+    <button
+      class="remove"
+      mat-raised-button
+      (click)="onEditClick()"
+      [disabled]="loading"
+    >
       Confirm
     </button>
+    <mat-progress-spinner
+      *ngIf="loading"
+      mode="indeterminate"
+      diameter="24"
+      color="primary"
+    ></mat-progress-spinner>
   `,
   styleUrl: './confirm-booking.component.css',
 })
@@ -44,10 +70,14 @@ export class ConfirmBookingComponent implements ICellRendererAngularComp {
   // onClick() {
   // throw new Error('Method not implemented.');
   // }
+  @Input() data: any;
+  private confirmSelectedBooking!: (id: any) => void;
+
   @Output() updateClubData = new EventEmitter<any>(); // Emit updated club data
   @Output() updateFieldData = new EventEmitter<any>();
   @Output() updateTeamData = new EventEmitter<any>();
   value: any;
+  loading = false;
   constructor(private dialogRef: MatDialog) {
     // this.bookingService
     //   .updateBookingStatus(this.params.data.id, 'Approved')
@@ -63,6 +93,7 @@ export class ConfirmBookingComponent implements ICellRendererAngularComp {
 
   agInit(params: ICellRendererParams): void {
     this.params = params;
+    this.confirmSelectedBooking = (params as any).confirmSelectedBooking;
   }
 
   onEditClick(): void {
@@ -74,12 +105,20 @@ export class ConfirmBookingComponent implements ICellRendererAngularComp {
     // } else if ((this.params as any).section === 'Team') {
     //   this.openEditTeamComponent(this.params);
     // }
+    this.loading = true;
 
     this.bookingService
       .updateBookingStatus(this.params.data.id, 'Accepted')
       .subscribe({
-        next: (res) => console.log('Booking updated', res),
-        error: (err) => console.error('Update failed', err),
+        next: (res: any) => {
+          console.log('Booking updated', res);
+          this.loading = false;
+          this.confirmSelectedBooking(this.params.data.id);
+        },
+        error: (err) => {
+          console.error('Update failed', err);
+          this.loading = false;
+        },
       });
   }
 

@@ -8,10 +8,10 @@ import { BookingService, Booking } from '../services/bookings/booking.service';
   imports: [BookingDetailsCardComponent, CommonModule],
   template: `
     <div class="club-container">
-      <app-booking-details-card
+      <!-- <app-booking-details-card
         *ngFor="let booking of bookingData"
         [bookingData]="booking"
-      ></app-booking-details-card>
+      ></app-booking-details-card> -->
     </div>
   `,
   styleUrl: './booking-page.component.css',

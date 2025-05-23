@@ -32,7 +32,7 @@ namespace EmployeeAdminPortal.Services.Booking
 
 
             // Conflict check
-            //await _bookingRepository.ValidateBookingConflictAsync(model.FieldPartId, model.StartTime, model.EndTime);
+            await _bookingRepository.ValidateBookingConflictAsync(model.FieldPartId, model.StartTime, model.EndTime);
 
             model.BookingStatus = "Pending";
 

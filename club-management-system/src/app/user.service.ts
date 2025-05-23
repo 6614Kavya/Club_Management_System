@@ -5,6 +5,17 @@ import { jwtDecode } from 'jwt-decode';
 import { User } from './user';
 import { environment } from '../environments/environment.development';
 
+export interface UserSummary {
+  userId: string;
+  name: string;
+}
+
+interface GetAllUsersResponse {
+  result: {
+    $values: UserSummary[];
+  };
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -121,5 +132,11 @@ export class UserService {
           },
         });
     });
+  }
+
+  public getAllUsers(): Observable<GetAllUsersResponse> {
+    return this.http.get<GetAllUsersResponse>(
+      `${environment.apiURL}/api/user/allUsers`
+    );
   }
 }

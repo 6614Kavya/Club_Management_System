@@ -1,6 +1,6 @@
 /* FullCalendar TimeGrid Events */
 .fc .fc-timegrid-event {
-  background-color: #ff9f89 !important;
+  /* background-color: #ff9f89 !important; */
   color: white !important;
   /* border-radius: 5px !important; */
   padding: 5px !important;

@@ -140,6 +140,14 @@ namespace EmployeeAdminPortal.Controllers
 
             return Ok(new { token });
         }
+
+        [HttpGet("allUsers")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var result = await _userService.GetAllUsers();
+
+            return Ok(new { result });
+        }
     }
 }
 

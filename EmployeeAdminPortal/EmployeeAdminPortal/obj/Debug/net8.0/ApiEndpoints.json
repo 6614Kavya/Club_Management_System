@@ -391,6 +391,16 @@
   },
   {
     "ContainingType": "EmployeeAdminPortal.Controllers.userController",
+    "Method": "GetAllUsers",
+    "RelativePath": "api/user/allUsers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EmployeeAdminPortal.Controllers.userController",
     "Method": "AssignClubAdminRole",
     "RelativePath": "api/user/assignClubAdmin",
     "HttpMethod": "POST",

@@ -287,8 +287,7 @@ export class BookingRequestsComponent {
       cellRenderer: ConfirmBookingComponent,
       width: 120,
       cellRendererParams: {
-        confirmBooking: (event: any) => this.confirmSelectedBooking(event),
-        // section: 'Club',
+        confirmSelectedBooking: this.confirmSelectedBooking.bind(this),
       },
     },
   ];
@@ -367,8 +366,28 @@ export class BookingRequestsComponent {
   //   }
   // }
 
-  confirmSelectedBooking(event: any) {
-    const { bookingId } = event;
-    console.log('Selected pending booking', bookingId);
+  confirmSelectedBooking(bookingId: any) {
+    // const { bookingId } = event;
+    // console.log('Selected pending booking', bookingId);
+
+    // this.bookingService.getBookingsByStatus('Pending').subscribe({
+    //   next: (bookings) => {
+    //     this.pendingBookings = bookings;
+
+    //     // Wait to call generateRowData() until gridApi is available
+    //     if (this.gridApi) {
+    //       this.generateRowData();
+    //     }
+    //   },
+    //   error: (err) => {
+    //     console.error('Error fetching bookings:', err);
+    //   },
+    // });
+    console.log('Booking confirmed:', bookingId);
+    // Remove the booking from the list
+    this.pendingBookings = this.pendingBookings.filter(
+      (b) => b.id !== bookingId
+    );
+    this.generateRowData();
   }
 }

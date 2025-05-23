@@ -25,6 +25,12 @@ export interface Admin {
   email: string;
 }
 
+export interface AssignClubAdminRequest {
+  userId: any;
+  clubId: any;
+  role: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -90,5 +96,10 @@ export class ClubService {
   updateClub(clubId: string, updatedData: Partial<Club>): Observable<any> {
     const url = `${environment.apiURL}/api/Club/updateClub/${clubId}`;
     return this.http.patch(url, updatedData);
+  }
+
+  assignClubAdmin(payload: AssignClubAdminRequest): Observable<any> {
+    const url = `${environment.apiURL}/api/user/assignClubAdmin`;
+    return this.http.post(url, payload);
   }
 }

@@ -5,8 +5,8 @@
   left: 0;
   width: 200px;
   height: calc(100vh - 64px);
-  background-color: #2c3e50;
-  color: white;
+  background-color: #f5e0a3;
+  color: #2f3e2e;
   overflow-y: auto;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
   transition: width 0.3s ease-in-out;
@@ -30,7 +30,8 @@
 }
 
 .side-nav-item:hover {
-  background-color: #34495e;
+  background-color: #256428;
+  color: white;
 }
 
 /* Active Sidebar Item */

@@ -921,6 +921,18 @@
         }
       }
     },
+    "/api/user/allUsers": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/weather": {
       "get": {
         "tags": [

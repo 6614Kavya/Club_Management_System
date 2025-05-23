@@ -14,7 +14,7 @@ export interface Booking {
   bookedBy?: string;
   bookingPurpose: string;
   facilities?: string[];
-  fieldPart?: number;
+  fieldPart?: any;
 }
 
 export interface SelectedBookings {

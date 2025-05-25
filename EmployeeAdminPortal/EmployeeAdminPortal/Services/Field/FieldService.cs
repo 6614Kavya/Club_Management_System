@@ -39,9 +39,11 @@ namespace EmployeeAdminPortal.Services.Field
             return field;
         }
 
-        public Task<bool> DeleteFieldById(Guid fieldId)
+        public async Task<bool> DeleteFieldById(Guid fieldId)
         {
-            throw new NotImplementedException();
+            var result = await _fieldRepository.DeleteFieldByIdAsync(fieldId);
+
+            return result;
         }
 
         public async Task<FieldDetailsDto[]> GetAllFields()

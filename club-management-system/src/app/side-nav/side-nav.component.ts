@@ -36,10 +36,44 @@ export class SideNavComponent implements OnDestroy {
     // Subscribe to token changes then filter items
     this.subscription = this.userService.decodedToken$.subscribe((token) => {
       const role = token?.ActiveRole ?? 'IndividualUser';
-      this.filteredNavData = this.navData.filter((item) =>
-        item.roles.includes(role)
-      );
+      this.filteredNavData = this.navData
+        .filter((item) => item.roles.includes(role))
+        .map((item) => ({
+          ...item,
+          routeLink: this.resolveRouteLink(item.routeLink, role),
+        }));
     });
+  }
+
+  resolveRouteLink(baseRoute: string, role: string): string {
+    switch (baseRoute) {
+      case '/dashboard/clubs':
+        if (role === 'ClubAdmin') {
+          return '/dashboard/myClub'; // TeamManager sees only their team
+        } else {
+          return '/dashboard/clubs'; // ClubAdmin-specific view
+        }
+        break;
+
+      case '/dashboard/fields':
+        if (role === 'FieldAdmin') {
+          return '/dashboard/myField'; // FieldAdmin sees only their fields
+        } else {
+          return '/dashboard/fields'; // ClubAdmin sees all club fields
+        }
+        break;
+
+      case '/dashboard/teams':
+        if (role === 'TeamManager') {
+          return '/dashboard/myTeam'; // TeamManager sees only their team
+        } else {
+          return '/dashboard/teams'; // ClubAdmin-specific view
+        }
+        break;
+    }
+
+    // Default fallback
+    return baseRoute;
   }
 
   ngOnDestroy(): void {

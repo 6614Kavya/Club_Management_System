@@ -66,4 +66,9 @@ export class FieldService {
     const url = `${environment.apiURL}/api/Field`;
     return this.http.get<Field[]>(url);
   }
+
+  deleteField(fieldId: string): Observable<any> {
+    const url = `${environment.apiURL}/api/Field/${fieldId}`;
+    return this.http.delete(url);
+  }
 }

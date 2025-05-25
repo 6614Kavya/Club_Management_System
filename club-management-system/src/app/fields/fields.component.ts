@@ -370,29 +370,42 @@ export class FieldsComponent {
   ];
 
   openDeleteconfirmationDialog() {
+    const selectedRows = this.gridApi.getSelectedRows();
+    const fieldId = selectedRows.map((row: any) => row.Id);
+    console.log(
+      'Selected Rows:',
+      selectedRows.map((row: any) => row.Id)
+    );
     const dialogRef = this.dialogRef.open(DeletePopupComponent, {
       width: '500px',
       height: 'auto',
       maxWidth: '90vw',
       panelClass: 'custom-dialog-container',
+      data: { fieldId },
     });
 
     dialogRef.afterClosed().subscribe((data) => {
-      if (data === true) {
-        this.isDeletionConfirmed = true;
-        if (this.gridApi) {
-          const selectedRows = this.gridApi.getSelectedRows();
-          // Filter out selected rows from rowData
-          this.rowData = this.rowData.filter(
-            (row) => !selectedRows.includes(row)
-          );
-          // Refresh the grid with the updated data
-          this.gridApi.setRowData(this.rowData);
-          console.log('Selected Rows:', selectedRows);
-        } else {
-          console.error('Grid API is not initialized.');
-        }
-      }
+      this.fieldService.deleteField(data.id).subscribe({
+        next: (response) => {
+          console.log('Field deleted successfully:', response);
+          this.fieldService.getAllFields().subscribe({
+            next: (fields) => {
+              this.fieldData = fields;
+              this.generateRowData(); // Updates grid
+              //success toastr
+            },
+            error: (err) => {
+              console.error('Failed to reload fields:', err);
+              //failed toastr
+            },
+          });
+          // Optionally refresh the club list or show a success message
+        },
+        error: (error) => {
+          console.error('Error deleting field:', error);
+          // Show error message to the user
+        },
+      });
     });
   }
 

@@ -62,4 +62,9 @@ export class TeamService {
     // }
     return this.http.get(environment.apiURL + `/api/Team/${clubId}/teams`);
   }
+
+  deleteTeam(teamId: string): Observable<any> {
+    const url = `${environment.apiURL}/api/Team/${teamId}`;
+    return this.http.delete(url);
+  }
 }

@@ -10,6 +10,7 @@
         public Boolean Activated { get; set; }
 
         public string? Description { get; set; }
+        public bool IsDeleted { get; set; } = false;
         public ICollection<Field> FieldList { get; set; }
         public ICollection<Team> TeamList { get; set; }
         //public ICollection<UserClub> UserClubs { get; set; }

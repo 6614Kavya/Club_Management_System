@@ -16,6 +16,9 @@ import { ManageAdminsComponent } from './manage-admins/manage-admins.component';
 import { ManageFieldAdminsComponent } from './manage-field-admins/manage-field-admins.component';
 import { ManageTeamManagersComponent } from './manage-team-managers/manage-team-managers.component';
 import { MyOrganizationComponent } from './my-organization/my-organization.component';
+import { MyClubComponent } from './my-club/my-club.component';
+import { MyFieldComponent } from './my-field/my-field.component';
+import { MyTeamComponent } from './my-team/my-team.component';
 
 const routeConfig: Routes = [
   {
@@ -69,8 +72,18 @@ const routeConfig: Routes = [
         // canActivate: [authGuard],
       },
       {
-        path: 'myOrganization',
-        component: MyOrganizationComponent,
+        path: 'myClub',
+        component: MyClubComponent,
+        // canActivate: [authGuard],
+      },
+      {
+        path: 'myField',
+        component: MyFieldComponent,
+        // canActivate: [authGuard],
+      },
+      {
+        path: 'myTeam',
+        component: MyTeamComponent,
         // canActivate: [authGuard],
       },
     ],

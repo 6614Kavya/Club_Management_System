@@ -83,6 +83,13 @@ export class DashboardComponent {
 
     this.currentUserPayload = this.userService.getDecodedToken();
 
+    if (this.currentUserPayload?.IsSuperAdmin === 'True') {
+      this.roleOptions.push({
+        display: 'Super Admin',
+        role: 'SuperAdmin',
+      });
+    }
+
     const userId = this.currentUserPayload.nameid;
     this.userService.getUserDetails(userId).subscribe({
       next: (res) => {
@@ -93,6 +100,7 @@ export class DashboardComponent {
         this.teamRoles = res.teamRoles?.$values || [];
 
         this.roleOptions = [
+          ...this.roleOptions,
           ...this.clubRoles.map((club) => ({
             display: `Club Admin - ${club.clubName}`,
             role: 'ClubAdmin',

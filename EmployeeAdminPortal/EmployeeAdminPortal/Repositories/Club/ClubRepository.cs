@@ -112,13 +112,35 @@ namespace EmployeeAdminPortal.Repositories.Club
 
         public async Task<bool> DeleteClubByIdAsync(Guid id)
         {
-            var club = await _context.Clubs.FindAsync(id);
+            var club = await _context.Clubs
+        .Include(c => c.FieldList)
+        .Include(c => c.TeamList)
+        .Include(c => c.UserClubRoles)
+        .FirstOrDefaultAsync(c => c.Id == id);
 
             if (club == null) {
                 return false;
             }
 
-            _context.Clubs.Remove(club);
+            club.IsDeleted = true;
+
+            //soft delete related fields
+            foreach (var field in club.FieldList)
+            {
+                field.IsDeleted = true;
+            }
+
+            //soft delete related teams
+            foreach (var team in club.TeamList)
+            {
+                team.IsDeleted = true;
+            }
+
+            //soft delete related club admin roles
+            foreach (var role in club.UserClubRoles)
+            {
+                role.IsDeleted = true;
+            }
             _context.SaveChanges();
 
             return true;

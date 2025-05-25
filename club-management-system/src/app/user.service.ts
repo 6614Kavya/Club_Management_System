@@ -93,6 +93,8 @@ export class UserService {
 
   public getUserDetails(userId: string): Observable<any> {
     const url = `${environment.apiURL}/api/user/userDetails/${userId}`;
+    const token = localStorage.getItem('token');
+    console.log('Token details', this.getDecodedToken());
     return this.http.get(url);
   }
 

@@ -49,7 +49,8 @@ namespace EmployeeAdminPortal.Services.User
                 UserName = model.Email,
                 Email = model.Email,
                 Name = model.Email,
-                Password = model.Password
+                Password = model.Password,
+                IsSuperAdmin = model.isSuperAdmin
             };
             var result = await _userRepository.CreateUserAsync(user, model.Password);
             //await _userRepository.AssignRoles(user);
@@ -77,6 +78,7 @@ namespace EmployeeAdminPortal.Services.User
         {
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
             new Claim(ClaimTypes.Name, user.UserName ?? user.Email ?? ""),
+            new Claim("IsSuperAdmin", user.IsSuperAdmin.ToString())
         }.Union(roleClaims);
 
                 // Generate signing key
@@ -119,7 +121,8 @@ namespace EmployeeAdminPortal.Services.User
             var claims = new List<Claim>
     {
         new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-        new Claim(ClaimTypes.Name, user.UserName ?? user.Email ?? "")
+        new Claim(ClaimTypes.Name, user.UserName ?? user.Email ?? ""),
+        new Claim("IsSuperAdmin", user.IsSuperAdmin.ToString())
     }
             .Union(roleClaims)
             .Union(userClaims); // 👈 Merge custom claims here

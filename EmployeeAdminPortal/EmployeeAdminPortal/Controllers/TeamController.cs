@@ -59,13 +59,12 @@ namespace EmployeeAdminPortal.Controllers
         //    return Ok(result);
         //}
 
-        // DELETE api/<TeamController>/5
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteTeam(Guid id)
-        //{
-        //    var result = await _teamService.DeleteTeamById(id);
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTeam(Guid id)
+        {
+            var result = await _teamService.DeleteTeamById(id);
 
-        //    return Ok(result);
-        //}
+            return Ok(result);
+        }
     }
 }

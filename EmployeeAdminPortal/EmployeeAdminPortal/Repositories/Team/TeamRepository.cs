@@ -24,9 +24,20 @@ namespace EmployeeAdminPortal.Repositories.Team
             return result > 0;
         }
 
-        public Task<bool> DeleteTeamByIdAsync(Guid id)
+        public async Task<bool> DeleteTeamByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var team = await _context.Teams.FindAsync(id);
+
+            if (team == null)
+            {
+                return false;
+            }
+
+            team.IsDeleted = true;
+
+            _context.SaveChanges();
+
+            return true;
         }
 
         public async Task<TeamDetailsDto[]> GetAllTeamsAsync()

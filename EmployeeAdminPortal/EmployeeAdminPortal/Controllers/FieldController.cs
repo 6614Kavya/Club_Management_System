@@ -46,5 +46,13 @@ namespace EmployeeAdminPortal.Controllers
 
             return Ok(result);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteField(Guid id)
+        {
+            var result = await _fieldService.DeleteFieldById(id);
+
+            return Ok(result);
+        }
     }
 }

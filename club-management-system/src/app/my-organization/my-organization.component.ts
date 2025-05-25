@@ -153,7 +153,7 @@ import { CommonModule } from '@angular/common';
   `,
   styleUrl: './my-organization.component.css',
 })
-export class MyOrganizationComponent implements OnInit {
+export class MyOrganizationComponent {
   constructor(
     // private dialogRef: MatDialogRef<MyOrganizationComponent>,
     // @Inject(MAT_DIALOG_DATA)
@@ -166,6 +166,16 @@ export class MyOrganizationComponent implements OnInit {
     private clubService: ClubService,
     private userService: UserService
   ) {
+    this.isClubAdmin = this.userService.isClubAdmin();
+    this.isFieldAdmin = this.userService.isFieldAdmin();
+    this.isTeamManager = this.userService.isTeamManager();
+    this.contextId = this.userService.getContextId();
+
+    console.log('Role flags:', {
+      isClubAdmin: this.isClubAdmin,
+      isFieldAdmin: this.isFieldAdmin,
+      isTeamManager: this.isTeamManager,
+    });
     // console.log('Dialog data:', data);
 
     // this.clubName.setValue(data.clubName);
@@ -192,18 +202,18 @@ export class MyOrganizationComponent implements OnInit {
   isTeamManager = false;
   contextId: string | null = null;
 
-  ngOnInit() {
-    this.isClubAdmin = this.userService.isClubAdmin();
-    this.isFieldAdmin = this.userService.isFieldAdmin();
-    this.isTeamManager = this.userService.isTeamManager();
-    this.contextId = this.userService.getContextId();
+  // ngOnInit() {
+  //   this.isClubAdmin = this.userService.isClubAdmin();
+  //   this.isFieldAdmin = this.userService.isFieldAdmin();
+  //   this.isTeamManager = this.userService.isTeamManager();
+  //   this.contextId = this.userService.getContextId();
 
-    console.log('Role flags:', {
-      isClubAdmin: this.isClubAdmin,
-      isFieldAdmin: this.isFieldAdmin,
-      isTeamManager: this.isTeamManager,
-    });
-  }
+  //   console.log('Role flags:', {
+  //     isClubAdmin: this.isClubAdmin,
+  //     isFieldAdmin: this.isFieldAdmin,
+  //     isTeamManager: this.isTeamManager,
+  //   });
+  // }
   submit() {
     // Emit the updated club data, including the selected admins.
     // this.dialogRef.close({

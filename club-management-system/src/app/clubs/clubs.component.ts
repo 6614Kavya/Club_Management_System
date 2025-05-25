@@ -292,29 +292,44 @@ export class ClubsComponent {
   // enableCellSpan = true;
 
   openDeleteconfirmationDialog() {
+    const selectedRows = this.gridApi.getSelectedRows();
+    const clubId = selectedRows.map((row: any) => row.Id);
+    console.log(
+      'Selected Rows:',
+      selectedRows.map((row: any) => row.Id)
+    );
     const dialogRef = this.dialogRef.open(DeletePopupComponent, {
       width: '500px',
       height: 'auto',
       maxWidth: '90vw',
       panelClass: 'custom-dialog-container',
+      data: { clubId },
     });
 
     dialogRef.afterClosed().subscribe((data) => {
-      if (data === true) {
-        this.isDeletionConfirmed = true;
-        if (this.gridApi) {
-          const selectedRows = this.gridApi.getSelectedRows();
-          // Filter out selected rows from rowData
-          this.rowData = this.rowData.filter(
-            (row) => !selectedRows.includes(row)
-          );
-          // Refresh the grid with the updated data
-          this.gridApi.setRowData(this.rowData);
-          console.log('Selected Rows:', selectedRows);
-        } else {
-          console.error('Grid API is not initialized.');
-        }
-      }
+      console.log('Selected Rows club Id:', data.id);
+
+      this.clubService.deleteClub(data.id).subscribe({
+        next: (response) => {
+          console.log('Club deleted successfully:', response);
+          this.clubService.getAllClubs().subscribe({
+            next: (clubs) => {
+              this.clubData = clubs;
+              this.generateRowData(); // Updates grid
+              //success toastr
+            },
+            error: (err) => {
+              console.error('Failed to reload clubs:', err);
+              //failed toastr
+            },
+          });
+          // Optionally refresh the club list or show a success message
+        },
+        error: (error) => {
+          console.error('Error deleting club:', error);
+          // Show error message to the user
+        },
+      });
     });
   }
 
@@ -343,7 +358,7 @@ export class ClubsComponent {
   handleUpdatedClub(event: any) {
     const { clubId } = event;
 
-    // 🔁 Fetch fresh data
+    // Fetch fresh data
     this.clubService.getAllClubs().subscribe({
       next: (clubs) => {
         this.clubData = clubs;

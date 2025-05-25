@@ -1086,6 +1086,9 @@
             "type": "string",
             "nullable": true
           },
+          "isDeleted": {
+            "type": "boolean"
+          },
           "fieldList": {
             "type": "array",
             "items": {
@@ -1289,6 +1292,9 @@
             "type": "string",
             "format": "uuid"
           },
+          "isDeleted": {
+            "type": "boolean"
+          },
           "fieldPart": {
             "type": "array",
             "items": {
@@ -1363,6 +1369,9 @@
           "password": {
             "minLength": 6,
             "type": "string"
+          },
+          "isSuperAdmin": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false
@@ -1406,6 +1415,9 @@
           "clubId": {
             "type": "string",
             "format": "uuid"
+          },
+          "isDeleted": {
+            "type": "boolean"
           },
           "userTeamRoles": {
             "type": "array",
@@ -1559,6 +1571,12 @@
             "type": "string",
             "nullable": true
           },
+          "isSuperAdmin": {
+            "type": "boolean"
+          },
+          "isDeleted": {
+            "type": "boolean"
+          },
           "userClubRoles": {
             "type": "array",
             "items": {
@@ -1603,6 +1621,9 @@
           "role": {
             "type": "string",
             "nullable": true
+          },
+          "isDeleted": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false
@@ -1627,6 +1648,9 @@
           "role": {
             "type": "string",
             "nullable": true
+          },
+          "isDeleted": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false
@@ -1693,6 +1717,9 @@
           "role": {
             "type": "string",
             "nullable": true
+          },
+          "isDeleted": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false

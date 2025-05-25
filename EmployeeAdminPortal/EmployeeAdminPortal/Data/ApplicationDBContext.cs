@@ -34,18 +34,21 @@ namespace EmployeeAdminPortal.Data
             {
                 //entity.HasKey(x => x.Id);
                 entity.Property(x => x.Email).IsRequired();
+                entity.HasQueryFilter(x => !x.IsDeleted);
             });
 
             modelBuilder.Entity<Club>(entity =>
             {
                 entity.HasKey(x => x.Id);
                 entity.Property(x => x.Name).IsRequired();
+                entity.HasQueryFilter(x => !x.IsDeleted);
             });
 
             modelBuilder.Entity<Field>(entity =>
             {
                 entity.HasKey(x => x.Id);
                 //entity.Property(x => x.Name).IsRequired();
+                entity.HasQueryFilter(x => !x.IsDeleted);
 
                 entity.HasOne(a => a.Club)
                 .WithMany(b => b.FieldList)
@@ -56,6 +59,7 @@ namespace EmployeeAdminPortal.Data
             {
                 entity.HasKey(x => x.Id);
                 //entity.Property(x => x.Name).IsRequired();
+                entity.HasQueryFilter(x => !x.IsDeleted);
 
                 entity.HasOne(a => a.Club)
                 .WithMany(b => b.TeamList)
@@ -65,6 +69,7 @@ namespace EmployeeAdminPortal.Data
             modelBuilder.Entity<UserClubRole>(entity =>
             {
                 entity.HasKey(uc => new { uc.UserId, uc.ClubId });
+                entity.HasQueryFilter(uc => uc.IsDeleted);
 
                 entity.HasOne(uc => uc.User)
                 .WithMany(c => c.UserClubRoles)
@@ -78,6 +83,7 @@ namespace EmployeeAdminPortal.Data
             modelBuilder.Entity<UserFieldRole>(entity =>
             {
                 entity.HasKey(uf => new { uf.UserId, uf.FieldId });
+                entity.HasQueryFilter(uf => !uf.IsDeleted);
 
                 entity.HasOne(uf => uf.User)
                 .WithMany(f => f.UserFieldRoles)
@@ -91,6 +97,7 @@ namespace EmployeeAdminPortal.Data
             modelBuilder.Entity<UserTeamRole>(entity =>
             {
                 entity.HasKey(ut => new { ut.UserId, ut.TeamId });
+                entity.HasQueryFilter(ut => !ut.IsDeleted);
 
                 entity.HasOne(ut => ut.User)
                 .WithMany(t => t.UserTeamRoles)

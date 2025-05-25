@@ -102,4 +102,9 @@ export class ClubService {
     const url = `${environment.apiURL}/api/user/assignClubAdmin`;
     return this.http.post(url, payload);
   }
+
+  deleteClub(clubId: string): Observable<any> {
+    const url = `${environment.apiURL}/api/Club/${clubId}`;
+    return this.http.delete(url);
+  }
 }

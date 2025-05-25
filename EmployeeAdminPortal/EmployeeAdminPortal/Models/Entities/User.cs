@@ -15,6 +15,8 @@ namespace EmployeeAdminPortal.Models.Entities
         //public ICollection<UserClub> UserClubs { get; set; }
         //public ICollection<UserField> UserFields { get; set; }
         //public ICollection<UserTeam> UserTeams { get; set; }
+        public bool IsSuperAdmin { get; set; } = false;
+        public bool IsDeleted { get; set; } = false;
 
         public ICollection<UserClubRole> UserClubRoles { get; set; }
         public ICollection<UserFieldRole> UserFieldRoles { get; set; }

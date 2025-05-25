@@ -13,6 +13,7 @@
         //one to many with Club
         public Club Club { get; set; }
         public Guid ClubId { get; set; }
+        public bool IsDeleted { get; set; } = false;
 
         public ICollection<FieldPart>? FieldPart { get; set; }
         //public ICollection<UserField>? UserFields { get; set; }

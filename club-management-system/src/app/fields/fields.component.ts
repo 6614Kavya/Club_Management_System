@@ -20,6 +20,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FieldService, Field } from '../services/field/field.service';
+import { Router } from '@angular/router';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -58,6 +59,13 @@ ModuleRegistry.registerModules([AllCommunityModule]);
       >
         Remove Selected User
       </button>
+      <button
+        class="manage-admins"
+        mat-raised-button
+        (click)="navigateToManageAdmins()"
+      >
+        Manage Admins
+      </button>
     </div>
 
     <!-- The AG Grid component -->
@@ -73,7 +81,7 @@ ModuleRegistry.registerModules([AllCommunityModule]);
   styleUrl: './fields.component.css',
 })
 export class FieldsComponent {
-  constructor(private dialogRef: MatDialog) {}
+  constructor(private dialogRef: MatDialog, private router: Router) {}
 
   fieldService: FieldService = inject(FieldService);
 
@@ -90,6 +98,10 @@ export class FieldsComponent {
   };
 
   isDeletionConfirmed: boolean = false;
+
+  navigateToManageAdmins() {
+    this.router.navigate(['/dashboard/manageFieldAdmins']);
+  }
 
   onGridReady(params: any) {
     this.gridApi = params.api; // Store API when grid is ready

@@ -3,6 +3,11 @@ ag-grid-angular {
   height: 100%; /* Adjust as needed */
 }
 
+.top-container {
+  top: 100;
+  position: relative;
+}
+
 .button-container {
   display: flex;
   justify-content: flex-end;
@@ -106,4 +111,15 @@ button.mat-raised-button:hover {
   border-radius: 5px;
   cursor: pointer;
   transition: background 0.3s ease;
+}
+
+/* Conditional Styling Example */
+.highlight {
+  border: 2px solid red;
+}
+
+.edit-button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }

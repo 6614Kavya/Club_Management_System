@@ -19,6 +19,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { TeamService, Team } from '../services/team/team.service';
+import { Router } from '@angular/router';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -57,6 +58,13 @@ ModuleRegistry.registerModules([AllCommunityModule]);
       >
         Remove Selected User
       </button>
+      <button
+        class="manage-admins"
+        mat-raised-button
+        (click)="navigateToManageAdmins()"
+      >
+        Manage Admins
+      </button>
     </div>
 
     <!-- The AG Grid component -->
@@ -72,7 +80,7 @@ ModuleRegistry.registerModules([AllCommunityModule]);
   styleUrl: './teams.component.css',
 })
 export class TeamsComponent {
-  constructor(private dialogRef: MatDialog) {}
+  constructor(private dialogRef: MatDialog, private router: Router) {}
 
   teamService: TeamService = inject(TeamService);
 
@@ -89,6 +97,10 @@ export class TeamsComponent {
   };
 
   isDeletionConfirmed: boolean = false;
+
+  navigateToManageAdmins() {
+    this.router.navigate(['/dashboard/manageTeamManagers']);
+  }
 
   onGridReady(params: any) {
     this.gridApi = params.api; // Store API when grid is ready

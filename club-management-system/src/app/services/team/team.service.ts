@@ -21,6 +21,12 @@ export interface Team {
   team_logo?: string;
 }
 
+export interface TeamManager {
+  teamName: string;
+  adminName: string;
+  email: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })

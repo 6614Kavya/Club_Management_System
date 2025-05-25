@@ -28,6 +28,12 @@ export interface Field {
   facilities?: string[];
 }
 
+export interface FieldAdmin {
+  fieldName: string;
+  adminName: string;
+  email: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })

@@ -13,6 +13,9 @@ import { BookingPageComponent } from './booking-page/booking-page.component';
 import { authGuard } from './shared/auth.guard';
 import { BookingRequestsComponent } from './booking-requests/booking-requests.component';
 import { ManageAdminsComponent } from './manage-admins/manage-admins.component';
+import { ManageFieldAdminsComponent } from './manage-field-admins/manage-field-admins.component';
+import { ManageTeamManagersComponent } from './manage-team-managers/manage-team-managers.component';
+import { MyOrganizationComponent } from './my-organization/my-organization.component';
 
 const routeConfig: Routes = [
   {
@@ -53,6 +56,21 @@ const routeConfig: Routes = [
       {
         path: 'manageAdmins',
         component: ManageAdminsComponent,
+        // canActivate: [authGuard],
+      },
+      {
+        path: 'manageFieldAdmins',
+        component: ManageFieldAdminsComponent,
+        // canActivate: [authGuard],
+      },
+      {
+        path: 'manageTeamManagers',
+        component: ManageTeamManagersComponent,
+        // canActivate: [authGuard],
+      },
+      {
+        path: 'myOrganization',
+        component: MyOrganizationComponent,
         // canActivate: [authGuard],
       },
     ],

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarOptions, EventClickArg } from '@fullcalendar/core'; // useful for typechecking
@@ -50,6 +50,7 @@ export class CalendarComponent {
   selectedDate: string | null = null;
   allBookings: Booking[] = [];
   fieldId: any;
+  clubId: any;
 
   eventList: any = [];
 
@@ -58,11 +59,12 @@ export class CalendarComponent {
     private snackBar: MatSnackBar,
     private toastr: ToastrService
   ) {
-    this.loadAllBookings();
-    this.fieldId = String(this.route.snapshot.params['id']);
-
-    this.loadAllBookings();
-
+    // this.loadAllBookings();
+    this.route.paramMap.subscribe((params) => {
+      this.fieldId = params.get('fieldId');
+      this.clubId = params.get('clubId');
+      this.loadAllBookings();
+    });
     // this.fieldService
     //   .getFieldDetailsById(this.fieldId)
     //   .subscribe(
@@ -72,6 +74,9 @@ export class CalendarComponent {
     //     )
     //   );
   }
+  // ngOnInit(): void {
+  //   throw new Error('Method not implemented.');
+  // }
 
   handleEventClick(arg: EventClickArg): void {
     const bookingId = arg.event.extendedProps['bookingId'];
@@ -200,7 +205,7 @@ export class CalendarComponent {
             title: booking.bookingPurpose,
             start: booking.startTime,
             end: booking.endTime,
-            id: booking.id.toString(),
+            id: booking.id,
             backgroundColor: eventColor,
             borderColor: eventColor, // Optional for better visibility
             extendedProps: {
@@ -212,6 +217,8 @@ export class CalendarComponent {
               bookingDate: booking.selectedDate,
               fieldPart: booking.fieldPart,
               bookingStatus: booking.bookingStatus,
+              teamId: booking?.teamId,
+              team: booking?.teamName,
             },
           };
         });
@@ -310,7 +317,11 @@ export class CalendarComponent {
       height: 'auto',
       maxWidth: '90vw',
       panelClass: 'custom-dialog-container',
-      data: { date: this.selectedDate, fieldId: this.fieldId },
+      data: {
+        date: this.selectedDate,
+        fieldId: this.fieldId,
+        clubId: this.clubId,
+      },
     });
 
     dialogRef.afterClosed().subscribe((newBooking: Booking | null) => {

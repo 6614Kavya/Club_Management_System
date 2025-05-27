@@ -59,15 +59,33 @@ namespace EmployeeAdminPortal.Services.Booking
             return result;
         }
 
-        public async Task<Models.Entities.Booking[]> GetAllBookings()
+        public async Task<BookingDto[]> GetAllBookings()
         {
             var result = await _bookingRepository.GetAllBookingsAsync();
             return result;
         }
 
-        public async Task<Models.Entities.Booking[]> GetBookingByFieldId(Guid fieldId)
+        public async Task<BookingDto[]> GetBookingByFieldId(Guid fieldId)
         {
             var result = await _bookingRepository.GetBookingsByFieldId(fieldId);
+            return result;
+        }
+
+        public async Task<BookingDto[]> GetFilteredBookingByFieldId(Guid fieldId, string status)
+        {
+            var result = await _bookingRepository.GetFilteredBookingsByFieldId(fieldId, status);
+            return result;
+        }
+
+        public async Task<BookingDto[]> GetBookingByTeamId(Guid teamId)
+        {
+            var result = await _bookingRepository.GetBookingsByTeamIdAsync(teamId);
+            return result;
+        }
+
+        public async Task<BookingDto[]> GetFilteredBookingByTeamId(Guid teamId, string status)
+        {
+            var result = await _bookingRepository.GetFilteredBookingsByTeamIdAsync(teamId, status);
             return result;
         }
 

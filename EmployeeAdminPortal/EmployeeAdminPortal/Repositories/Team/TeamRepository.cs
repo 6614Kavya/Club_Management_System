@@ -91,7 +91,7 @@ namespace EmployeeAdminPortal.Repositories.Team
                 return null;
             }
 
-            existingTeam = _mapper.Map<Models.Entities.Team>(createTeamDto);
+            _mapper.Map(createTeamDto, existingTeam);
 
             await _context.SaveChangesAsync();
 

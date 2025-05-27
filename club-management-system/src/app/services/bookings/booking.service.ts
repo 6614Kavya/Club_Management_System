@@ -15,6 +15,8 @@ export interface Booking {
   bookingPurpose: string;
   facilities?: string[];
   fieldPart?: any;
+  teamId?: any | undefined;
+  teamName?: any | undefined;
 }
 
 export interface SelectedBookings {
@@ -31,6 +33,8 @@ export interface SelectedBookings {
       name: string;
     };
   };
+  teamId?: any | undefined;
+  teamName?: any | undefined;
 }
 
 export interface FieldBookings {
@@ -90,6 +94,31 @@ export class BookingService {
 
   getBookingsByFieldId(fieldId: string): Observable<Booking[]> {
     const url = `${environment.apiURL}/field/${fieldId}`;
+    return this.http.get<Booking[]>(url);
+  }
+
+  getBookingsByTeamId(teamId: any): Observable<Booking[]> {
+    const url = `${environment.apiURL}/team/${teamId}`;
+    return this.http.get<Booking[]>(url);
+  }
+
+  getFilteredBookingsByTeamId(
+    teamId: string,
+    status: string
+  ): Observable<Booking[]> {
+    const url = `${
+      environment.apiURL
+    }/teamFiltered/${teamId}?status=${encodeURIComponent(status)}`;
+    return this.http.get<Booking[]>(url);
+  }
+
+  getFilteredBookingsByFieldId(
+    fieldId: string,
+    status: string
+  ): Observable<Booking[]> {
+    const url = `${
+      environment.apiURL
+    }/fieldFiltered/${fieldId}?status=${encodeURIComponent(status)}`;
     return this.http.get<Booking[]>(url);
   }
 }

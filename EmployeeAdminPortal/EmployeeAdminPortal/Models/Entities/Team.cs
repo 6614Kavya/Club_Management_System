@@ -11,6 +11,7 @@
         //public ICollection<UserTeam> UserTeams { get; set; }
         public bool IsDeleted { get; set; } = false;
         public ICollection<UserTeamRole>? UserTeamRoles { get; set; }
+        public ICollection<Booking> Bookings { get; set; }
 
     }
 }

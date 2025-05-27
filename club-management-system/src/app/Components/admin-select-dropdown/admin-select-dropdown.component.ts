@@ -29,7 +29,7 @@ import { TeamService, Team } from '../../services/team/team.service';
       </mat-select>
     </mat-form-field>
 
-    <ng-container *ngIf="isClubAdmin">
+    <ng-container *ngIf="isSuperAdmin">
       <mat-form-field appearance="fill">
         <mat-label>Select club</mat-label>
         <mat-select [formControl]="clubControl">
@@ -89,6 +89,7 @@ export class AdminSelectDropdownComponent implements OnInit {
   isClubAdmin = false;
   isFieldAdmin = false;
   isTeamManager = false;
+  isSuperAdmin = false;
   contextId: string | null = null;
 
   constructor(private dialogRef: MatDialogRef<AdminSelectDropdownComponent>) {
@@ -98,6 +99,7 @@ export class AdminSelectDropdownComponent implements OnInit {
   // availableAdmins: string[] = [];
   ngOnInit() {
     // get role and context
+    this.isSuperAdmin = this.userService.isSuperAdmin();
     this.isClubAdmin = this.userService.isClubAdmin();
     this.isFieldAdmin = this.userService.isFieldAdmin();
     this.isTeamManager = this.userService.isTeamManager();
@@ -118,7 +120,7 @@ export class AdminSelectDropdownComponent implements OnInit {
     //   error: (err) => console.error('Failed to load fields:', err),
     // });
 
-    if (this.isFieldAdmin) {
+    if (this.isSuperAdmin) {
       // Fetch clubs
       this.clubService.getAllClubs().subscribe({
         next: (data) => {

@@ -101,7 +101,7 @@ namespace EmployeeAdminPortal.Repositories.Field
                 return null;
             }
 
-            existingField = _mapper.Map<Models.Entities.Field>(createFieldDto);
+            _mapper.Map(createFieldDto, existingField);
 
             await _context.SaveChangesAsync();
 

@@ -56,6 +56,11 @@ export class ClubService {
     return this.http.get<Club[]>(url);
   }
 
+  getClubById(clubId: string): Observable<Club> {
+    const url = `${environment.apiURL}/api/Club/${clubId}`;
+    return this.http.get<Club>(url);
+  }
+
   getAllClubList(): Club[] {
     return this.clubs.map(
       ({

@@ -9,5 +9,6 @@
         public string BookingStatus { get; set; } = "Pending";
         public string BookedBy { get; set; }
         public string BookingPurpose { get; set; }
+        public Guid? TeamId { get; set; }
     }
 }

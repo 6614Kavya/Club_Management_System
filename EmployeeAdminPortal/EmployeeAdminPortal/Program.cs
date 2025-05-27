@@ -19,7 +19,10 @@ builder.Services.AddControllers()
     {
         options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
         options.JsonSerializerOptions.WriteIndented = true; // optional
+        //options.JsonSerializerOptions.ReferenceHandler = null; // Or use IgnoreCycles if circular refs are possible
+        //options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
     });
+
 
 var allowedOrigins = builder.Configuration.GetValue<string>("allowedOrigins");
 

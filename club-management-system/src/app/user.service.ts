@@ -79,6 +79,10 @@ export class UserService {
     return payload?.ContextId || null;
   }
 
+  isSuperAdmin(): boolean {
+    return this.getCurrentRole() === 'SuperAdmin';
+  }
+
   isClubAdmin(): boolean {
     return this.getCurrentRole() === 'ClubAdmin';
   }

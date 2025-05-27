@@ -41,6 +41,30 @@ namespace EmployeeAdminPortal.Controllers
             return Ok(result);
         }
 
+        [HttpGet("/fieldFiltered/{id}")]
+        public async Task<IActionResult> GetFilteredBookingByFieldId(Guid id, string status)
+        {
+            var result = await _bookingService.GetFilteredBookingByFieldId(id, status);
+
+            return Ok(result);
+        }
+
+        [HttpGet("/team/{id}")]
+        public async Task<IActionResult> GetBookingByTeamId(Guid id)
+        {
+            var result = await _bookingService.GetBookingByTeamId(id);
+
+            return Ok(result);
+        }
+
+        [HttpGet("/teamFiltered/{id}")]
+        public async Task<IActionResult> GetFilteredBookingByTeamId(Guid id, string status)
+        {
+            var result = await _bookingService.GetFilteredBookingByTeamId(id, status);
+
+            return Ok(result);
+        }
+
         // POST api/<BookingController>
         [HttpPost]
         public async Task<IActionResult> CreateBooking([FromBody] CreateBookingDto createBookingDto)

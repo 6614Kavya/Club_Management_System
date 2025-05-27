@@ -47,7 +47,7 @@ const routeConfig: Routes = [
         canActivate: [authGuard],
       },
       {
-        path: 'fieldTeamData/:id/calendar/:id',
+        path: 'fieldTeamData/:fieldId/calendar/:clubId',
         component: CalendarComponent,
         // canActivate: [authGuard],
       },

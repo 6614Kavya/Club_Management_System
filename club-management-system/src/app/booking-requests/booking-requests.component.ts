@@ -34,8 +34,9 @@ import { EditComponentComponent } from '../Components/edit-component/edit-compon
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Clubs } from '../Data/club-main-data';
 import { ConfirmBookingComponent } from './../confirm-booking/confirm-booking.component';
-import { BookingService } from '../services/bookings/booking.service';
+import { Booking, BookingService } from '../services/bookings/booking.service';
 import { SelectedBookings } from '../services/bookings/booking.service';
+import { UserService } from '../user.service';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -72,23 +73,32 @@ ModuleRegistry.registerModules([AllCommunityModule]);
     </div> -->
 
     <!-- The AG Grid component -->
-    <ag-grid-angular
-      class="ag-theme-alpine"
-      [rowData]="rowData"
-      [columnDefs]="colDefs"
-      [rowSelection]="rowSelection"
-      [rowMultiSelectWithClick]="true"
-      (gridReady)="onGridReady($event)"
-    />
+    <div class="container">
+      <ag-grid-angular
+        class="ag-theme-alpine"
+        [rowData]="rowData"
+        [columnDefs]="colDefs"
+        [rowSelection]="rowSelection"
+        [rowMultiSelectWithClick]="true"
+        (gridReady)="onGridReady($event)"
+      />
+    </div>
   `,
   styleUrl: './booking-requests.component.css',
 })
-export class BookingRequestsComponent {
+export class BookingRequestsComponent implements OnInit {
   constructor(private dialogRef: MatDialog) {}
 
   @ViewChild('agGrid') agGrid!: AgGridAngular; // Access the grid component
 
   bookingService: BookingService = inject(BookingService);
+  private userService = inject(UserService);
+
+  isSuperAdmin = false;
+  isClubAdmin = false;
+  isFieldAdmin = false;
+  isTeamManager = false;
+  contextId: any;
 
   private gridApi: any; // Store API reference
 
@@ -152,7 +162,7 @@ export class BookingRequestsComponent {
   // clubData = Clubs;
   // clubAdmins = this.clubData.map((club) => club.club_admins);
   rowData: any[] = [];
-  pendingBookings: SelectedBookings[] = [];
+  pendingBookings: Booking[] = [];
   // Row Data: The data to be displayed.
 
   generateRowData() {
@@ -235,19 +245,83 @@ export class BookingRequestsComponent {
   // }
 
   ngOnInit() {
-    this.bookingService.getBookingsByStatus('Pending').subscribe({
-      next: (bookings) => {
-        this.pendingBookings = bookings;
+    this.isSuperAdmin = this.userService.isSuperAdmin();
+    this.isClubAdmin = this.userService.isClubAdmin();
+    this.isFieldAdmin = this.userService.isFieldAdmin();
+    this.isTeamManager = this.userService.isTeamManager();
+    this.contextId = this.userService.getContextId();
 
-        // Wait to call generateRowData() until gridApi is available
-        if (this.gridApi) {
-          this.generateRowData();
-        }
-      },
-      error: (err) => {
-        console.error('Error fetching bookings:', err);
-      },
-    });
+    if (this.isSuperAdmin) {
+      this.bookingService.getBookingsByStatus('Pending').subscribe({
+        next: (bookings) => {
+          this.pendingBookings = bookings;
+          console.log('Pending bookings for super admin', this.pendingBookings);
+
+          // Wait to call generateRowData() until gridApi is available
+          if (this.gridApi) {
+            this.generateRowData();
+          }
+        },
+        error: (err) => {
+          console.error('Error fetching bookings:', err);
+        },
+      });
+    } else if (this.isClubAdmin) {
+      this.bookingService.getBookingsByStatus('Pending').subscribe({
+        next: (bookings) => {
+          this.pendingBookings = bookings;
+          console.log('Pending bookings for club admin', this.pendingBookings);
+
+          // Wait to call generateRowData() until gridApi is available
+          if (this.gridApi) {
+            this.generateRowData();
+          }
+        },
+        error: (err) => {
+          console.error('Error fetching bookings:', err);
+        },
+      });
+    } else if (this.isFieldAdmin) {
+      this.bookingService
+        .getFilteredBookingsByFieldId(this.contextId, 'Pending')
+        .subscribe({
+          next: (bookings) => {
+            this.pendingBookings = bookings;
+            console.log(
+              'Pending bookings for field admin',
+              this.pendingBookings
+            );
+
+            // Wait to call generateRowData() until gridApi is available
+            if (this.gridApi) {
+              this.generateRowData();
+            }
+          },
+          error: (err) => {
+            console.error('Error fetching bookings:', err);
+          },
+        });
+    } else if (this.isTeamManager) {
+      this.bookingService
+        .getFilteredBookingsByTeamId(this.contextId, 'Pending')
+        .subscribe({
+          next: (bookings) => {
+            this.pendingBookings = bookings;
+            console.log(
+              'Pending bookings for team manager',
+              this.pendingBookings
+            );
+
+            // Wait to call generateRowData() until gridApi is available
+            if (this.gridApi) {
+              this.generateRowData();
+            }
+          },
+          error: (err) => {
+            console.error('Error fetching bookings:', err);
+          },
+        });
+    }
   }
 
   // filterDataByClub(selectedClub: string) {

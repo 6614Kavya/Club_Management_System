@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 // import { ClubData } from '../../Data/club-data';
-import { ClubService } from '../services/club/club.service';
+import { Club, ClubService } from '../services/club/club.service';
 import { UserService } from '../user.service';
 import { CommonModule } from '@angular/common';
 
@@ -50,19 +50,6 @@ import { CommonModule } from '@angular/common';
             placeholder="Enter Club address"
             [formControl]="clubAddress"
           />
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label> Club Description</mat-label>
-          <!-- <input
-          matInput
-          placeholder="Enter Club admin"
-          [formControl]="clubAdmin"
-        /> -->
-          <mat-select [formControl]="clubAdmin" multiple>
-            @for (admin of allAdmins; track clubAdmin) {
-            <mat-option [value]="admin">{{ admin }}</mat-option>
-            }
-          </mat-select>
         </mat-form-field>
       </ng-container>
 
@@ -115,18 +102,34 @@ export class MyClubComponent {
   isClubAdmin = false;
   contextId: string | null = null;
 
-  // ngOnInit() {
-  //   this.isClubAdmin = this.userService.isClubAdmin();
-  //   this.isFieldAdmin = this.userService.isFieldAdmin();
-  //   this.isTeamManager = this.userService.isTeamManager();
-  //   this.contextId = this.userService.getContextId();
+  ngOnInit(): void {
+    this.isClubAdmin = this.userService.isClubAdmin();
+    this.contextId = this.userService.getContextId();
 
-  //   console.log('Role flags:', {
-  //     isClubAdmin: this.isClubAdmin,
-  //     isFieldAdmin: this.isFieldAdmin,
-  //     isTeamManager: this.isTeamManager,
-  //   });
-  // }
+    if (this.isClubAdmin && this.contextId) {
+      this.clubService.getClubById(this.contextId).subscribe({
+        next: (club: Club) => {
+          this.clubName.setValue(club.name ?? '');
+          this.clubAddress.setValue(club.address ?? '');
+          this.clubAdmin.setValue(club.clubAdmins ?? []);
+
+          // Store admins for UI (e.g., to display as options)
+          this.availableAdmins = club.clubAdmins ?? [];
+
+          // Merge existing + available and remove duplicates
+          this.allAdmins = [
+            ...new Set([
+              ...this.availableAdmins,
+              ...this.existingAdmins.flat(),
+            ]),
+          ];
+        },
+        error: (err) => {
+          console.error('Failed to load club details:', err);
+        },
+      });
+    }
+  }
   submit() {
     // Emit the updated club data, including the selected admins.
     // this.dialogRef.close({
@@ -141,15 +144,15 @@ export class MyClubComponent {
       clubAdmins: this.clubAdmin.value || undefined,
     };
 
-    // this.clubService.updateClub(this.data.clubId, updatedData).subscribe({
-    //   next: (res: any) => {
-    //     console.log('Club updated successfully', res);
-    //     this.dialogRef.close(true); // signal success to the caller
-    //   },
-    //   error: (err: any) => {
-    //     console.log(this.data.clubId);
-    //     console.error('Error updating club', err);
-    //   },
-    // });
+    if (this.contextId) {
+      this.clubService.updateClub(this.contextId, updatedData).subscribe({
+        next: (res: any) => {
+          console.log('Club updated successfully', res);
+        },
+        error: (err: any) => {
+          console.error('Error updating club', err);
+        },
+      });
+    }
   }
 }

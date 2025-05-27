@@ -3,10 +3,12 @@ import {
   ChangeDetectionStrategy,
   Inject,
   inject,
+  OnInit,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTimepickerModule } from '@angular/material/timepicker';
@@ -18,6 +20,7 @@ import {
   FieldPartSelectionComponent,
 } from '../field-part-selection/field-part-selection.component';
 import { FieldService } from '../services/field/field.service';
+import { Team, TeamService } from '../services/team/team.service';
 
 @Component({
   selector: 'app-field-booking-form',
@@ -32,6 +35,7 @@ import { FieldService } from '../services/field/field.service';
     MatDatepickerModule,
     CommonModule,
     FieldPartSelectionComponent,
+    MatSelectModule,
   ],
   providers: [provideNativeDateAdapter()],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -94,6 +98,15 @@ import { FieldService } from '../services/field/field.service';
         </mat-form-field>
       </div>
 
+      <mat-form-field>
+        <mat-label>Select Team</mat-label>
+        <mat-select [formControl]="teamControl">
+          <mat-option *ngFor="let team of teams" [value]="team.id">
+            {{ team.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <div class="button-container">
         <button mat-raised-button (click)="submit()">Save Details</button>
       </div>
@@ -101,32 +114,67 @@ import { FieldService } from '../services/field/field.service';
   `,
   styleUrl: './field-booking-form.component.css',
 })
-export class FieldBookingFormComponent {
+export class FieldBookingFormComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA)
-    public data: { date: string; fieldId: string },
-    private dialogRef: MatDialogRef<FieldBookingFormComponent> // @Inject(MAT_DIALOG_DATA) // public data: { clubName: string; clubAddress: string; admins: string[] }
+    public data: { date: string; fieldId: string; clubId: any },
+    private dialogRef: MatDialogRef<FieldBookingFormComponent>, // @Inject(MAT_DIALOG_DATA) // public data: { clubName: string; clubAddress: string; admins: string[] }
+    private teamService: TeamService
   ) {
     this.bookingDate.setValue(data.date);
     this.fieldId = data.fieldId;
+    this.clubId = data.clubId;
 
-    this.fieldService.getFieldDetailsById(this.fieldId).subscribe(
-      (fieldDetails) => (
-        console.log('Field details', fieldDetails),
-        // (this.fieldData = fieldDetails)
-        (this.fieldTemplate.parts = fieldDetails.fieldPart?.$values.map(
-          (p: any) => new FieldPart(p.id, p.name, p.bitmask, p.selected)
-        ))
-      )
-    );
+    //   this.fieldService.getFieldDetailsById(this.fieldId).subscribe(
+    //     (fieldDetails) => (
+    //       console.log('Field details', fieldDetails),
+    //       // (this.fieldData = fieldDetails)
+    //       (this.fieldTemplate.parts = fieldDetails.fieldPart?.$values.map(
+    //         (p: any) => new FieldPart(p.id, p.name, p.bitmask, p.selected)
+    //       ))
+    //     )
+    //   );
+
+    //   this.teamService.getTeamsByClubId(this.data.clubId).subscribe({
+    //   next: (teams) => {
+    //     this.teams = teams;
+    //   },
+    //   error: (err) => {
+    //     console.error('Error loading teams', err);
+    //   },
+    // });
   }
+
+  ngOnInit(): void {
+    this.bookingDate.setValue(this.data.date);
+    this.fieldId = this.data.fieldId;
+
+    this.fieldService
+      .getFieldDetailsById(this.fieldId)
+      .subscribe((fieldDetails) => {
+        this.fieldTemplate.parts = fieldDetails.fieldPart?.$values.map(
+          (p: any) => new FieldPart(p.id, p.name, p.bitmask, p.selected)
+        );
+      });
+
+    this.teamService.getTeamsByClubId(this.data.clubId).subscribe({
+      next: (teams) => {
+        this.teams = teams;
+      },
+      error: (err) => console.error('Error loading teams', err),
+    });
+  }
+
   fieldId: string;
+  clubId: any;
   name = new FormControl('');
   bookingPurpose = new FormControl('');
   bookingDate = new FormControl<string | null>(null);
   startTime = new FormControl<any | null>(null);
   endTime = new FormControl<any | null>(null);
   fieldPart: string | undefined;
+  teams: Team[] = [];
+  teamControl = new FormControl('');
 
   minDate: Date = new Date(); //restricts past dates
 
@@ -141,7 +189,8 @@ export class FieldBookingFormComponent {
       this.bookingDate,
       this.startTime,
       this.endTime,
-      this.fieldPart
+      this.fieldPart,
+      this.teamControl
     );
 
     // const formattedDate = this.bookingDate.value
@@ -205,6 +254,7 @@ export class FieldBookingFormComponent {
       bookingPurpose: this.bookingPurpose.value,
       facilities: [''],
       fieldPart: this.fieldPart,
+      teamId: this.teamControl.value,
     });
   }
 

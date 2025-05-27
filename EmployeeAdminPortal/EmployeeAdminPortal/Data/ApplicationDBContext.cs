@@ -69,7 +69,7 @@ namespace EmployeeAdminPortal.Data
             modelBuilder.Entity<UserClubRole>(entity =>
             {
                 entity.HasKey(uc => new { uc.UserId, uc.ClubId });
-                entity.HasQueryFilter(uc => uc.IsDeleted);
+                entity.HasQueryFilter(uc => !uc.IsDeleted);
 
                 entity.HasOne(uc => uc.User)
                 .WithMany(c => c.UserClubRoles)
@@ -116,6 +116,17 @@ namespace EmployeeAdminPortal.Data
                 .WithMany(b => b.FieldPart)
                 .HasForeignKey(x => x.FieldId);
             });
+
+            modelBuilder.Entity<Booking>(entity =>
+            {
+                entity.HasKey(b => b.Id);
+
+                entity.HasOne(b => b.Team)
+                .WithMany(t => t.Bookings)
+                .HasForeignKey(b => b.TeamId)
+                .OnDelete(DeleteBehavior.NoAction);
+            });
+
 
         }
     }

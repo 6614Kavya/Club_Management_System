@@ -31,8 +31,10 @@ export class FieldCardComponent {
   constructor(private router: Router) {}
   onCardClick() {
     this.router.navigate([
-      '/dashboard/fieldTeamData/:id/calendar',
+      '/dashboard/fieldTeamData',
       this.fieldData.id,
+      'calendar',
+      this.fieldData.clubId,
     ]);
   }
   @Input() fieldData!: Field;

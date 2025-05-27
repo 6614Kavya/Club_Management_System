@@ -67,9 +67,11 @@ namespace EmployeeAdminPortal.Services.Field
             return result;
         }
 
-        public Task<Models.Entities.Field> UpdateField(Guid fieldId, CreateFieldDto model)
+        public async Task<Models.Entities.Field> UpdateField(Guid fieldId, CreateFieldDto model)
         {
-            throw new NotImplementedException();
+            var result = await _fieldRepository.UpdateFieldAsync(fieldId, model);
+
+            return result;
         }
     }
 }

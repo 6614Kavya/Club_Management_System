@@ -37,12 +37,24 @@ namespace EmployeeAdminPortal.Repositories.Booking
             return true;
         }
 
-        public async Task<Models.Entities.Booking[]> GetAllBookingsAsync()
+        public async Task<BookingDto[]> GetAllBookingsAsync()
         {
             return await _context.Bookings
                     .Include(b => b.FieldPart)
                         .ThenInclude(fp => fp.Field)
-                    .ToArrayAsync();
+                    .Select(b => new BookingDto
+                    {
+                        Id = b.Id,
+                        BookingPurpose = b.BookingPurpose,
+                        BookingStatus = b.BookingStatus,
+                        StartTime = b.StartTime,
+                        EndTime = b.EndTime,
+                        FieldPartId = b.FieldPartId,
+                        FieldName = b.FieldPart.Field.Name,
+                        TeamId = b.TeamId,
+                        TeamName = b.Team.Name
+                    })
+                .ToArrayAsync();
         }
 
         public async Task<Models.Entities.Booking> GetBookingByIdAsync(Guid id)
@@ -50,6 +62,7 @@ namespace EmployeeAdminPortal.Repositories.Booking
             return await _context.Bookings
                     .Include(b => b.FieldPart)
                         .ThenInclude(fp => fp.Field)
+                    .Include(b => b.Team)
                     .FirstOrDefaultAsync(b => b.Id == id);
         }
 
@@ -61,7 +74,7 @@ namespace EmployeeAdminPortal.Repositories.Booking
             }
 
             bool isOverlapping = await _context.Bookings.AnyAsync(b =>
-                b.FieldPartId == fieldPartId &&
+                b.FieldPartId == fieldPartId && b.BookingStatus == "Accepted" &&
                 ((startTime < b.EndTime) && (endTime > b.StartTime))
             );
 
@@ -120,13 +133,47 @@ namespace EmployeeAdminPortal.Repositories.Booking
             return true;
         }
 
-        public async Task<Models.Entities.Booking[]> GetBookingsByFieldId(Guid fieldId)
+        public async Task<BookingDto[]> GetBookingsByFieldId(Guid fieldId)
         {
             var result = await _context.Bookings
                 .Where(b => b.FieldPart.FieldId == fieldId)
-                .ToListAsync();
+                .Select(b => new BookingDto
+                {
+                    Id = b.Id,
+                    BookingPurpose = b.BookingPurpose,
+                    BookingStatus = b.BookingStatus,
+                    StartTime = b.StartTime,
+                    EndTime = b.EndTime,
+                    FieldPartId = b.FieldPartId,
+                    FieldName = b.FieldPart.Field.Name,
+                    TeamId = b.TeamId,
+                    TeamName = b.Team.Name
+                })
+                .ToArrayAsync();
 
-            return result.ToArray();
+            return result;
+        }
+
+
+        public async Task<BookingDto[]> GetFilteredBookingsByFieldId(Guid fieldId, string status)
+        {
+            var result = await _context.Bookings
+                .Where(b => b.FieldPart.FieldId == fieldId)
+                .Select(b => new BookingDto
+                {
+                    Id = b.Id,
+                    BookingPurpose = b.BookingPurpose,
+                    BookingStatus = b.BookingStatus,
+                    StartTime = b.StartTime,
+                    EndTime = b.EndTime,
+                    FieldPartId = b.FieldPartId,
+                    FieldName = b.FieldPart.Field.Name,
+                    TeamId = b.TeamId,
+                    TeamName = b.Team.Name
+                })
+                .ToArrayAsync();
+
+            return result;
         }
 
         public async Task<bool> UpdateBookingStatusAsync(Guid bookingId, string newStatus)
@@ -146,9 +193,56 @@ namespace EmployeeAdminPortal.Repositories.Booking
             return await _context.Bookings
                 .Include(b => b.FieldPart)
                     .ThenInclude(fp => fp.Field)
+                //.Include(b => b.Team)
                 .Where(b => b.BookingStatus == status)
                 .ToArrayAsync();
         }
+
+        public async Task<BookingDto[]> GetBookingsByTeamIdAsync(Guid teamId)
+        {
+            var result = await _context.Bookings
+                .Where(b => b.TeamId == teamId)
+                .Include(b => b.FieldPart)
+                    .ThenInclude(fp => fp.Field)
+                .Select(b => new BookingDto
+                {
+                    Id = b.Id,
+                    BookingPurpose = b.BookingPurpose,
+                    BookingStatus = b.BookingStatus,
+                    StartTime = b.StartTime,
+                    EndTime = b.EndTime,
+                    FieldPartId = b.FieldPartId,
+                    FieldName = b.FieldPart.Field.Name,
+                    TeamId = b.TeamId,
+                    TeamName = b.Team.Name
+                })
+                .ToArrayAsync();
+
+            return result;
+        }
+
+        public async Task<BookingDto[]> GetFilteredBookingsByTeamIdAsync(Guid teamId, string status)
+        {
+            var result = await _context.Bookings
+                .Where(b => b.TeamId == teamId && b.BookingStatus == status)
+                .Select(b => new BookingDto
+                {
+                    Id = b.Id,
+                    BookingPurpose = b.BookingPurpose,
+                    BookingStatus = b.BookingStatus,
+                    StartTime = b.StartTime,
+                    EndTime = b.EndTime,
+                    FieldPartId = b.FieldPartId,
+                    FieldName = b.FieldPart.Field.Name,
+                    TeamId = b.TeamId,
+                    TeamName = b.Team.Name
+                })
+                .ToArrayAsync();
+
+            return result;
+        }
+
+
 
     }
 }

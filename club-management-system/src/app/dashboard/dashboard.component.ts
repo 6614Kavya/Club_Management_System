@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -76,7 +77,7 @@ export class DashboardComponent {
   fieldRoles: any[] = [];
   teamRoles: any[] = [];
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private router: Router) {
     this.route.queryParams.subscribe((params) => {
       this.email = params['email'] || 'No email provided';
     });
@@ -148,6 +149,7 @@ export class DashboardComponent {
           console.log('Role switched to:', newPayload?.role);
           console.log('New context ID:', newPayload?.ContextId);
           // Optionally refresh the view or reload the component/router
+          this.router.navigate(['/dashboard']);
         },
         error: (err) => {
           console.error('Failed to set active role', err);

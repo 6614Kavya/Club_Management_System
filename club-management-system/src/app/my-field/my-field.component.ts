@@ -7,9 +7,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 // import { ClubData } from '../../Data/club-data';
-import { ClubService } from '../services/club/club.service';
+// import { ClubService } from '../services/club/club.service';
 import { UserService } from '../user.service';
 import { CommonModule } from '@angular/common';
+import { FieldService } from '../services/field/field.service';
 
 @Component({
   selector: 'app-my-field',
@@ -51,19 +52,6 @@ import { CommonModule } from '@angular/common';
             [formControl]="fieldAddress"
           />
         </mat-form-field>
-        <mat-form-field>
-          <mat-label> Field Description</mat-label>
-          <!-- <input
-          matInput
-          placeholder="Enter Club admin"
-          [formControl]="clubAdmin"
-        /> -->
-          <mat-select [formControl]="fieldAdmin" multiple>
-            @for (admin of allAdmins; track fieldAdmin) {
-            <mat-option [value]="admin">{{ admin }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
       </ng-container>
 
       <div class="button-container">
@@ -83,7 +71,7 @@ export class MyFieldComponent {
     //   clubAddress: string;
     //   admins: string[];
     // },
-    private clubService: ClubService,
+    private fieldService: FieldService,
     private userService: UserService
   ) {
     this.isFieldAdmin = this.userService.isFieldAdmin();
@@ -115,18 +103,32 @@ export class MyFieldComponent {
   isFieldAdmin = false;
   contextId: string | null = null;
 
-  // ngOnInit() {
-  //   this.isClubAdmin = this.userService.isClubAdmin();
-  //   this.isFieldAdmin = this.userService.isFieldAdmin();
-  //   this.isTeamManager = this.userService.isTeamManager();
-  //   this.contextId = this.userService.getContextId();
+  ngOnInit(): void {
+    this.contextId = this.userService.getContextId(); // This is the field ID
 
-  //   console.log('Role flags:', {
-  //     isClubAdmin: this.isClubAdmin,
-  //     isFieldAdmin: this.isFieldAdmin,
-  //     isTeamManager: this.isTeamManager,
-  //   });
-  // }
+    if (this.contextId && this.isFieldAdmin) {
+      this.fieldService.getFieldDetailsById(this.contextId).subscribe({
+        next: (field) => {
+          this.fieldName.setValue(field.name ?? '');
+          this.fieldAddress.setValue(field.address ?? '');
+          this.fieldAdmin.setValue(field.fieldAdmins ?? []);
+
+          // Merge available + existing admins (if applicable)
+          this.availableAdmins = field.fieldAdmins ?? [];
+          this.allAdmins = [
+            ...new Set([
+              ...this.availableAdmins,
+              ...this.existingAdmins.flat(),
+            ]),
+          ];
+        },
+        error: (err) => {
+          console.error('Error loading field data', err);
+        },
+      });
+    }
+  }
+
   submit() {
     // Emit the updated club data, including the selected admins.
     // this.dialogRef.close({

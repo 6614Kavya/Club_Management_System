@@ -160,6 +160,25 @@ namespace EmployeeAdminPortal.Controllers
 
             return Ok(new { result });
         }
+
+        [Authorize(AuthenticationSchemes = "Bearer")]
+        [HttpPost("update-password")]
+        public async Task<IActionResult> UpdatePassword([FromBody] UpdatePasswordDto dto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+                return Unauthorized();
+
+            var result = await _userManager.ChangePasswordAsync(user, dto.CurrentPassword, dto.NewPassword);
+
+            if (result.Succeeded)
+                return Ok(new { message = "Password updated successfully." });
+
+            return BadRequest(new { errors = result.Errors.Select(e => e.Description) });
+        }
     }
 }
 

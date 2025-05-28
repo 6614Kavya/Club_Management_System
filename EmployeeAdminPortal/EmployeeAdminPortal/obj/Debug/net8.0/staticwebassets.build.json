@@ -1,12 +1,228 @@
 {
   "Version": 1,
-  "Hash": "m2Fh6racNGf7+kJNmZ48iN84mG2lXXstFsFiSEZvTRA=",
+  "Hash": "S3zRamFYuAncqzN2hwGzB4OtEH2mW6oRg9yEoxCuXFc=",
   "Source": "EmployeeAdminPortal",
   "BasePath": "_content/EmployeeAdminPortal",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": [],
-  "Endpoints": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "EmployeeAdminPortal\\wwwroot",
+      "Source": "EmployeeAdminPortal",
+      "ContentRoot": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\wwwroot\\",
+      "BasePath": "_content/EmployeeAdminPortal",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\wwwroot\\images\\clubs\\424f74c6-ad3d-4111-b485-8341886421cd.jpg",
+      "SourceId": "EmployeeAdminPortal",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\wwwroot\\",
+      "BasePath": "_content/EmployeeAdminPortal",
+      "RelativePath": "images/clubs/424f74c6-ad3d-4111-b485-8341886421cd#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "90q5mvnf1j",
+      "Integrity": "6fSu3yKq6AgFhkPKqusxt0ckB3TY8ka+GlMwhay48Wo=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\clubs\\424f74c6-ad3d-4111-b485-8341886421cd.jpg"
+    },
+    {
+      "Identity": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\wwwroot\\images\\clubs\\fd439803-d9e9-4a54-9bab-cba3a5f58a36.jpg",
+      "SourceId": "EmployeeAdminPortal",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\wwwroot\\",
+      "BasePath": "_content/EmployeeAdminPortal",
+      "RelativePath": "images/clubs/fd439803-d9e9-4a54-9bab-cba3a5f58a36#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "hjnf2z4y4n",
+      "Integrity": "7ZKj05UQdfI+swJqDYdJEeAzduHMcoLD4Xv+xoGHXlM=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\clubs\\fd439803-d9e9-4a54-9bab-cba3a5f58a36.jpg"
+    }
+  ],
+  "Endpoints": [
+    {
+      "Route": "images/clubs/424f74c6-ad3d-4111-b485-8341886421cd.90q5mvnf1j.jpg",
+      "AssetFile": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\wwwroot\\images\\clubs\\424f74c6-ad3d-4111-b485-8341886421cd.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "14928"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"6fSu3yKq6AgFhkPKqusxt0ckB3TY8ka+GlMwhay48Wo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 28 May 2025 01:16:26 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "90q5mvnf1j"
+        },
+        {
+          "Name": "label",
+          "Value": "images/clubs/424f74c6-ad3d-4111-b485-8341886421cd.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-6fSu3yKq6AgFhkPKqusxt0ckB3TY8ka+GlMwhay48Wo="
+        }
+      ]
+    },
+    {
+      "Route": "images/clubs/424f74c6-ad3d-4111-b485-8341886421cd.jpg",
+      "AssetFile": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\wwwroot\\images\\clubs\\424f74c6-ad3d-4111-b485-8341886421cd.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "14928"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"6fSu3yKq6AgFhkPKqusxt0ckB3TY8ka+GlMwhay48Wo=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 28 May 2025 01:16:26 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-6fSu3yKq6AgFhkPKqusxt0ckB3TY8ka+GlMwhay48Wo="
+        }
+      ]
+    },
+    {
+      "Route": "images/clubs/fd439803-d9e9-4a54-9bab-cba3a5f58a36.hjnf2z4y4n.jpg",
+      "AssetFile": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\wwwroot\\images\\clubs\\fd439803-d9e9-4a54-9bab-cba3a5f58a36.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "10957"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"7ZKj05UQdfI+swJqDYdJEeAzduHMcoLD4Xv+xoGHXlM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 28 May 2025 01:26:14 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "hjnf2z4y4n"
+        },
+        {
+          "Name": "label",
+          "Value": "images/clubs/fd439803-d9e9-4a54-9bab-cba3a5f58a36.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-7ZKj05UQdfI+swJqDYdJEeAzduHMcoLD4Xv+xoGHXlM="
+        }
+      ]
+    },
+    {
+      "Route": "images/clubs/fd439803-d9e9-4a54-9bab-cba3a5f58a36.jpg",
+      "AssetFile": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\wwwroot\\images\\clubs\\fd439803-d9e9-4a54-9bab-cba3a5f58a36.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "10957"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"7ZKj05UQdfI+swJqDYdJEeAzduHMcoLD4Xv+xoGHXlM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 28 May 2025 01:26:14 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-7ZKj05UQdfI+swJqDYdJEeAzduHMcoLD4Xv+xoGHXlM="
+        }
+      ]
+    }
+  ]
 }

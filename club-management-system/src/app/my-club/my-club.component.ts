@@ -51,6 +51,8 @@ import { CommonModule } from '@angular/common';
             [formControl]="clubAddress"
           />
         </mat-form-field>
+        <label for="fileInput">Upload Club Image</label>
+        <input id="fileInput" type="file" (change)="onFileSelected($event)" />
       </ng-container>
 
       <div class="button-container">
@@ -130,6 +132,31 @@ export class MyClubComponent {
       });
     }
   }
+
+  selectedFile: File | undefined;
+  onFileSelected($event: Event) {
+    const input = $event.target as HTMLInputElement;
+
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+      console.log('Selected file:', this.selectedFile);
+    }
+
+    const clubId = this.contextId; // Replace or get dynamically
+
+    this.clubService
+      .uploadClubImage(this.contextId, this.selectedFile)
+      .subscribe({
+        next: (res) => {
+          console.log('Image uploaded successfully', res.imageUrl);
+          // Optionally update UI or model with res.imageUrl
+        },
+        error: (err) => {
+          console.error('Image upload failed', err);
+        },
+      });
+  }
+
   submit() {
     // Emit the updated club data, including the selected admins.
     // this.dialogRef.close({

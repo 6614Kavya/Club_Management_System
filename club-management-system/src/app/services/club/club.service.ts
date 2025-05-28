@@ -17,6 +17,7 @@ export interface Club {
   fieldList?: any[] | undefined;
   teamList?: any[] | undefined;
   userClubs?: any | null;
+  imageUrl?: any;
 }
 
 export interface Admin {
@@ -111,5 +112,14 @@ export class ClubService {
   deleteClub(clubId: string): Observable<any> {
     const url = `${environment.apiURL}/api/Club/${clubId}`;
     return this.http.delete(url);
+  }
+
+  uploadClubImage(clubId: any, file: any): Observable<any> {
+    const url = `${environment.apiURL}/api/Club/${clubId}/upload-image`;
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return this.http.post(url, formData);
   }
 }

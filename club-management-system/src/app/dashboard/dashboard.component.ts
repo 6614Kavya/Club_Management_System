@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,6 +19,7 @@ import { Router } from '@angular/router';
     CommonModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatIconModule,
   ],
   template: `
     <div class="dashboard-container">
@@ -40,6 +42,15 @@ import { Router } from '@angular/router';
               </mat-option>
             </mat-select>
           </mat-form-field>
+          <div>
+            <mat-icon
+              class="icon"
+              fontSet="material-icons"
+              (click)="goToMyProfile()"
+              >person</mat-icon
+            >
+            <!-- <span>My Profile</span> -->
+          </div>
         </div>
       </header>
 
@@ -56,6 +67,9 @@ import { Router } from '@angular/router';
   styleUrl: './dashboard.component.css',
 })
 export class DashboardComponent {
+  goToMyProfile() {
+    this.router.navigate(['/dashboard/myProfile']);
+  }
   submitActiveRole() {
     throw new Error('Method not implemented.');
   }

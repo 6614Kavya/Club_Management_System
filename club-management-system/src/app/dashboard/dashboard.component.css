@@ -12,7 +12,7 @@
   /* left: 0; */
   margin-top: -10px;
   position: fixed;
-  width: 100vw;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -20,6 +20,8 @@
   color: white;
   padding: 1px 24px;
   margin-left: -10px;
+  z-index: 1000;
+  /* margin-right: 100px; */
   /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
 }
 
@@ -43,7 +45,8 @@
 /* Right: Role Dropdown */
 .navbar-right {
   display: flex;
-  align-items: flex-end;
+  align-items: flex-start;
+  padding-right: 50px;
 }
 
 .navbar-right mat-form-field {
@@ -59,7 +62,7 @@
 .main-layout {
   display: flex;
   flex: 1;
-  overflow: hidden;
+  overflow: auto;
 }
 
 /* Side Navigation */
@@ -75,7 +78,15 @@
   /* margin-left: 240px; */
   margin-top: 100px;
   padding-top: 50px;
-  overflow-y: auto;
+  /* overflow-y: auto; */
   flex-grow: 1;
   height: calc(100vh - 64px);
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  font-size: 35px;
+  color: white;
+  padding-top: 30px;
 }

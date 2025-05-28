@@ -1,0 +1,33 @@
+{
+  "Files": [
+    {
+      "Id": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\wwwroot\\images\\clubs\\424f74c6-ad3d-4111-b485-8341886421cd.jpg",
+      "PackagePath": "staticwebassets\\images\\clubs\\424f74c6-ad3d-4111-b485-8341886421cd.jpg"
+    },
+    {
+      "Id": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\wwwroot\\images\\clubs\\fd439803-d9e9-4a54-9bab-cba3a5f58a36.jpg",
+      "PackagePath": "staticwebassets\\images\\clubs\\fd439803-d9e9-4a54-9bab-cba3a5f58a36.jpg"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.EmployeeAdminPortal.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.EmployeeAdminPortal.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.EmployeeAdminPortal.props",
+      "PackagePath": "build\\EmployeeAdminPortal.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.EmployeeAdminPortal.props",
+      "PackagePath": "buildMultiTargeting\\EmployeeAdminPortal.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.EmployeeAdminPortal.props",
+      "PackagePath": "buildTransitive\\EmployeeAdminPortal.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

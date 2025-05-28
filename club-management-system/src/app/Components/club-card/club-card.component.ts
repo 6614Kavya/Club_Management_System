@@ -27,7 +27,11 @@ interface ClubData {
         <mat-card-title>{{ clubData.name }}</mat-card-title>
         <mat-card-subtitle>{{ clubData.shortName }}</mat-card-subtitle>
       </mat-card-header>
-      <img mat-card-image [src]="clubData.club_logo" alt="" />
+      <img
+        mat-card-image
+        [src]="'https://localhost:7213' + clubData.imageUrl"
+        alt=""
+      />
       <mat-card-content>
         <p>{{ clubData.description }}</p>
       </mat-card-content>

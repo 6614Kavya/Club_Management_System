@@ -101,6 +101,27 @@
   },
   {
     "ContainingType": "EmployeeAdminPortal.Controllers.ClubController",
+    "Method": "UploadClubImage",
+    "RelativePath": "api/Club/{clubId}/upload-image",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "clubId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "file",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EmployeeAdminPortal.Controllers.ClubController",
     "Method": "GetClubById",
     "RelativePath": "api/Club/{id}",
     "HttpMethod": "GET",
@@ -522,6 +543,22 @@
       {
         "Name": "model",
         "Type": "SignInUserDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "EmployeeAdminPortal.Controllers.userController",
+    "Method": "UpdatePassword",
+    "RelativePath": "api/user/update-password",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "EmployeeAdminPortal.Models.UpdatePasswordDto",
         "IsRequired": true
       }
     ],

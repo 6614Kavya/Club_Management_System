@@ -46,6 +46,9 @@ import { ClubService } from '../../services/club/club.service';
           [formControl]="clubDescription"
         />
       </mat-form-field>
+      <label for="fileInput">Upload Club Image</label>
+      <input id="fileInput" type="file" (change)="onFileSelected($event)" />
+
       <!-- <mat-checkbox>Hide required marker</mat-checkbox> -->
       <div class="button-container">
         <button mat-raised-button (click)="submit()">Save Details</button>
@@ -55,6 +58,26 @@ import { ClubService } from '../../services/club/club.service';
   styleUrl: './club-form.component.css',
 })
 export class ClubFormComponent {
+  onFileSelected($event: Event) {
+    const input = $event.target as HTMLInputElement;
+
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+      console.log('Selected file:', this.selectedFile);
+    }
+
+    const clubId = 'YOUR_CLUB_ID_HERE'; // Replace or get dynamically
+
+    this.clubService.uploadClubImage(clubId, this.selectedFile).subscribe({
+      next: (res) => {
+        console.log('Image uploaded successfully', res.imageUrl);
+        // Optionally update UI or model with res.imageUrl
+      },
+      error: (err) => {
+        console.error('Image upload failed', err);
+      },
+    });
+  }
   constructor(private dialogRef: MatDialogRef<ClubFormComponent>) {}
 
   clubService: ClubService = inject(ClubService);
@@ -62,6 +85,7 @@ export class ClubFormComponent {
   clubName = new FormControl('');
   clubAddress = new FormControl('');
   clubDescription = new FormControl('');
+  selectedFile: File | undefined;
 
   submit() {
     const data: any = {

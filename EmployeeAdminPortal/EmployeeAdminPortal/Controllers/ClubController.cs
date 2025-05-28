@@ -1,6 +1,7 @@
 ﻿using EmployeeAdminPortal.Models;
 using EmployeeAdminPortal.Services.Club;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeAdminPortal.Controllers
 {
@@ -68,5 +69,21 @@ namespace EmployeeAdminPortal.Controllers
 
             return Ok(result);
         }
+
+        [HttpPost("{clubId}/upload-image")]
+        public async Task<IActionResult> UploadClubImage([FromRoute] Guid clubId, IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                return BadRequest("No file uploaded.");
+
+            var result = await _clubService.UploadClubImageAsync(clubId, file);
+
+            if (result == null)
+                return NotFound();
+
+            return Ok(new { imageUrl = result });
+        }
+
+
     }
 }

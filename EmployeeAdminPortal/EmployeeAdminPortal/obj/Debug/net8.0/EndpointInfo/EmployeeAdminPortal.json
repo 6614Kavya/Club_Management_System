@@ -451,6 +451,49 @@
         }
       }
     },
+    "/api/Club/{clubId}/upload-image": {
+      "post": {
+        "tags": [
+          "Club"
+        ],
+        "parameters": [
+          {
+            "name": "clubId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              },
+              "encoding": {
+                "file": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Employees": {
       "get": {
         "tags": [
@@ -1058,6 +1101,37 @@
         }
       }
     },
+    "/api/user/update-password": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePasswordDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePasswordDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePasswordDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/weather": {
       "get": {
         "tags": [
@@ -1249,6 +1323,10 @@
             "type": "boolean"
           },
           "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "imageUrl": {
             "type": "string",
             "nullable": true
           },
@@ -1651,6 +1729,10 @@
           "activated": {
             "type": "boolean",
             "nullable": true
+          },
+          "imageUrl": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1677,6 +1759,24 @@
           "salary": {
             "type": "number",
             "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdatePasswordDto": {
+        "required": [
+          "currentPassword",
+          "newPassword"
+        ],
+        "type": "object",
+        "properties": {
+          "currentPassword": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "newPassword": {
+            "minLength": 6,
+            "type": "string"
           }
         },
         "additionalProperties": false

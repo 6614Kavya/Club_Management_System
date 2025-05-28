@@ -11,5 +11,6 @@ namespace EmployeeAdminPortal.Services.Club
         Task<ClubDetailsDto> GetClubById(Guid clubId);
         Task<Entities.Club> UpdateClub(Guid clubId, UpdateClubDto model);
         Task<bool> DeleteClubById(Guid clubId);
+        Task<string?> UploadClubImageAsync(Guid clubId, IFormFile file);
     }
 }

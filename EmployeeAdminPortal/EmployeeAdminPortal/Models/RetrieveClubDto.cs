@@ -9,6 +9,7 @@
         public string CountryCode { get; set; }
         public bool Activated { get; set; }
         public string? Description { get; set; }
+        public string? ImageUrl { get; set; }
 
         public List<ClubAdminDto> ClubAdmins { get; set; }
         public List<FieldDto> FieldList { get; set; }

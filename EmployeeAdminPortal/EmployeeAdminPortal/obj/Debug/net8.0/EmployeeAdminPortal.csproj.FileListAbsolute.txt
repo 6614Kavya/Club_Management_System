@@ -356,3 +356,4 @@ E:\Club_Management_System\Club_Management_System\EmployeeAdminPortal\EmployeeAdm
 E:\Club_Management_System\Club_Management_System\EmployeeAdminPortal\EmployeeAdminPortal\obj\Debug\net8.0\EmployeeAdminPortal.pdb
 E:\Club_Management_System\Club_Management_System\EmployeeAdminPortal\EmployeeAdminPortal\obj\Debug\net8.0\EmployeeAdminPortal.genruntimeconfig.cache
 E:\Club_Management_System\Club_Management_System\EmployeeAdminPortal\EmployeeAdminPortal\obj\Debug\net8.0\ref\EmployeeAdminPortal.dll
+E:\Club_Management_System\Club_Management_System\EmployeeAdminPortal\EmployeeAdminPortal\bin\Debug\net8.0\EmployeeAdminPortal.staticwebassets.runtime.json

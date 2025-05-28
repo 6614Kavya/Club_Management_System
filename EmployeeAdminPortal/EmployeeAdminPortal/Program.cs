@@ -73,6 +73,8 @@ app.ConfigureSwaggerExplorer();
 
 app.UseHttpsRedirection();
 
+app.UseStaticFiles(); //enables serving files from wwwroot
+
 app.UseCors();
 
 //app.AddIdentityAuthMiddlewares();

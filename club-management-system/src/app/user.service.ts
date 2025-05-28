@@ -145,4 +145,26 @@ export class UserService {
       `${environment.apiURL}/api/user/allUsers`
     );
   }
+
+  updatePassword(
+    currentPassword: string,
+    newPassword: string
+  ): Observable<any> {
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    });
+
+    const payload = {
+      currentPassword,
+      newPassword,
+    };
+
+    return this.http.post(
+      `${environment.apiURL}/api/user/update-password`,
+      payload,
+      { headers }
+    );
+  }
 }

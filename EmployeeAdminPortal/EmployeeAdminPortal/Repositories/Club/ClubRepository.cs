@@ -40,6 +40,7 @@ namespace EmployeeAdminPortal.Repositories.Club
             CountryCode = c.CountryCode,
             Activated = c.Activated,
             Description = c.Description,
+            ImageUrl=c.ImageUrl,
             ClubAdmins = c.UserClubRoles
                 .Where(r => r.Role == "ClubAdmin")
                 .Select(r => new ClubAdminDto

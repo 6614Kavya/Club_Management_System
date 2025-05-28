@@ -8,6 +8,7 @@
         public string? Description { get; set; }
         public string? CountryCode { get; set; }
         public bool? Activated { get; set; } // Must be nullable
+        public string? ImageUrl { get; set; }
     }
 
 }

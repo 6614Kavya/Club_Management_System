@@ -19,6 +19,7 @@ import { MyOrganizationComponent } from './my-organization/my-organization.compo
 import { MyClubComponent } from './my-club/my-club.component';
 import { MyFieldComponent } from './my-field/my-field.component';
 import { MyTeamComponent } from './my-team/my-team.component';
+import { MyProfileComponent } from './my-profile/my-profile.component';
 
 const routeConfig: Routes = [
   {
@@ -84,6 +85,11 @@ const routeConfig: Routes = [
       {
         path: 'myTeam',
         component: MyTeamComponent,
+        // canActivate: [authGuard],
+      },
+      {
+        path: 'myProfile',
+        component: MyProfileComponent,
         // canActivate: [authGuard],
       },
     ],

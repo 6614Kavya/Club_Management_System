@@ -19,6 +19,7 @@ export interface Team {
   clubName: string;
   teamManagers: any[];
   team_logo?: string;
+  imageUrl?: any;
 }
 
 export interface TeamManager {
@@ -66,5 +67,19 @@ export class TeamService {
   deleteTeam(teamId: string): Observable<any> {
     const url = `${environment.apiURL}/api/Team/${teamId}`;
     return this.http.delete(url);
+  }
+
+  uploadTeamImage(teamId: any, file: any): Observable<any> {
+    const url = `${environment.apiURL}/api/Team/${teamId}/upload-image`;
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return this.http.post(url, formData);
+  }
+
+  updateTeam(teamId: string, updateData: Partial<Team>): Observable<any> {
+    const url = `${environment.apiURL}/api/Team/${teamId}`;
+    return this.http.patch(url, updateData);
   }
 }

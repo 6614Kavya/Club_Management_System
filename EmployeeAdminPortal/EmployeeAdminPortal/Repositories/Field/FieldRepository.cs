@@ -92,7 +92,7 @@ namespace EmployeeAdminPortal.Repositories.Field
             return fields.ToArray();
         }
 
-        public async Task<Models.Entities.Field> UpdateFieldAsync(Guid id, CreateFieldDto createFieldDto)
+        public async Task<Models.Entities.Field> UpdateFieldAsync(Guid id, UpdateFieldDto updateFieldDto)
         {
             var existingField = await _context.Fields.FindAsync(id);
 
@@ -101,7 +101,7 @@ namespace EmployeeAdminPortal.Repositories.Field
                 return null;
             }
 
-            _mapper.Map(createFieldDto, existingField);
+            _mapper.Map(updateFieldDto, existingField);
 
             await _context.SaveChangesAsync();
 

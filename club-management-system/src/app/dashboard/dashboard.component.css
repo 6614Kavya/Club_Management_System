@@ -61,8 +61,9 @@
 /* Main layout */
 .main-layout {
   display: flex;
-  flex: 1;
-  overflow: auto;
+  /* flex: 1; */
+  flex-grow: 1;
+  overflow: hidden;
 }
 
 /* Side Navigation */
@@ -80,13 +81,16 @@
   padding-top: 50px;
   /* overflow-y: auto; */
   flex-grow: 1;
-  height: calc(100vh - 64px);
+  height: 100%;
+  /* overflow: auto; */
 }
 
 .icon {
   display: flex;
   align-items: center;
-  font-size: 35px;
+  font-size: 55px;
   color: white;
+  background-color: #256428;
+  border: none;
   padding-top: 30px;
 }

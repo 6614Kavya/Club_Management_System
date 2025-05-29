@@ -50,7 +50,7 @@ import { ToastrService } from 'ngx-toastr';
         >
       </div>
 
-      <label for="user-type">User Type</label>
+      <!-- <label for="user-type">User Type</label>
       <select class="form-select" formControlName="userType">
         <option value="Super Admin">Super Admin</option>
         <option value="Club Admin">Club Admin</option>
@@ -62,7 +62,7 @@ import { ToastrService } from 'ngx-toastr';
         <span *ngIf="applyForm.controls['userType'].errors?.['required']"
           >Please select your role</span
         >
-      </div>
+      </div> -->
 
       <button mat-raised-button (click)="onSubmit()">Submit</button>
     </form>
@@ -79,7 +79,7 @@ export class SignUpComponent {
       Validators.minLength(6),
     ]),
 
-    userType: new FormControl('', Validators.required),
+    // userType: new FormControl('', Validators.required),
   });
 
   selected = 'User Type';

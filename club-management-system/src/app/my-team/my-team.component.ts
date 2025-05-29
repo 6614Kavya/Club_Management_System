@@ -10,6 +10,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ClubService } from '../services/club/club.service';
 import { UserService } from '../user.service';
 import { CommonModule } from '@angular/common';
+import { TeamService } from '../services/team/team.service';
 
 @Component({
   selector: 'app-my-team',
@@ -51,19 +52,8 @@ import { CommonModule } from '@angular/common';
             [formControl]="teamAddress"
           />
         </mat-form-field>
-        <mat-form-field>
-          <mat-label> Team Description</mat-label>
-          <!-- <input
-          matInput
-          placeholder="Enter Club admin"
-          [formControl]="clubAdmin"
-        /> -->
-          <mat-select [formControl]="teamManager" multiple>
-            @for (admin of allAdmins; track teamManager) {
-            <mat-option [value]="admin">{{ admin }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
+        <label for="fileInput">Upload Club Image</label>
+        <input id="fileInput" type="file" (change)="onFileSelected($event)" />
       </ng-container>
 
       <div class="button-container">
@@ -74,6 +64,29 @@ import { CommonModule } from '@angular/common';
   styleUrl: './my-team.component.css',
 })
 export class MyTeamComponent {
+  selectedFile: File | undefined;
+  onFileSelected($event: Event) {
+    const input = $event.target as HTMLInputElement;
+
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+      console.log('Selected file:', this.selectedFile);
+    }
+
+    const clubId = this.contextId; // Replace or get dynamically
+
+    this.teamService
+      .uploadTeamImage(this.contextId, this.selectedFile)
+      .subscribe({
+        next: (res) => {
+          console.log('Image uploaded successfully', res.imageUrl);
+          // Optionally update UI or model with res.imageUrl
+        },
+        error: (err) => {
+          console.error('Image upload failed', err);
+        },
+      });
+  }
   constructor(
     // private dialogRef: MatDialogRef<MyOrganizationComponent>,
     // @Inject(MAT_DIALOG_DATA)
@@ -84,7 +97,8 @@ export class MyTeamComponent {
     //   admins: string[];
     // },
     private clubService: ClubService,
-    private userService: UserService
+    private userService: UserService,
+    private teamService: TeamService
   ) {
     this.isTeamManager = this.userService.isTeamManager();
 

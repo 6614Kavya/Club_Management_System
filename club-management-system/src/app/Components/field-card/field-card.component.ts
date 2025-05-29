@@ -15,7 +15,10 @@ import { Field } from '../../services/field/field.service';
         <mat-card-title>{{ fieldData.name }}</mat-card-title>
         <!-- <mat-card-subtitle>{{ clubData.short_name }}</mat-card-subtitle> -->
       </mat-card-header>
-      <img mat-card-image [src]="fieldData.field_image" alt="" />
+      <img
+        mat-card-image
+        [src]="'https://localhost:7213' + fieldData.imageUrl"
+      />
       <mat-card-content>
         <p>{{ fieldData.description }}</p>
       </mat-card-content>

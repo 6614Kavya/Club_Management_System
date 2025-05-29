@@ -51,13 +51,13 @@ namespace EmployeeAdminPortal.Controllers
         }
 
         // PUT api/<TeamController>/5
-        //[HttpPatch("{id}")]
-        //public async Task<IActionResult> UpdateTeam(Guid id, [FromBody] CreateTeamDto createTeamDto)
-        //{
-        //    var result = await _teamService.UpdateTeam(id, createTeamDto);
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> UpdateTeam(Guid id, [FromBody] UpdateTeamDto updateTeamDto)
+        {
+            var result = await _teamService.UpdateTeam(id, updateTeamDto);
 
-        //    return Ok(result);
-        //}
+            return Ok(result);
+        }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTeam(Guid id)
@@ -65,6 +65,20 @@ namespace EmployeeAdminPortal.Controllers
             var result = await _teamService.DeleteTeamById(id);
 
             return Ok(result);
+        }
+
+        [HttpPost("{teamId}/upload-image")]
+        public async Task<IActionResult> UploadTeamImage([FromRoute] Guid teamId, IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                return BadRequest("No file uploaded.");
+
+            var result = await _teamService.UploadTeamImageAsync(teamId, file);
+
+            if (result == null)
+                return NotFound();
+
+            return Ok(new { imageUrl = result });
         }
     }
 }

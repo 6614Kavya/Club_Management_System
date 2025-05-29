@@ -82,7 +82,7 @@ namespace EmployeeAdminPortal.Repositories.Team
             return teams.ToArray();
         }
 
-        public async Task<Models.Entities.Team> UpdateTeamAsync(Guid id, CreateTeamDto createTeamDto)
+        public async Task<Models.Entities.Team> UpdateTeamAsync(Guid id, UpdateTeamDto updateTeamDto)
         {
             var existingTeam = await _context.Teams.FindAsync(id);
 
@@ -91,7 +91,7 @@ namespace EmployeeAdminPortal.Repositories.Team
                 return null;
             }
 
-            _mapper.Map(createTeamDto, existingTeam);
+            _mapper.Map(updateTeamDto, existingTeam);
 
             await _context.SaveChangesAsync();
 

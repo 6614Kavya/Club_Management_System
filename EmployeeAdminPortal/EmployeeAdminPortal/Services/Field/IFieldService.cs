@@ -10,7 +10,8 @@ namespace EmployeeAdminPortal.Services.Field
         Task<FieldDetailsDto[]> GetAllFields();
         Task<Entities.Field> GetFieldById(Guid fieldId);
         Task<Entities.Field[]> GetFieldsByClubId(Guid clubId);
-        Task<Entities.Field> UpdateField(Guid fieldId, CreateFieldDto model);
+        Task<Entities.Field> UpdateField(Guid fieldId, UpdateFieldDto model);
         Task<bool> DeleteFieldById(Guid fieldId);
+        Task<string?> UploadFieldImageAsync(Guid fieldId, IFormFile file);
     }
 }

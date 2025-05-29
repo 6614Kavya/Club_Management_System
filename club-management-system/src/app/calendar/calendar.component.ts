@@ -272,6 +272,7 @@ export class CalendarComponent {
   calendarOptions: CalendarOptions = {
     initialView: 'timeGridWeek',
     plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+    height: 450,
     timeZone: 'local',
     slotEventOverlap: false, // Forces side-by-side layout
     eventOverlap: true, // Allows overlapping

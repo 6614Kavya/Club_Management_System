@@ -1,4 +1,5 @@
-﻿using EmployeeAdminPortal.Models;
+﻿using AutoMapper;
+using EmployeeAdminPortal.Models;
 using EmployeeAdminPortal.Models.Entities;
 using EmployeeAdminPortal.Repositories.Field;
 
@@ -7,9 +8,13 @@ namespace EmployeeAdminPortal.Services.Field
     public class FieldService : IFieldService
     {
         private readonly IFieldRepository _fieldRepository;
-        public FieldService(IFieldRepository fieldRepository)
+        private readonly IWebHostEnvironment _environment;
+        private readonly IMapper _mapper;
+        public FieldService(IFieldRepository fieldRepository, IWebHostEnvironment environment, IMapper mapper)
         {
             _fieldRepository = fieldRepository;
+            _environment = environment;
+            _mapper = mapper;
         }
         public async Task<Models.Entities.Field> CreateField(CreateFieldDto model)
         {
@@ -67,11 +72,44 @@ namespace EmployeeAdminPortal.Services.Field
             return result;
         }
 
-        public async Task<Models.Entities.Field> UpdateField(Guid fieldId, CreateFieldDto model)
+        public async Task<Models.Entities.Field> UpdateField(Guid fieldId, UpdateFieldDto model)
         {
             var result = await _fieldRepository.UpdateFieldAsync(fieldId, model);
 
             return result;
+        }
+
+        public async Task<string?> UploadFieldImageAsync(Guid fieldId, IFormFile file)
+        {
+            var field = await _fieldRepository.GetFieldByIdAsync(fieldId);
+            if (field == null)
+                return null;
+
+            var folderPath = Path.Combine(_environment.WebRootPath, "images", "fields");
+            Directory.CreateDirectory(folderPath);
+
+            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
+            var filePath = Path.Combine(folderPath, fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            var relativePath = $"/images/fields/{fileName}";
+            field.ImageUrl = relativePath;
+
+            var updateDto = new UpdateFieldDto
+            {
+                Name = field.Name,
+                Address = field.Address,
+                Description = field.Description,
+                ImageUrl = field.ImageUrl,
+            };
+
+            await _fieldRepository.UpdateFieldAsync(fieldId, updateDto);
+
+            return relativePath;
         }
     }
 }

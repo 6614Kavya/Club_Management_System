@@ -26,6 +26,7 @@ export interface Field {
   fieldAdmins: any[];
   field_image?: string;
   facilities?: string[];
+  imageUrl?: any;
 }
 
 export interface FieldAdmin {
@@ -70,5 +71,14 @@ export class FieldService {
   deleteField(fieldId: string): Observable<any> {
     const url = `${environment.apiURL}/api/Field/${fieldId}`;
     return this.http.delete(url);
+  }
+
+  uploadFieldImage(fieldId: any, file: any): Observable<any> {
+    const url = `${environment.apiURL}/api/Field/${fieldId}/upload-image`;
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return this.http.post(url, formData);
   }
 }

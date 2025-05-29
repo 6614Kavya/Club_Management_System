@@ -14,6 +14,7 @@
         public Club Club { get; set; }
         public Guid ClubId { get; set; }
         public bool IsDeleted { get; set; } = false;
+        public string? ImageUrl { get; set; }
 
         public ICollection<FieldPart>? FieldPart { get; set; }
         //public ICollection<UserField>? UserFields { get; set; }

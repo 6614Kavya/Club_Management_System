@@ -52,6 +52,8 @@ import { FieldService } from '../services/field/field.service';
             [formControl]="fieldAddress"
           />
         </mat-form-field>
+        <label for="fileInput">Upload Club Image</label>
+        <input id="fileInput" type="file" (change)="onFileSelected($event)" />
       </ng-container>
 
       <div class="button-container">
@@ -62,6 +64,29 @@ import { FieldService } from '../services/field/field.service';
   styleUrl: './my-field.component.css',
 })
 export class MyFieldComponent {
+  selectedFile: File | undefined;
+  onFileSelected($event: Event) {
+    const input = $event.target as HTMLInputElement;
+
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+      console.log('Selected file:', this.selectedFile);
+    }
+
+    const fieldId = this.contextId;
+
+    this.fieldService
+      .uploadFieldImage(this.contextId, this.selectedFile)
+      .subscribe({
+        next: (res) => {
+          console.log('Image uploaded successfully', res.imageUrl);
+          // Optionally update UI or model with res.imageUrl
+        },
+        error: (err) => {
+          console.error('Image upload failed', err);
+        },
+      });
+  }
   constructor(
     // private dialogRef: MatDialogRef<MyOrganizationComponent>,
     // @Inject(MAT_DIALOG_DATA)

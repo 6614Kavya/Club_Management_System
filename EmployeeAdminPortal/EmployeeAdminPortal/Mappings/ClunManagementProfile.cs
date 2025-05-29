@@ -32,6 +32,12 @@ namespace EmployeeAdminPortal.Mappings
             CreateMap<UpdateClubDto, Club>()
             .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
+            CreateMap<UpdateFieldDto, Field>()
+            .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+
+            CreateMap<UpdateTeamDto, Team>()
+            .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+
         }
     }
 }

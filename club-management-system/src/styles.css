@@ -3,16 +3,18 @@
   /* background-color: #ff9f89 !important; */
   color: white !important;
   /* border-radius: 5px !important; */
-  padding: 5px !important;
+  /* padding: 5px !important; */
   font-size: 13px !important;
   border: none !important;
-  box-sizing: border-box;
-  overflow: hidden;
+  /* box-sizing: border-box; */
+  display: flex;
+  flex: 1;
+  overflow: scroll;
 }
 
 /* Side-by-side margin */
 .fc-v-event {
   margin-left: 2px !important;
   margin-right: 2px !important;
-  overflow: hidden;
+  overflow: scroll;
 }

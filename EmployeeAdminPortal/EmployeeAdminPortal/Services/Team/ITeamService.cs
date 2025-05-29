@@ -8,8 +8,9 @@ namespace EmployeeAdminPortal.Services.Team
         Task<bool> CreateTeam(CreateTeamDto model);
         Task<TeamDetailsDto[]> GetAllTeams();
         Task<Entities.Team> GetTeamById(Guid teamId);
-        Task<Entities.Team> UpdateTeam(Guid teamId, CreateTeamDto model);
+        Task<Entities.Team> UpdateTeam(Guid teamId, UpdateTeamDto model);
         Task<bool> DeleteTeamById(Guid teamId);
         Task<Models.Entities.Team[]> GetTeamsByClubId(Guid clubId);
+        Task<string?> UploadTeamImageAsync(Guid teamId, IFormFile file);
     }
 }

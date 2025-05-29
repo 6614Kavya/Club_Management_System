@@ -146,6 +146,11 @@ export class UserService {
     );
   }
 
+  logout(): void {
+    localStorage.removeItem('token');
+    this.decodedTokenSubject.next(null);
+  }
+
   updatePassword(
     currentPassword: string,
     newPassword: string

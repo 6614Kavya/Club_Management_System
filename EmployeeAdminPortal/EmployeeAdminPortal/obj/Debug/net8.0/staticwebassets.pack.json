@@ -5,8 +5,28 @@
       "PackagePath": "staticwebassets\\images\\clubs\\424f74c6-ad3d-4111-b485-8341886421cd.jpg"
     },
     {
+      "Id": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\wwwroot\\images\\clubs\\bff90e69-7d00-449a-94f4-508f0b6a5c5a.jpg",
+      "PackagePath": "staticwebassets\\images\\clubs\\bff90e69-7d00-449a-94f4-508f0b6a5c5a.jpg"
+    },
+    {
       "Id": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\wwwroot\\images\\clubs\\fd439803-d9e9-4a54-9bab-cba3a5f58a36.jpg",
       "PackagePath": "staticwebassets\\images\\clubs\\fd439803-d9e9-4a54-9bab-cba3a5f58a36.jpg"
+    },
+    {
+      "Id": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\wwwroot\\images\\fields\\2d24461e-33c7-4d2e-95cc-732e99fa87a7.jpg",
+      "PackagePath": "staticwebassets\\images\\fields\\2d24461e-33c7-4d2e-95cc-732e99fa87a7.jpg"
+    },
+    {
+      "Id": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\wwwroot\\images\\fields\\8a961b38-ae47-4d83-8d6e-510fd5835322.jpg",
+      "PackagePath": "staticwebassets\\images\\fields\\8a961b38-ae47-4d83-8d6e-510fd5835322.jpg"
+    },
+    {
+      "Id": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\wwwroot\\images\\fields\\8d1ff867-cf23-4d5a-b9c2-81c0bc15547e.jpg",
+      "PackagePath": "staticwebassets\\images\\fields\\8d1ff867-cf23-4d5a-b9c2-81c0bc15547e.jpg"
+    },
+    {
+      "Id": "E:\\Club_Management_System\\Club_Management_System\\EmployeeAdminPortal\\EmployeeAdminPortal\\wwwroot\\images\\fields\\c91bb208-ee25-4e8e-8151-8cda7b709c25.jpg",
+      "PackagePath": "staticwebassets\\images\\fields\\c91bb208-ee25-4e8e-8151-8cda7b709c25.jpg"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.EmployeeAdminPortal.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",

@@ -9,6 +9,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,6 +22,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatFormFieldModule,
     MatSelectModule,
     MatIconModule,
+    MatMenuModule,
+    MatButtonModule,
   ],
   template: `
     <div class="dashboard-container">
@@ -43,12 +47,30 @@ import { MatIconModule } from '@angular/material/icon';
             </mat-select>
           </mat-form-field>
           <div>
-            <mat-icon
+            <!-- <mat-icon
               class="icon"
               fontSet="material-icons"
               (click)="goToMyProfile()"
               >person</mat-icon
+            > -->
+            <button
+              class="icon"
+              matIconButton
+              [matMenuTriggerFor]="menu"
+              aria-label="Example icon-button with a menu"
             >
+              <mat-icon style="font-size: 30px;">person</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="goToMyProfile()">
+                <mat-icon>person</mat-icon>
+                <span>My Profile</span>
+              </button>
+              <button mat-menu-item (click)="onLogout()">
+                <mat-icon style="color: red;">logout</mat-icon>
+                <span style="color: red;">Logout</span>
+              </button>
+            </mat-menu>
             <!-- <span>My Profile</span> -->
           </div>
         </div>
@@ -67,6 +89,10 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './dashboard.component.css',
 })
 export class DashboardComponent {
+  onLogout() {
+    this.userService.logout();
+    this.router.navigate(['/signUp']);
+  }
   goToMyProfile() {
     this.router.navigate(['/dashboard/myProfile']);
   }

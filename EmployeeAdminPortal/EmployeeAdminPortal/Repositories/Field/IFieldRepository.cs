@@ -8,7 +8,7 @@ namespace EmployeeAdminPortal.Repositories.Field
         Task<FieldDetailsDto[]> GetAllFieldsAsync();
         Task<Models.Entities.Field> GetFieldByIdAsync(Guid id);
         Task<Models.Entities.Field[]> GetFieldsByClubId(Guid clubId);
-        Task<Models.Entities.Field> UpdateFieldAsync(Guid id, CreateFieldDto createFieldDto);
+        Task<Models.Entities.Field> UpdateFieldAsync(Guid id, UpdateFieldDto updateFieldDto);
         Task<bool> DeleteFieldByIdAsync(Guid id);
     }
 }

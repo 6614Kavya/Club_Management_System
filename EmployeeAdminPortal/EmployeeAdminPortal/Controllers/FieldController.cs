@@ -54,5 +54,19 @@ namespace EmployeeAdminPortal.Controllers
 
             return Ok(result);
         }
+
+        [HttpPost("{fieldId}/upload-image")]
+        public async Task<IActionResult> UploadFieldImage([FromRoute] Guid fieldId, IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                return BadRequest("No file uploaded.");
+
+            var result = await _fieldService.UploadFieldImageAsync(fieldId, file);
+
+            if (result == null)
+                return NotFound();
+
+            return Ok(new { imageUrl = result });
+        }
     }
 }

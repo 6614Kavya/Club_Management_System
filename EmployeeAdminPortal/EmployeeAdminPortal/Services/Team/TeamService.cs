@@ -10,11 +10,13 @@ namespace EmployeeAdminPortal.Services.Team
     {
         private readonly ITeamRepository _teamRepository;
         private readonly IMapper _mapper;
+        private readonly IWebHostEnvironment _environment;
 
-        public TeamService(ITeamRepository teamRepository, IMapper mapper)
+        public TeamService(ITeamRepository teamRepository, IMapper mapper, IWebHostEnvironment environment)
         {
             _teamRepository = teamRepository;
             _mapper = mapper;
+            _environment = environment;
         }
         public async Task<bool> CreateTeam(CreateTeamDto model)
         {
@@ -56,11 +58,42 @@ namespace EmployeeAdminPortal.Services.Team
             return result;
         }
 
-        public async Task<Models.Entities.Team> UpdateTeam(Guid teamId, CreateTeamDto model)
+        public async Task<Models.Entities.Team> UpdateTeam(Guid teamId, UpdateTeamDto model)
         {
             var result = await _teamRepository.UpdateTeamAsync(teamId, model);
 
             return result;
+        }
+
+        public async Task<string?> UploadTeamImageAsync(Guid teamId, IFormFile file)
+        {
+            var team = await _teamRepository.GetTeamByIdAsync(teamId);
+            if (team == null)
+                return null;
+
+            var folderPath = Path.Combine(_environment.WebRootPath, "images", "teams");
+            Directory.CreateDirectory(folderPath);
+
+            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
+            var filePath = Path.Combine(folderPath, fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            var relativePath = $"/images/teams/{fileName}";
+            team.ImageUrl = relativePath;
+
+            var updateDto = new UpdateTeamDto
+            {
+                Name = team.Name,
+                ImageUrl = team.ImageUrl,
+            };
+
+            await _teamRepository.UpdateTeamAsync(teamId, updateDto);
+
+            return relativePath;
         }
     }
 }
